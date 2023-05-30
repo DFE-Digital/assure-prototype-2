@@ -1,0 +1,20 @@
+
+
+                    <div class="govuk-form-group">
+                        <h1 class="govuk-label-wrapper">
+                            <label class="govuk-label govuk-label--l" for="pm_">
+      Product manager
+    </label>
+                        </h1>
+
+                        <select class="govuk-select govuk-!-width-one-half auto" id="pm_" name="pm_">
+                            {% include "_names.html" %}
+                        </select>
+                    </div>
+
+    <div class="govuk-button-group">
+        <button  name="action" class="govuk-button"  data-module="govuk-button">Save and return</button>
+     <a href="/{{data.role}}/entry/{{entry.fields.ID}}" class="govuk-link">Cancel and return to summary</a>
+    </div>
+
+

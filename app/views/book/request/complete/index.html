@@ -1,0 +1,37 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Request submitted – {{serviceName}}
+{% endblock %}
+
+{% set pageSection = "Book"%}
+
+{% block beforeContent %}
+
+    {% endblock%}
+
+    {% block content %}
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+
+                <div class="govuk-panel govuk-!-margin-bottom-5 govuk-panel--confirmation govuk-!-text-align-left">
+                    <h1 class="govuk-panel__title">Request submitted</h1>
+                    <div class="govuk-panel__body">
+                        <p>We've got your request to book a discovery peer review.</p>
+                    
+                    </div>
+                </div>
+
+                <p>We've sent an email confirming details to you as the requestor, the team's delivery manager and the team's product manager.</p>
+
+                <h2 class="govuk-heading-m">What happens next</h2>
+
+                <p>The service assessment team will email you to confirm your booking and agree a date for your discovery peer review.
+
+                <p>You can view the progress of your booking on the <a href="/manage/">manage</a> page.</p>
+
+                </div>
+            </div>
+
+        {% endblock %}

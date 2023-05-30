@@ -1,0 +1,21 @@
+    <li class="dfeuk-document-list__item dfeuk-document-list--no-underline ">
+                      <a href="/report/{{report.fields.ID}}" class="dfeuk-document-list__item-title ">{{report.fields.Name}}</a>
+                      <p class="dfeuk-document-list__item-description ">Discovery peer review report for {{report.fields.Name}}</p>
+                      <ul class="dfeuk-document-list__item-metadata">
+                          <li class="gdfeuk-document-list__attribute">
+                  Outcome:  <strong class="govuk-tag govuk-tag--{{report.fields.Outcome | lower}}">{{report.fields.Outcome}}</strong>
+                          </li>
+                        <li class="gdfeuk-document-list__attribute">
+                  Project code: IT{{report.fields.ProjectCode}}
+                        </li>
+                        <li class="gdfeuk-document-list__attribute">
+                  Stage: Discovery
+               </li>
+                        <li class="gdfeuk-document-list__attribute">
+                   Review date:    {{report.fields.ReviewDate | date('D MMM YYYY')}}
+               </li>
+                        <li class="gdfeuk-document-list__attribute">
+                  Published:    {{report.fields.PublishedDate | date('D MMM YYYY')}}
+                          </li>
+                        </ul>
+                      </li>

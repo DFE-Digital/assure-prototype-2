@@ -1,0 +1,58 @@
+
+                <h2 class="govuk-heading-m">Progress</h2>
+<div class="dfe-timeline">
+    <ol>
+
+        <li class="{% if reportStep == 1%}current{% elseif reportStep > 1%}done{% endif%}">
+            <h3 class="govuk-heading-s">
+                <a href="/{{data.role}}/report/{{entry.fields.ID}}" class="govuk-link">Guidance</a>
+            </h3>
+            <p>How to complete the peer review report.</p>
+        </li>
+       <li class="{% if reportStep == 2%}current{% elseif reportStep > 2%}done{% endif%}">
+            <h3 class="govuk-heading-s">
+                <a href="/{{data.role}}/report/outcome/{{entry.fields.ID}}" class="govuk-link">Outcome</a>
+            </h3>
+            <p>Confirm the overall outcome of the peer review.</p>
+        </li>
+      <li class="{% if reportStep == 3%}current{% elseif reportStep > 3%}done{% endif%}">
+               <h3 class="govuk-heading-s">
+                <a href="/{{data.role}}/report/done-well/{{entry.fields.ID}}" class="govuk-link">Done well</a>
+            </h3>
+
+            <p>Summarise what the team has done well.</p>
+        </li>
+        <li class="{% if reportStep == 4%}current{% elseif reportStep > 4%}done{% endif%}">
+               <h3 class="govuk-heading-s">
+                <a href="/{{data.role}}/report/improve/{{entry.fields.ID}}" class="govuk-link">Improvements</a>
+            </h3>
+            <p>Detail any improvements the team should work on.</p>
+        </li>
+         <li class="{% if reportStep == 5%}current{% elseif reportStep > 5%}done{% endif%}">
+             <h3 class="govuk-heading-s">
+                <a href="/{{data.role}}/report/preview/{{entry.fields.ID}}" class="govuk-link">Report</a>
+            </h3>
+            <p>Preview the report and submit when ready.</p>
+        </li>
+         <li class="{% if reportStep == 6%}current{% elseif reportStep > 6%}done{% endif%}">
+            <h3 class="govuk-heading-s">   <a href="/{{data.role}}/report/report-submitted-to-sat/{{entry.fields.ID}}" class="govuk-link">Service assessment team review</a></h3>
+
+            <p>The report will be checked before being sent to the team.</p>
+        </li>
+           <li class="{% if reportStep == 7%}current{% elseif reportStep > 7%}done{% endif%}">
+            <h3 class="govuk-heading-s">   <a href="/{{data.role}}/report/report-submitted-to-team/{{entry.fields.ID}}" class="govuk-link">Service team review</a></h3>
+
+            <p>Team will review and accept the report.</p>
+        </li>
+           <li class="{% if reportStep == 8%}current{% elseif reportStep > 8%}done{% endif%}">
+            <h3 class="govuk-heading-s">   <a href="/{{data.role}}/report/report-ready-to-publish/{{entry.fields.ID}}" class="govuk-link">Publish</a></h3>
+
+            <p>Once accepted, the service assessment team will publish the report.</p>
+        </li>
+          <li class="{% if reportStep == 9%}current{% elseif reportStep > 9%}done{% endif%}">
+            <h3 class="govuk-heading-s">   <a href="/{{data.role}}/report/complete/{{entry.fields.ID}}" class="govuk-link">Complete</a></h3>
+
+            <p>Report published.</p>
+        </li>
+    </ol>
+</div>

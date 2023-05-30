@@ -1,0 +1,108 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = entry.fields.Name %}
+{% set selectedNav = "assessments" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+
+{% block sidebar %}
+
+  {% include "partials/nav.html" %}
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+         <div class="flex-bar">
+            <div class="left">
+          <div class="govuk-breadcrumbs">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/{{data.role}}/dashboard">Dashboard</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/generic/assessments">Assessors needed</a>
+    </li>
+  </ol>
+</div>
+            </div> </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">  <h1 class="govuk-heading-l">Request to be assessor</h1>
+
+                <h2 class="govuk-heading-m">{{entry.fields.Name}}</h2>
+                <p>{{entry.fields.Description}}</p>
+
+                <dl class="govuk-summary-list">
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+      Phase
+    </dt>
+                        <dd class="govuk-summary-list__value">
+                            {{entry.fields.Phase}}
+                        </dd>
+                    </div>
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+      Date of review
+    </dt>
+                        <dd class="govuk-summary-list__value">
+                            {{entry.fields.ReviewDate | date('dddd D MMMM YYYY')}} at {{entry.fields.ReviewTime}}
+                        </dd>
+                    </div>
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+      Portfolio
+    </dt>
+                        <dd class="govuk-summary-list__value">
+                            {{entry.fields.Portfolio}}
+                        </dd>
+                    </div>
+
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+      Review panel
+    </dt>
+                        <dd class="govuk-summary-list__value">
+                            <ul class="govuk-list">
+
+                                {% for person in panel %}
+                                    <li>{{person.fields.Name}} ({{person.fields.Role}})</li>
+                                {% endfor %}
+
+                            </ul>
+                        </dd>
+                    </div>
+
+                </dl>
+
+                <form role="/generic/volunteer/{{entry.fields.ID}}/{{role}}" method="post">
+
+                        <h2 class="govuk-heading-m">Submit request to volunteer as {{role}} assessor</h2>
+
+                            <p>We'll send a request to the service assessment team.</p>
+
+                            <p>You can find <a href="https://dfe-standards-manual-prototype.herokuapp.com/service-assurance/prepare-for-a-discovery-peer-review/peer-reviewer-role" target="_blank">guidance for being a {{role}} assessor</a> in the apply the service standard.</p>
+
+                            <button class="govuk-button" data-module="govuk-button">
+ Submit request
+</button>
+
+
+                    </form>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/assets/css/styles.min.css">
+    </head>
+    <body class="dfe-app-layout">
+          <script>
+                document.body.className = (
+                    (document.body.className)
+                    ? document.body.className + ' js-enabled'
+                    : 'js-enabled');
+            </script>
+         <div class="left-content">
+     <header class="dfe-app-layout--header">
+    <div class="left-content">
+        <div class="dfe-app-layout--header-logo">
+            <img src="/assets/images/logo.png" alt="admin layout">
+        </div>
+        <div class="dfe-app-layout--header-service">
+            <a href="/" class="govuk-link govuk-link--inverse govuk-link-style-no-underline">Assure your service</a>
+        </div>
+    </div>
+    <div class="right-content">
+
+    <div class="dfe-app-layout--header-search">
+        <div class="dfe-header__search">
+              <button class="dfe-header__search-toggle" id="toggle-search" aria-controls="search" aria-label="Open search">
+                <svg class="dfe-icon dfe-icon__search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="27" height="27">
+                  <path d="M19.71 18.29l-4.11-4.1a7 7 0 1 0-1.41 1.41l4.1 4.11a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42zM5 10a5 5 0 1 1 5 5 5 5 0 0 1-5-5z"></path>
+                </svg>
+                <span class="govuk-visually-hidden">Search</span>
+              </button>
+              <div class="dfe-header__search-wrap" id="wrap-search">
+                <form class="dfe-header__search-form" id="search" action="/search" method="get" role="search">
+                  <label class="govuk-visually-hidden" for="search-field">Search this website</label>
+                  <input class="dfe-search__input" id="search-field" name="searchterm" type="search" placeholder="Search" autocomplete="off" spellcheck="false" data-ms-editor="true">
+                  <button class="dfe-search__submit" type="submit">
+                    <svg class="dfe-icon dfe-icon__search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="27" height="27">
+                      <path d="M19.71 18.29l-4.11-4.1a7 7 0 1 0-1.41 1.41l4.1 4.11a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42zM5 10a5 5 0 1 1 5 5 5 5 0 0 1-5-5z"></path>
+                    </svg>
+                    <span class="govuk-visually-hidden">Search</span>
+                  </button>
+                  <button class="dfe-search__close" id="close-search">
+                    <svg class="dfe-icon dfe-icon__close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="27" height="27">
+                      <path d="M13.41 12l5.3-5.29a1 1 0 1 0-1.42-1.42L12 10.59l-5.29-5.3a1 1 0 0 0-1.42 1.42l5.3 5.29-5.3 5.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l5.29-5.3 5.29 5.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z"></path>
+                    </svg>
+                    <span class="govuk-visually-hidden">Close search</span>
+                  </button>
+                </form>
+              </div>
+            </div>
+    </div>
+    <div class="dfe-app-layout--header-username">
+<a class="toggleDropdown govuk-link govuk-link--inverse" href="#toggle" aria-haspopup="true" aria-expanded="false">{% if data['s_username']%}{{data['s_username']}}{% else %}Set user{% endif%}</a>
+<div class="dropdown" role="menu" aria-hidden="true">
+  <ul role="none">
+    <li role="menuitem"><a href="/change-user/admin" class="govuk-link">Mike Dunn (Admin)</a></li>
+    <li role="menuitem"><a href="/change-user/team" class="govuk-link">Kerry Lyons (Team)</a></li>
+    <li role="menuitem"><a href="/change-user/panel" class="govuk-link">Andy Jones (Panel)</a></li>
+  </ul>
+</div>
+
+    </div>
+    </div>
+</header>
+
+        <div class="container">
+            <aside class="sidebar">
+                              {% block sidebar %}{% endblock %}
+            </aside>
+
+            <main class="main">
+
+
+                  <div class="app-bar">
+                    <div class="main--inside-container ">
+
+                          {% block appBar %}
+                   
+                      {% endblock %}  
+                      </div>
+
+                </div>
+           
+
+                <div class="main--masthead">
+
+                    {% block masthead %}
+                   
+                      {% endblock %}  
+
+                </div>     
+                
+                  <div class="pre--content">
+
+                
+
+                      {% block precontent %}
+                   
+                      {% endblock %}
+                    
+                    
+                </div>
+                 <div class="main--content">
+
+                 <div class="main--inside-container">
+
+                      {% block content %}
+                   
+                      {% endblock %}
+
+                       </div>
+                    
+                </div>
+
+             
+
+               
+            </main>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+  var toggleElement = document.querySelector('.toggleDropdown');
+  var dropdownElement = document.querySelector('.dropdown');
+
+  toggleElement.addEventListener('click', function() {
+    var expanded = toggleElement.getAttribute('aria-expanded') === 'true' || false;
+    toggleElement.setAttribute('aria-expanded', !expanded);
+    dropdownElement.setAttribute('aria-hidden', expanded);
+  });
+
+  toggleElement.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      toggleElement.click();
+    }
+  });
+
+  document.addEventListener('click', function(event) {
+    if (!toggleElement.contains(event.target)) {
+      toggleElement.setAttribute('aria-expanded', 'false');
+      dropdownElement.setAttribute('aria-hidden', 'true');
+    }
+  });
+
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+      toggleElement.setAttribute('aria-expanded', 'false');
+      dropdownElement.setAttribute('aria-hidden', 'true');
+    }
+  });
+});
+
+            </script>
+
+  <script type="text/javascript" src="/assets/js/all.min.js"></script>   
+  <script type="text/javascript" src="/assets/js/dfefrontend.min.js"></script>   
+  <script type="text/javascript" src="/assets/js/accessible-autocomplete.min.min.js"></script>   
+
+{% block scripts%}
+
+
+
+{% endblock %}
+
+  <script>
+                window
+                    .GOVUKFrontend
+                    .initAll()
+            </script>
+
+    </body>
+</html>

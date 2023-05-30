@@ -1,0 +1,59 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = entry.fields.Name %}
+{% set selectedNav = "assessments" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+
+{% block sidebar %}
+
+   {% include "partials/nav.html" %}
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+         <div class="flex-bar">
+            <div class="left">
+          <div class="govuk-breadcrumbs">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/{{data.role}}/dashboard">Dashboard</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/generic/assessments">Assessors needed</a>
+    </li>
+  </ol>
+</div>
+            </div> </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+
+                <div class="govuk-panel govuk-panel--confirmation">
+                <h2 class="govuk-panel__title">
+                Request submitted
+                </h2>
+                <div class="govuk-panel__body">
+                You've requested to be the {{role}} assessor on the {{entry.fields.Name}}, {{entry.fields.Phase | lower}} assessment.
+                </div>
+                </div>
+
+                <h2 class="govuk-heading-m govuk-!-margin-top-7">Next steps</h2>
+
+                <p>If accepted, you'll get further details by email from the service assessment team. This can take up to 5 working days.</p>
+
+             
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = "Dashboard" %}
+{% set selectedNav = "dashboard" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+
+{% block sidebar %}
+
+   {% include "partials/nav.html" %}
+
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+        <h1 class="govuk-heading-l ">Dashboard</h1>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full"></div>
+        </div>
+
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+
+                {% include "panel/partials/_reviews.html" %}
+
+            </div>
+
+    
+
+        <div class="govuk-grid-column-one-third">
+
+           
+            <h2 class="govuk-heading-m">Other resources and guidance</h2>
+
+            <ul class="govuk-list govuk-list--spaced">
+                <li>
+                    <a href="https://apply-the-service-standard.education.gov.uk/" target="_blank">Apply the Service Standard in DfE</a>
+                </li>
+                <li>
+                    <a href="https://user-research.education.gov.uk/" target="_blank">User Research in DfE</a>
+                </li>
+                <li>
+                    <a href="https://technical-guidance.education.gov.uk/" target="_blank">DfE Technical Guidance</a>
+                </li>
+                <li>
+                    <a href="https://dfe-digital.github.io/architecture/#dfe-architecture" target="_blank">DfE Architecture</a>
+                </li>
+                <li>
+                    <a href="https://design-system.service.gov.uk/" target="_blank">GOV.UK Design System</a>
+                </li>
+                <li>
+                    <a href="https://www.gov.uk/service-manual" target="_blank">GOV.UK Service Manual</a>
+                </li>
+                <li>
+                    <a href="https://www.gov.uk/service-manual/communities/design-community" target="_blank">Cross government design community</a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

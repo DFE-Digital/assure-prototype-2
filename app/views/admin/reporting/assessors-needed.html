@@ -1,0 +1,157 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = "Assessments" %}
+{% set selectedNav = "reporting" %}
+{% set setSelectedSideNav = "reporting" %}
+{% set backlog_issue_id = "" %}
+
+{% block sidebar %}
+
+    {% include "partials/nav.html" %}
+
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+
+        <div class="flex-bar">
+            <div class="left">
+          <div class="govuk-breadcrumbs">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/admin/dashboard">Dashboard</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/admin/reporting">Reporting</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="#">Assessors needed</a>
+    </li>
+  </ol>
+</div>
+            </div>
+            <div class="right">
+                <div class="govuk-button-group">
+                <a href="#" class="govuk-button govuk-!-margin-bottom-0" role="button">Export to Excel</a>
+                 <a href="/admin/reporting/send-assessor-request" class="govuk-button govuk-!-margin-bottom-0" role="button">Email assessors</a>
+                 </div>
+            </div>
+          
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+
+                  <h1 class="govuk-heading-l ">Assessors needed</h1>
+   
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header" style="width:200px;">Name</th>
+                            <th scope="col" class="govuk-table__header" style="width:275px;">Description</th>
+                            <th scope="col" class="govuk-table__header ">Date</th>
+                            <th scope="col" class="govuk-table__header">Lead</th>
+                            <th scope="col" class="govuk-table__header">Design</th>
+                            <th scope="col" class="govuk-table__header">Research</th>
+                            <th scope="col" class="govuk-table__header">Tech</th>
+                            <th scope="col" class="govuk-table__header">Accessibility</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body text-smaller">
+
+                        {% set leadVolunteerNeeded = "true"%}
+                         {% set designNeeded = "true"%}
+                         {% set urNeeded = "true"%}
+                         {% set techNeeded = "true"%}
+                         {% set assNeeded = "true"%}
+
+                        {% for assessment in assessments %}
+                            <tr class="govuk-table__row">
+                                  <th scope="row" class="govuk-table__header"><a href="/admin/entry/{{assessment.fields.ID}}">{{assessment.fields.Name}}</a></th>
+                                <td class="govuk-table__cell">{{assessment.fields.Description}}</td>
+                                <td class="govuk-table__cell">{{assessment.fields.ReviewDate | date('ddd D MMM YYYY')}}<br/>{{(assessment.fields.ReviewDate + " " + assessment.fields.ReviewTime) | date("h:mm A")}}</td>
+
+                                <td class="govuk-table__cell">
+                                    {% for row in panels %}
+                                        {% if row.fields.ReviewID == assessment.fields.ID %}
+                                            {% if "Lead reviewer" in row.fields.Role %}
+                                                {% set leadVolunteerNeeded = "false"%}
+                                                {{ row.fields.Name }}
+                                            {% endif %}
+                                        {% endif %}
+                                        {% endfor%} 
+                                        {% if leadVolunteerNeeded === "true"%}
+                                            <a href="/generic/volunteer/{{assessment.fields.ID}}/lead">Volunteer</a>{% endif%}
+                                        </td>
+
+                                           <td class="govuk-table__cell">
+                                    {% for row in panels %}
+                                        {% if row.fields.ReviewID == assessment.fields.ID %}
+                                                 {% if row.fields.Role.includes("Content design") or row.fields.Role.includes("Service design") or row.fields.Role.includes("Interaction design")  %}   
+                                                {% set designNeeded = "false"%}
+                                                {{ row.fields.Name }} ({{row.fields.Role}})<br/>
+                                            {% endif %}
+                                        {% endif %}
+                                        {% endfor%}
+                                        {% if designNeeded === "true"%}
+                                            <a href="/generic/volunteer/{{assessment.fields.ID}}/design">Volunteer</a>{% endif%}
+                                        </td>
+                                        
+ <td class="govuk-table__cell">
+                                    {% for row in panels %}
+                                        {% if row.fields.ReviewID == assessment.fields.ID %}
+                                                 {% if row.fields.Role.includes("User research")  %}   
+                                                {% set urNeeded = "false"%}
+                                                {{ row.fields.Name }}<br/>
+                                            {% endif %}
+                                        {% endif %}
+                                        {% endfor%}
+                                        {% if urNeeded === "true"%}
+                                           <a href="/generic/volunteer/{{assessment.fields.ID}}/research">Volunteer</a>{% endif%}
+                                        </td>
+
+                                         <td class="govuk-table__cell">
+                                    {% for row in panels %}
+                                        {% if row.fields.ReviewID == assessment.fields.ID %}
+                                                 {% if row.fields.Role.includes("Technical")  %}   
+                                                {% set techNeeded = "false"%}
+                                                {{ row.fields.Name }}<br/>
+                                            {% endif %}
+                                        {% endif %}
+                                        {% endfor%}
+                                        {% if techNeeded === "true"%}
+                                           <a href="/generic/volunteer/{{assessment.fields.ID}}/technical">Volunteer</a>{% endif%}
+                                        </td>
+                                        
+                                          <td class="govuk-table__cell">
+                                    {% for row in panels %}
+                                        {% if row.fields.ReviewID == assessment.fields.ID %}
+                                                 {% if row.fields.Role.includes("Accessibility")  %}   
+                                                {% set assNeeded = "false"%}
+                                                {{ row.fields.Name }}<br/>
+                                            {% endif %}
+                                        {% endif %}
+                                        {% endfor%}
+                                        {% if assNeeded === "true"%}
+                                            <a href="/generic/volunteer/{{assessment.fields.ID}}/accessibility">Volunteer</a>
+                                            {% endif%}
+                                        </td>
+
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+        {% endblock %}

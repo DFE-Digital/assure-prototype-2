@@ -1,0 +1,57 @@
+{% extends "layouts/main.html" %}
+{% block pageTitle %}
+Who is the digital deputy director of your portfolio?– {{serviceName}}
+{% endblock %}
+{% set pageSection = "Book"%}
+{% block beforeContent %}
+<a href="/book/request/portfolio" class="govuk-back-link">Back</a>
+{% endblock%}
+{% block content %}
+<div class="govuk-grid-row">
+   <div class="govuk-grid-column-two-thirds">
+      {% if err %}
+      <div class="govuk-error-summary" data-module="govuk-error-summary">
+         <div role="alert">
+            <h2 class="govuk-error-summary__title">There is a problem</h2>
+            <div class="govuk-error-summary__body">
+               <ul class="govuk-list govuk-error-summary__list">
+                  <li>
+                     <a href="#dd">Select the name of your digital deputy director</a>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      {% endif %}
+
+      <form action="/book/request/dd" method="post">
+         <div class="govuk-form-group {%if err%}govuk-form-group--error{% endif%}">
+            <h1 class="govuk-label-wrapper">
+               <label class="govuk-label govuk-label--l" for="dd">
+               Who is the digital deputy director of your portfolio?
+               </label>
+            </h1>
+            {%if err%}
+            <p id="event-name-error" class="govuk-error-message">
+               <span class="govuk-visually-hidden">Error:</span>Select the name of your digital deputy director
+            </p>
+            {% endif%}
+            <select class="govuk-select govuk-!-width-one-half auto {%if err%} govuk-input--error{% endif%}" id="dd" name="dd">
+            {% include "_names.html" %}
+            </select>
+         </div>
+         <div class="govuk-button-group">
+            <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+            <a class="govuk-link" href="/book/request/tasks">Skip and return to later</a>
+         </div>
+      </form>
+   </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+   accessibleAutocomplete.enhanceSelectElement({defaultValue: '{{ dd }}', selectElement: document.querySelector('.auto')})
+</script>
+{% endblock %}

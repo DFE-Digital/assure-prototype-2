@@ -1,0 +1,27 @@
+<div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Submission summary</h2>
+        <ul class="govuk-summary-card__actions">
+            <li class="govuk-summary-card__action">
+                <a class="govuk-link" href="/{{data.role}}/submission/{{entry.fields.ID}}">View full details <span class="govuk-visually-hidden"> of the submission</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="govuk-summary-card__content">
+        <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Requested by</dt>
+                <dd class="govuk-summary-list__value">Callum Mckay</dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Submitted</dt>
+                <dd class="govuk-summary-list__value">15 May 2023</dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Project code</dt>
+                <dd class="govuk-summary-list__value">{%if entry.fields.ProjectCode%}{{entry.fields.ProjectCode}}{% else%}No project code{% endif%}</dd>
+            </div>
+        </dl>
+    </div>
+</div>

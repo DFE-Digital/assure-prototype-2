@@ -1,0 +1,63 @@
+
+
+{% extends "layouts/main.html" %}
+
+{% block sidebar %}
+{% set pageName = "Book" %}
+{% set selectedNav = "book" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+
+ {% include "partials/nav.html" %}
+
+
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+    <a href="/book/request/name-of-discovery" class="govuk-back-link">Back</a>
+    </div>
+
+{% endblock %}
+{% block content %}
+<div class="govuk-grid-row">
+   <div class="govuk-grid-column-two-thirds">
+      {% if err %}
+      <div class="govuk-error-summary" data-module="govuk-error-summary">
+         <div role="alert">
+            <h2 class="govuk-error-summary__title">There is a problem</h2>
+            <div class="govuk-error-summary__body">
+               <ul class="govuk-list govuk-error-summary__list">
+                  <li>
+                     <a href="#purpose">Enter the purpose of your discovery</a>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      {% endif %}
+      <form action="/book/request/summary" method="post">
+         <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="500">
+            <div class="govuk-form-group  {%if err%}govuk-form-group--error{% endif%}">
+               <h1 class="govuk-label-wrapper">
+                  <label class="govuk-label govuk-label--l" for="purpose">What is the purpose of your discovery?</label>
+               </h1>
+               <div id="purpose-hint" class="govuk-hint">Tell us the purpose of your discovery. For example, if it's part of a wider service or based on policy intent. This will help us to arrange a review panel with the most relevant experience</div>
+               {%if err%}
+               <p id="event-name-error" class="govuk-error-message">
+                  <span class="govuk-visually-hidden">Error:</span> Enter the purpose of your discovery
+               </p>
+               {% endif%}
+               <textarea class="govuk-textarea govuk-js-character-count  {%if err%} govuk-input--error{% endif%}" id="purpose" name="purpose" rows="5" aria-describedby="purpose-info purpose-hint">{{request.fields.Description}}</textarea>
+            </div>
+            <div id="purpose-info" class="govuk-hint govuk-character-count__message">You can enter up to 500 characters</div>
+         </div>
+         <div class="govuk-button-group">
+            <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+            <a class="govuk-link" href="/book/request/tasks">Skip and return to later</a>
+         </div>
+      </form>
+   </div>
+</div>
+{% endblock %}

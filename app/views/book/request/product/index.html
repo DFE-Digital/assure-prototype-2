@@ -1,0 +1,116 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+ Does the team have a product owner or product manager? – {{serviceName}} 
+{% endblock %}
+
+{% set pageSection = "Book"%}
+
+{% block beforeContent %}
+
+
+
+    <a href="/book/request/sro" class="govuk-back-link">Back</a>
+
+    {% endblock%}
+
+    {% block content %}
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+
+                  {% if err or errcode%}
+
+                    <div class="govuk-error-summary" data-module="govuk-error-summary">
+                        <div role="alert">
+                            <h2 class="govuk-error-summary__title">There is a problem</h2>
+                            <div class="govuk-error-summary__body">
+                                <ul class="govuk-list govuk-error-summary__list">
+                                    {% if err %}
+                                    <li>
+                                        <a href="#code">Select if the team has a product owner or product manager</a>
+                                    </li>
+                                    {%elseif errcode%}
+                                      <li>
+                                        <a href="#code_">Select if the team has a product owner or product manager</a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endif %}
+
+                <form action="/book/request/product" method="post">
+
+  <div class="govuk-form-group {%if err%}govuk-form-group--error{% endif%}">
+            <fieldset class="govuk-fieldset" aria-describedby="pm-hint">
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                <h1 class="govuk-fieldset__heading">
+      Does the team have a product owner or product manager?
+      </h1>
+              </legend>
+              <div id="pm-hint" class="govuk-hint">
+      Select one option.
+    </div>{%if err%}
+                            <p id="event-name-error" class="govuk-error-message">
+                                <span class="govuk-visually-hidden">Error:</span>Select if the team has a product owner or product manager
+  </p>{% endif%}
+              <div class="govuk-radios" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="pm" name="pm" type="radio" value="Yes" data-aria-controls="conditional-pm" {% if request.fields.ProductManagerYN === "Yes"%}checked{% endif %}>
+                  <label class="govuk-label govuk-radios__label" for="pm">
+          Yes
+        </label>
+                </div>
+                 <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-pm">
+
+                   <div class="govuk-form-group {%if errcode%}govuk-form-group--error{% endif%}">
+                       
+                            <label class="govuk-label" for="pm-name">
+      Name of product owner or product manager
+    </label>
+                       
+ {%if errcode%}
+                            <p id="event-name-error" class="govuk-error-message">
+                                <span class="govuk-visually-hidden">Error:</span>Select a name
+  </p>{% endif%}
+                         <select class="govuk-select govuk-!-width-one-half auto" id="pm-name" name="pm-name">
+{% include "_names.html" %}
+                        </select>
+                    </div>
+
+                </div>
+           
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="pm-2" name="pm" type="radio" value="No" data-aria-controls="conditional-pm-2"  {% if request.fields.ProductManagerYN === "No"%}checked{% endif %}>
+                  <label class="govuk-label govuk-radios__label" for="pm-2">
+          No
+        </label>
+                </div>
+                    
+
+              </div>
+            </fieldset>
+          </div>
+
+                   <div class="govuk-button-group">
+            <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+            <a class="govuk-link" href="/book/request/tasks">Skip and return to later</a>
+         </div>
+                </form>
+
+            </div>
+        </div>
+
+    {% endblock %}
+
+
+            {% block scripts %}
+  {{ super() }}
+  
+  <script>
+            accessibleAutocomplete.enhanceSelectElement({defaultValue: '{{ data["pm-name"] }}', selectElement: document.querySelector('.auto')})
+        </script>
+{% endblock %}

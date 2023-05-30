@@ -1,0 +1,152 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = "Analysis" %}
+{% set selectedNav = "analysis" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+
+{% block sidebar %}
+
+    {% include "partials/nav.html" %}
+
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+
+        <div class="flex-bar">
+            <div class="left">
+                <h1 class="govuk-heading-l">Analysis</h1>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-three-quarters">
+                <div class="govuk-grid-row">
+
+                    <div class="govuk-grid-column-full">
+                        <h2 class="govuk-heading-m">Discovery assessment outcomes</h2>
+                    </div>
+                    <div class="govuk-grid-column-one-half">
+
+                        <div>
+                            <canvas id="myChart" aria-label="Red, amber, and green outcomes for discovery assessments." role="img">
+                                <p>Red outcomes {{red | length}}, Amber outcomes {{amber | length}}, Green outcomes {{green | length}}</p>
+                            </canvas>
+                        </div>
+
+                    </div>
+                    <div class="govuk-grid-column-one-half">
+
+                        <table class="govuk-table">
+                            <caption class="govuk-table__caption govuk-table__caption--m">Data</caption>
+                            <thead class="govuk-table__head">
+                                <tr class="govuk-table__row">
+                                    <th scope="col" class="govuk-table__header">Outcome</th>
+                                    <th scope="col" class="govuk-table__header">Count</th>
+                                </tr>
+                            </thead>
+                            <tbody class="govuk-table__body">
+                                <tr class="govuk-table__row">
+                                    <th scope="row" class="govuk-table__header">Red</th>
+                                    <td class="govuk-table__cell">{{red | length}}</td>
+                                </tr>
+                                <tr class="govuk-table__row">
+                                    <th scope="row" class="govuk-table__header">Amber</th>
+                                    <td class="govuk-table__cell">{{amber | length}}</td>
+                                </tr>
+                                <tr class="govuk-table__row">
+                                    <th scope="row" class="govuk-table__header">Green</th>
+                                    <td class="govuk-table__cell">{{green | length}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+
+                <div class="govuk-grid-row govuk-!-margin-top-9">
+
+                    <div class="govuk-grid-column-full">
+                        <h2 class="govuk-heading-m">Outcome trends</h2>
+                    </div>
+                    <div class="govuk-grid-column-one-half">
+
+                       
+
+                    </div>
+                    <div class="govuk-grid-column-one-half">
+
+                      
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
+
+    <script>
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    'Red', 'Amber', 'Green'
+                ],
+                datasets: [
+                    {
+                        label: 'Numbers',
+                        data: [
+                            {{red | length}}, {{amber | length}}, {{green | length}}
+                        ],
+                        borderWidth: 1,
+                        backgroundColor: ['#d4351c', '#ffbf00', '#00703c']
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'top',
+                            formatter: Math.round,
+                            font: {
+                                weight: 'bold'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+{% endblock %}

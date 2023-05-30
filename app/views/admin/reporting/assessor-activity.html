@@ -1,0 +1,136 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = "Assessor activity" %}
+{% set selectedNav = "reporting" %}
+{% set setSelectedSideNav = "reporting" %}
+{% set backlog_issue_id = "" %}
+
+{% block sidebar %}
+
+    {% include "partials/nav.html" %}
+
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+
+        <div class="flex-bar">
+            <div class="left">
+                <div class="govuk-breadcrumbs">
+                    <ol class="govuk-breadcrumbs__list">
+                        <li class="govuk-breadcrumbs__list-item">
+                            <a class="govuk-breadcrumbs__link" href="/admin/dashboard">Dashboard</a>
+                        </li>
+                        <li class="govuk-breadcrumbs__list-item">
+                            <a class="govuk-breadcrumbs__link" href="/admin/reporting">Reporting</a>
+                        </li>
+                        <li class="govuk-breadcrumbs__list-item">
+                            <a class="govuk-breadcrumbs__link" href="/admin/reporting/assessor-activity">Assessor activity</a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="right">
+                <div class="govuk-button-group">
+                    <a href="#" class="govuk-button govuk-!-margin-bottom-0" role="button">Export to Excel</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+   
+              
+
+                <div class="govuk-grid-row">
+                      <div class="govuk-grid-column-two-thirds">  <h1 class="govuk-heading-l">Assessor activity</h1>
+                        </div>
+                    <div class="govuk-grid-column-one-third">
+
+                        <div class="govuk-form-group">
+                            <label id="filterTableLabel" for="filterTable" class="govuk-label govuk-!-font-weight-bold">Filter by name</label>
+                            <input type="text" id="filterTable" class="govuk-input" aria-describedby="filterTableLabel"/>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-full">
+
+                        <table class="govuk-table">
+                            <caption class="govuk-table__caption govuk-table__caption--m">Data</caption>
+                            <thead class="govuk-table__head">
+                                <tr class="govuk-table__row">
+                                    <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Assessor</th>
+                                    <th scope="col" class="govuk-table__header">Lead</th>
+                                    <th scope="col" class="govuk-table__header">Role</th>
+                                    <th scope="col" class="govuk-table__header">Cross-gov assessor</th>
+                                    <th scope="col" class="govuk-table__header">Discovery</th>
+                                    <th scope="col" class="govuk-table__header">Alpha</th>
+                                    <th scope="col" class="govuk-table__header">Private beta</th>
+                                    <th scope="col" class="govuk-table__header">Public beta</th>
+                                    <th scope="col" class="govuk-table__header">Live</th>
+                                </tr>
+                            </thead>
+                            <tbody class="govuk-table__body">
+                                {% for assessor in assessors%}
+                                    <tr class="govuk-table__row">
+                                        <th scope="row" class="govuk-table__header">
+                                            <a href="/admin/assessor/{{assessor.fields.ID}}">{{assessor.fields.Name}}</a>
+                                        </th>
+                                        <td class="govuk-table__cell">{{assessor.fields.Lead  | BoolToYesBlank}}</td>
+                                        <td class="govuk-table__cell">{{assessor.fields.AssessorRole}}</td>
+                                        <td class="govuk-table__cell">{{assessor.fields.CrossGovAssessor  | BoolToYesBlank}}</td>
+                                        <td class="govuk-table__cell">{{assessor.fields.Discovery}}</td>
+                                        <td class="govuk-table__cell">{{assessor.fields.Alpha}}</td>
+                                        <td class="govuk-table__cell">{{assessor.fields.PublicBeta}}</td>
+                                        <td class="govuk-table__cell">{{assessor.fields.PrivateBeta}}</td>
+                                        <td class="govuk-table__cell">{{assessor.fields.Live}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+         
+
+            {% block scripts %}
+                <script>
+                    document
+                        .getElementById('filterTable')
+                        .addEventListener('keyup', function () {
+                            let filter = this
+                                .value
+                                .toUpperCase();
+                            let tableBody = document.querySelector('.govuk-table__body');
+                            let rows = tableBody.querySelectorAll('.govuk-table__row');
+
+                            for (let i = 0; i < rows.length; i++) {
+                                let person = rows[i].querySelector('.govuk-table__header');
+
+                                if (person) {
+                                    let txtValue = person.textContent || person.innerText;
+                                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                        rows[i].style.display = "";
+                                        rows[i].setAttribute("aria-hidden", "false");
+                                    } else {
+                                        rows[i].style.display = "none";
+                                        rows[i].setAttribute("aria-hidden", "true");
+                                    }
+                                }
+                            }
+                        });
+                </script>
+
+            {% endblock %}
+
+        {% endblock %}

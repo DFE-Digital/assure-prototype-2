@@ -1,0 +1,13 @@
+<div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="500">
+    <div class="govuk-form-group  {%if err%}govuk-form-group--error{% endif%}">
+        <h2 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="purpose">Description of the discovery</label>
+        </h2>
+        <textarea class="govuk-textarea govuk-js-character-count  {%if err%} govuk-input--error{% endif%}" id="purpose" name="purpose" rows="10" aria-describedby="purpose-info purpose-hint">{{entry.fields.Description}}</textarea>
+    </div>
+    <div id="purpose-info" class="govuk-hint govuk-character-count__message">You can enter up to 500 characters</div>
+</div>
+<div class="govuk-button-group">
+    <button class="govuk-button" data-module="govuk-button">Update</button>
+   <a href="/{{data.role}}/entry/{{entry.fields.ID}}" class="govuk-link">Cancel and return to summary</a>
+</div>

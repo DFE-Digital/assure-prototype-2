@@ -1,0 +1,39 @@
+<div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Upcoming assessments</h2>
+        <ul class="govuk-summary-card__actions">
+            <li class="govuk-summary-card__action">
+                <a class="govuk-link" href="/admin/entries/all">View all<span class="govuk-visually-hidden"> assessments</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="govuk-summary-card__content">
+{% if upcoming.length  %}
+      <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">Service</th>
+                            <th scope="col" class="govuk-table__header">Assessment date</th>
+                            <th scope="col" class="govuk-table__header">Phase</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        {% for record in upcoming %}
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header">
+                                    <a href="/admin/entry/{{record.fields.ID}}" class="govuk-link">{{record.fields.Name}}</a>
+                                </th>
+                                <td class="govuk-table__cell">{% if record.fields.ReviewDate %}{{record.fields.ReviewDate | date('ddd D MMM YYYY')}} at {{(record.fields.ReviewDate + " " + record.fields.ReviewTime) | date("h:mm A")}}{% else%}No date{% endif %}</td>
+
+                                <td class="govuk-table__cell">{{record.fields.Phase}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else%}
+                <p>There are no assessments in the next 60 days.</p>
+                {% endif%}
+
+    </div>
+</div>

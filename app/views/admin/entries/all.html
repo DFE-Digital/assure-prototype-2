@@ -1,0 +1,257 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = "All" %}
+{% set selectedNav = "allassessments" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+{% set showEntryNav = "false"%}
+
+{% block sidebar %}
+
+   {% include "partials/nav.html" %}
+
+
+
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+
+        <div class="flex-bar">
+            <div class="left">
+             <h1 class="govuk-heading-l ">All assessments</h1>
+            </div>
+           
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-one-quarter">
+                <div class="govuk-summary-card">
+                    <div class="govuk-summary-card__title-wrapper">
+                        <h2 class="govuk-summary-card__title">Filter</h2>
+                    </div>
+                    <div class="govuk-summary-card__content">
+
+<div class="govuk-form-group">
+ <label id="filterTableLabel" for="filterTable" class="govuk-label govuk-!-font-weight-bold">Filter by Service</label>
+<input type="text" id="filterTable" class="govuk-input" aria-describedby="filterTableLabel" />
+
+</div>
+
+
+                        <div class="govuk-form-group">
+                            <fieldset class="govuk-fieldset">
+                                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                                    <h3 class="govuk-fieldset__heading">
+        Status
+      </h3>
+                                </legend>
+                                <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                                    <div class="govuk-checkboxes__item">
+                                        <input class="govuk-checkboxes__input cb-status" id="organisation" name="organisation" type="checkbox" value="New">
+                                        <label class="govuk-label govuk-checkboxes__label" for="organisation">
+          New
+        </label>
+                                    </div>
+                                    <div class="govuk-checkboxes__item">
+                                        <input class="govuk-checkboxes__input cb-status" id="organisation-2" name="organisation" type="checkbox" value="In progress">
+                                        <label class="govuk-label govuk-checkboxes__label" for="organisation-2">
+          In progress
+        </label>
+                                    </div>
+                                    <div class="govuk-checkboxes__item">
+                                        <input class="govuk-checkboxes__input cb-status" id="organisation-3" name="organisation" type="checkbox" value="Complete">
+                                        <label class="govuk-label govuk-checkboxes__label" for="organisation-3">
+          Complete
+        </label>
+                                    </div>
+                                    <div class="govuk-checkboxes__item">
+                                        <input class="govuk-checkboxes__input cb-status" id="organisation-4" name="organisation" type="checkbox" value="Cancelled">
+                                        <label class="govuk-label govuk-checkboxes__label" for="organisation-4">
+          Cancelled
+        </label>
+                                    </div>
+                                    <div class="govuk-checkboxes__item">
+                                        <input class="govuk-checkboxes__input cb-status" id="organisation-5" name="organisation" type="checkbox" value="Rejected">
+                                        <label class="govuk-label govuk-checkboxes__label" for="organisation-5">
+          Rejected
+        </label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+
+<div class="govuk-form-group">
+                            <fieldset class="govuk-fieldset">
+                                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                                    <h3 class="govuk-fieldset__heading">
+        Type
+      </h3>
+                                </legend>
+                                <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                                    <div class="govuk-checkboxes__item">
+                                        <input class="govuk-checkboxes__input" id="asstype" name="asstype" type="checkbox" value="hmrc">
+                                        <label class="govuk-label govuk-checkboxes__label" for="asstype">
+          Peer review
+        </label>
+                                    </div>
+                                    <div class="govuk-checkboxes__item">
+                                        <input class="govuk-checkboxes__input" id="asstype-2" name="asstype" type="checkbox" value="employment-tribunal">
+                                        <label class="govuk-label govuk-checkboxes__label" for="asstype-2">
+          Assessment
+        </label>
+                                    </div>
+                                    
+                                </div>
+                            </fieldset>
+                        </div>
+
+<div class="govuk-form-group">
+                            <fieldset class="govuk-fieldset">
+                                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                                    <h3 class="govuk-fieldset__heading">
+        Phase
+      </h3>
+                                </legend>
+                                <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                                    <div class="govuk-checkboxes__item">
+                                        <input class="govuk-checkboxes__input" id="assphase" name="asstype" type="checkbox" value="hmrc">
+                                        <label class="govuk-label govuk-checkboxes__label" for="assphase">
+          Discovery
+        </label>
+                                    </div>
+                                    <div class="govuk-checkboxes__item">
+                                        <input class="govuk-checkboxes__input" id="assphase-2" name="assphase" type="checkbox" value="employment-tribunal">
+                                        <label class="govuk-label govuk-checkboxes__label" for="assphase-2">
+          Alpha
+        </label>
+                                    </div>
+                                     <div class="govuk-checkboxes__item">
+                                        <input class="govuk-checkboxes__input" id="assphase-3" name="assphase" type="checkbox" value="employment-tribunal">
+                                        <label class="govuk-label govuk-checkboxes__label" for="assphase-3">
+          Beta
+        </label>
+                                    </div>
+                                    
+                                </div>
+                            </fieldset>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="govuk-grid-column-three-quarters">
+                <div id="announcement" class="govuk-visually-hidden"  aria-live="polite"></div>
+                <table class="govuk-table">
+
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">Service</th>
+                            <th scope="col" class="govuk-table__header">Type</th>
+                            <th scope="col" class="govuk-table__header">Phase</th>
+                            <th scope="col" class="govuk-table__header">Date</th>
+                            <th scope="col" class="govuk-table__header">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        {% for record in all_records %}
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header cell-name">
+                                    <a href="/admin/entry/{{record.fields.ID}}" class="govuk-link">{{record.fields.Name}}</a>
+                                </th>
+                                <td class="govuk-table__cell">{{record.fields.Type}}</td>
+                                <td class="govuk-table__cell">{{record.fields.Phase}}</td>
+                                <td class="govuk-table__cell">{% if record.fields.ReviewDate %}{{record.fields.ReviewDate | date('ddd D MMM YYYY')}} at {{record.fields.ReviewTime}}{% else%}No date{% endif %}</td>
+
+                                <td class="govuk-table__cell cell-status">{{record.fields.Status}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+{% block scripts %}
+    <script>
+        document.getElementById('filterTable').addEventListener('keyup', function() {
+  let filter = this.value.toUpperCase();
+  let tableBody = document.querySelector('.govuk-table__body');
+  let rows = tableBody.querySelectorAll('.govuk-table__row');
+
+  for (let i = 0; i < rows.length; i++) {
+    let service = rows[i].querySelector('.govuk-table__header');
+    
+    if (service) {
+      let txtValue = service.textContent || service.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        rows[i].style.display = "";
+        rows[i].setAttribute("aria-hidden", "false");
+      } else {
+        rows[i].style.display = "none";
+        rows[i].setAttribute("aria-hidden", "true"); 
+      }
+    }
+  }
+});
+
+
+
+
+
+let checkboxes = document.querySelectorAll('.cb-status'); 
+
+for(let i = 0; i < checkboxes.length; i++) {
+  checkboxes[i].addEventListener('change', function() {
+    let filterStatuses = [];
+
+    for(let j = 0; j < checkboxes.length; j++) {
+      if(checkboxes[j].checked) {
+        filterStatuses.push(checkboxes[j].value.toUpperCase());
+      }
+    }
+
+    let tableBody = document.querySelector('.govuk-table__body');
+    let rows = tableBody.querySelectorAll('.govuk-table__row');
+    let visibleRows = 0;
+
+    for(let k = 0; k < rows.length; k++) {
+      let statusCell = rows[k].querySelector('.cell-status');
+
+      if(statusCell) {
+        let txtValue = statusCell.textContent || statusCell.innerText;
+
+        if(filterStatuses.length === 0 || filterStatuses.includes(txtValue.toUpperCase())) {
+          rows[k].style.display = "";
+          rows[k].setAttribute("aria-hidden", "false");
+          visibleRows++;
+        } else {
+          rows[k].style.display = "none";
+          rows[k].setAttribute("aria-hidden", "true");
+        }
+      }
+    }
+
+    // update announcement for screen readers
+    let announcement = document.getElementById('announcement');
+    announcement.innerText = visibleRows + ' rows are visible.';
+  });
+}
+
+        </script>
+
+        {% endblock %}
+
+{% endblock %}

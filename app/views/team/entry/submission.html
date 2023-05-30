@@ -1,0 +1,206 @@
+{% set selectedNav = "submission" %}
+{% extends "layouts/admin-layout.html" %}
+{% set pageName = entry.fields.Name %}
+{% set selectedNav = "submission" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+{% set reportStep = 1%}
+{% set showEntryNav = "true"%}
+{% block sidebar %}
+{% include "partials/nav.html" %}
+{% include "admin/partials/_admin_nav.html" %}
+{% endblock %}
+{% block masthead %}
+<div class="main--inside-container">
+   {% include "admin/partials/_admin_entry_header.html" %}
+</div>
+{% endblock %}
+{% block content %}
+<div class="main--inside-container">
+   <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+         <h2 class="govuk-heading-l">Submission</h2>
+        </div>
+      <div class="govuk-grid-column-one-half">
+  {% if entry.fields.Status === "Rejected" or entry.fields.Status === "Cancelled" %}
+         <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+               <h2 class="govuk-summary-card__title">Reason for rejection</h2>
+            </div>
+            <div class="govuk-summary-card__content">
+                {{entry.fields.RejectedReason}}
+                </div>
+                </div>
+                {% endif %}
+
+     {% if entry.fields.Status === "New" %}
+       
+            <details class="govuk-details" data-module="govuk-details">
+               <summary class="govuk-details__summary">
+                  <span class="govuk-details__summary-text">
+                  Guidance on accepting and rejecting a request
+                  </span>
+               </summary>
+               <div class="govuk-details__text">
+                  <p>If you accept the request now, you can still update details of the submission later on.</p>
+                  <p>Accepting the request means tasks can start to be actioned in the request by administrators and the discovery team.</p>
+                  <p>If you reject it, you'll need to provide a reason before rejecting in the next step. </p>
+               </div>
+            </details>
+            <form action="/admin/submission/{{entry.fields.ID}}" method="post">
+               <input type="hidden" name="entryid" value="{{entry.id}}"/>
+               <div class="govuk-button-group">
+                  <button class="govuk-button"  name="action" value="accept" data-module="govuk-button">Accept request</button>
+                  <button  name="action" value="reject_reason" class="govuk-button govuk-button--warning"  data-module="govuk-button">Reject request</button>
+               </div>
+            </form>
+         {% endif %}
+
+          {% include "admin/partials/_admin_description.html" %}
+         <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+               <h2 class="govuk-summary-card__title">Full submission</h2>
+            </div>
+            <div class="govuk-summary-card__content">
+               <dl class="govuk-summary-list">
+                  <div class="govuk-summary-list__row">
+                     <dt class="govuk-summary-list__key">Update name</dt>
+                     <dd class="govuk-summary-list__value">{{entry.fields.Name}}</dd>
+                     <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="/admin/entry/title/{{entry.fields.ID}}/{{entry.id}}">Change<span class="govuk-visually-hidden"> title or summary</span></a>
+                     </dd>
+                  </div>
+                  {% if entry.fields.Status !== "New"%}
+                  <div class="govuk-summary-list__row">
+                     <dt class="govuk-summary-list__key">Project code</dt>
+                     <dd class="govuk-summary-list__value">
+                        {% if entry.fields.ProjectCode %}{{entry.fields.ProjectCode}}
+                        {% else %}No project code provided{% endif%}
+                     </dd>
+                     <dd class="govuk-summary-list__actions">
+                        {% if entry.fields.Status !== "Complete" and entry.fields.Status !== "Cancelled" and entry.fields.Status !== "Rejected" %}
+                        <a class="govuk-link" href="/{{data.role}}/project-code/{{entry.fields.ID}}">Change<span class="govuk-visually-hidden"> code</span></a>{% endif%}
+                     </dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                     <dt class="govuk-summary-list__key">Business partner</dt>
+                     <dd class="govuk-summary-list__value">
+                        {% if entry.fields.BusinessPartnerYN === "Yes" or entry.fields.BusinessPartnerName %}{{entry.fields.BusinessPartnerName}}
+                        {% else %}No business partner{% endif%}
+                     </dd>
+                     <dd class="govuk-summary-list__actions">
+                        {% if entry.fields.Status !== "Complete" and entry.fields.Status !== "Cancelled" and entry.fields.Status !== "Rejected" %}
+                        <a class="govuk-link" href="/admin/entry/bp/{{entry.fields.ID}}">Change<span class="govuk-visually-hidden"> business partner</span></a>{% endif%}
+                     </dd>
+                  </div>
+                  {% endif %}
+                  <div class="govuk-summary-list__row">
+                     <dt class="govuk-summary-list__key">Start date</dt>
+                     <dd class="govuk-summary-list__value">
+                        {% if entry.fields.StartDate %}{{entry.fields.StartDate | date('D MMM YYYY')}}
+                        {% else %}No start date{% endif%}
+                     </dd>
+                     <dd class="govuk-summary-list__actions">
+                        {% if entry.fields.Status !== "Complete" and entry.fields.Status !== "Cancelled" and entry.fields.Status !== "Rejected" %}
+                        <a class="govuk-link" href="/admin/entry/start-date/{{entry.fields.ID}}">Change<span class="govuk-visually-hidden"> start date of discovery</span></a>{% endif%}
+                     </dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                     <dt class="govuk-summary-list__key">Planned end date</dt>
+                     <dd class="govuk-summary-list__value">
+                        {% if entry.fields.EndDate %}{{entry.fields.EndDate | date('D MMM YYYY')}}
+                        {% else %}No end date{% endif%}
+                     </dd>
+                     <dd class="govuk-summary-list__actions">
+                        {% if entry.fields.Status !== "Complete" and entry.fields.Status !== "Cancelled" and entry.fields.Status !== "Rejected" %}
+                        <a class="govuk-link" href="/admin/entry/end-date/{{entry.fields.ID}}">Change<span class="govuk-visually-hidden"> end date of discovery</span></a>{% endif%}
+                     </dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                     <dt class="govuk-summary-list__key">Requested week(s) beginning<br/></dt>
+                     <dd class="govuk-summary-list__value">
+                        {% if entry.fields.RequestedWeeks %}
+                        {% set weeks = entry.fields.RequestedWeeks | split(",")%}
+                        <ul class="govuk-list">
+                           {% for item in weeks %}
+                           <li>{{ item }}</li>
+                           {% endfor %}
+                           {% endif%}
+                        </ul>
+                     </dd>
+                     <dd class="govuk-summary-list__actions"></dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                     <dt class="govuk-summary-list__key">Review date<br/></dt>
+                     <dd class="govuk-summary-list__value">
+                        {% if entry.fields.ReviewDate %}{{entry.fields.ReviewDate | date('ddd D MMM YYYY')}} {{(entry.fields.ReviewDate + " " + entry.fields.ReviewTime) | date("h:mm A")}}{% else%}No date set{%endif%}
+                     </dd>
+                     <dd class="govuk-summary-list__actions">
+                        {% if entry.fields.Status !== "Complete" and entry.fields.Status !== "Cancelled" and entry.fields.Status !== "Rejected" %}
+                        <a class="govuk-link" href="/admin/entry/review-date/{{entry.fields.ID}}">Change<span class="govuk-visually-hidden"> review date</span></a>{% endif%}
+                     </dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                     <dt class="govuk-summary-list__key">Portfolio</dt>
+                     <dd class="govuk-summary-list__value">
+                        {% if entry.fields.Portfolio %}{{entry.fields.Portfolio}}
+                        {% else %}No portfolio{% endif%}
+                     </dd>
+                     <dd class="govuk-summary-list__actions">
+                        {% if entry.fields.Status !== "Complete" and entry.fields.Status !== "Cancelled" and entry.fields.Status !== "Rejected" %}
+                        <a class="govuk-link" href="/admin/entry/portfolio/{{entry.fields.ID}}">Change<span class="govuk-visually-hidden"> portfolio or arms length body of team doing the discovery</span></a>{% endif%}
+                     </dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                     <dt class="govuk-summary-list__key">Deputy director</dt>
+                     <dd class="govuk-summary-list__value">
+                        {% if entry.fields.SROSameAsDD === "Yes" %}{{entry.fields.DeputyDirector}}
+                        {% else %}{{entry.fields.SROName}}{% endif%}
+                     </dd>
+                     <dd class="govuk-summary-list__actions">
+                        {% if entry.fields.Status !== "Complete" and entry.fields.Status !== "Cancelled" and entry.fields.Status !== "Rejected" %}
+                        <a class="govuk-link" href="/admin/entry/action/dd/{{entry.fields.ID}}">Change<span class="govuk-visually-hidden"> deputy director</span></a>{% endif%}
+                     </dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                     <dt class="govuk-summary-list__key">Senior responsible officer</dt>
+                     <dd class="govuk-summary-list__value">
+                        {% if entry.fields.SROSameAsDD === "Yes" %}{{entry.fields.DeputyDirector}}
+                        {% else %}{{entry.fields.SROName}}
+                        {% endif%}
+                     </dd>
+                     <dd class="govuk-summary-list__actions">
+                        {% if entry.fields.Status !== "Complete" and entry.fields.Status !== "Cancelled" and entry.fields.Status !== "Rejected" %}
+                        <a class="govuk-link" href="/admin/entry/sro/{{entry.fields.ID}}">Change<span class="govuk-visually-hidden"> SRO</span></a>{% endif%}
+                     </dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                     <dt class="govuk-summary-list__key">Delivery manager</dt>
+                     <dd class="govuk-summary-list__value">
+                        {% if entry.fields.DeliveryManagerYN === "Yes" or entry.fields.DeliveryManagerName %}{{entry.fields.DeliveryManagerName}}
+                        {% else %}No delivery manager{% endif%}
+                     </dd>
+                     <dd class="govuk-summary-list__actions">
+                        {% if entry.fields.Status !== "Complete" and entry.fields.Status !== "Cancelled" and entry.fields.Status !== "Rejected" %}
+                        <a class="govuk-link" href="/admin/entry/delivery/{{entry.fields.ID}}">Change<span class="govuk-visually-hidden"> delivery manager</span></a>{% endif%}
+                     </dd>
+                  </div>
+                  <div class="govuk-summary-list__row">
+                     <dt class="govuk-summary-list__key">Product owner or manager</dt>
+                     <dd class="govuk-summary-list__value">
+                        {% if entry.fields.ProductManagerYN === "Yes" or entry.fields.ProductManagerName %}{{entry.fields.ProductManagerName}}
+                        {% else %}No product manager{% endif%}
+                     </dd>
+                     <dd class="govuk-summary-list__actions">
+                        {% if entry.fields.Status !== "Complete" and entry.fields.Status !== "Cancelled" and entry.fields.Status !== "Rejected" %}
+                        <a class="govuk-link" href="/admin/entry/product/{{entry.fields.ID}}">Change<span class="govuk-visually-hidden"> product manager</span></a>{% endif%}
+                     </dd>
+                  </div>
+               </dl>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}

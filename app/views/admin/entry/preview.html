@@ -1,0 +1,99 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = entry.fields.Name %}
+{% set selectedNav = "report" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+{% set reportStep = 5 %}
+{% set showEntryNav = "true"%}
+
+{% block sidebar %}
+
+    {% include "partials/nav.html" %}
+    {% include "admin/partials/_admin_nav.html" %}
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+        {% include "admin/partials/_admin_entry_header.html" %}
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                <h2 class="govuk-heading-l">Assessment report</h2>
+            </div>
+
+            <div class="govuk-grid-column-one-quarter">
+
+                {% include "admin/partials/_report_timeline.html" %}
+            </div>
+            <div class="govuk-grid-column-three-quarters">
+
+                <div class="govuk-summary-card">
+                    <div class="govuk-summary-card__title-wrapper">
+                        <h2 class="govuk-summary-card__title">Report preview</h2>
+                    </div>
+                    <div class="govuk-summary-card__content">
+
+                        {% include "admin/partials/_report_content.html" %}
+
+                       
+
+                            {# {% if (entry.fields.ReviewImprove.length  and entry.fields.ReviewDoneWell.length and entry.fields.Outcome)%}
+
+                        <h2 class="govuk-heading-l" id="submitsection">Report submission</h2>
+                        <p>All the required sections of the report have been completed.</p>
+                        <p>You can now submit the report to the Service Assessment Team for checking. It might come back to you to edit, if so, you'll get an email. Otherwise....</p>
+                        <p>The Service Assessment Team will submit the report and {{entry.fields.RequestedBy}} will be notified the report is ready to view.</p>
+                        <p>The team may ask to question the report...</p>
+                        <form action="/panel/entry/submitreport/{{entry.fields.ID}}/{{entry.id}}" method="post">
+                            <div class="govuk-button-group">
+                                <button class="govuk-button" data-module="govuk-button">Submit report</button>
+                            </div>
+                        </form>
+
+                    {% endif %} #}
+
+                          
+
+                    </div>
+                </div>
+
+                 {% if (entry.fields.ReportSubmittable == 1 and (entry.fields.SubStatus !== "SAT Review" and entry.fields.SubStatus !== "Team Review"))%}
+                                    {# 1 === true #}
+                                    <h2 class="govuk-heading-l" id="submitsection">Report submission</h2>
+                                    <p>All the required sections of the report have been completed.</p>
+
+                                    <p>When you submit the report, it will go to the service assesment team to check over and send to the delivery team.</p>
+
+                                       <form action="/{{data.role}}/submitreport/{{entry.fields.ID}}" method="post">  
+                    <input type="hidden" name="entryid" value="{{entry.id}}"/>
+                                        <div class="govuk-button-group">
+                                            <button class="govuk-button" data-module="govuk-button">Submit report</button>
+                                        </div>
+                                    </form>
+                                    {% elseif entry.fields.ReportSubmittable == 0 %}
+                                    <p>The report can only be submitted when the following sections have been completed:</p>
+
+                                    <ul class="govuk-list govuk-list--bullet">
+                                        <li>Overall outcome of the assessment</li>
+                                        <li>What the team has done well</li>
+                                        <li>What the team needs to improve</li>
+                                    </ul>
+                                {% endif %}
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
