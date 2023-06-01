@@ -100,15 +100,15 @@ var NotifyClient = require('notifications-node-client').NotifyClient,
     console.log('Team - Get Dashboard')
     axios
       .all([
-        GetRequestsByType('Draft'), GetRequestsByType('Active')
+        GetRequestsByType('Draft'), GetRequestsByType('Active'), GetRequestsByType('Completed')
       ])
       .then(
         axios.spread(
           (
-            drafts, active
+            drafts, active, complete
           ) => {
             return res.render('team/dashboard', {
-                drafts, active
+                drafts, active,complete
             })
           },
         ),
@@ -570,7 +570,7 @@ exports.p_action = async function (req, res) {
       },
     )
     await wait(800);
-    return res.redirect(`/team/report/report-ready-to-publish/${id}`)
+    return res.redirect(`/team/report/preview/${id}`)
   }
 
   if (view === 'publishreport') {
@@ -901,4 +901,388 @@ exports.p_entry_post = async function (req, res) {
     return res.redirect('/team/team/' + id)
   }
 
+}
+
+exports.g_report = function (req, res) {
+  
+  var id = req.params.id;
+
+  axios
+    .all([
+      getEntryByID(id),
+      getAssessors('All'),
+      getPanel(id)
+    ])
+    .then(
+      axios.spread(
+        (
+          entry, assessors, panel
+        ) => {
+          entry = entry[0]
+
+          if(entry.fields.SubStatus === 'Published'){
+            return res.render(`team/entry/published-report`, {
+              entry, assessors, panel
+            })
+          }
+          else if(entry.fields.Status === 'Rejected' || entry.fields.Status === 'Cancelled' || entry.fields.Status === 'New' ){
+            return res.render(`team/entry/report-none`, {
+              entry, assessors, panel
+            })
+          }else{
+            return res.render(`team/entry/preview`, {
+              entry, assessors, panel
+            })
+          }
+        
+        
+        },
+      ),
+    )
+}
+
+exports.g_report_preview = function (req, res) {
+
+  var id = req.params.id;
+
+  axios
+    .all([
+      getEntryByID(id),
+      getAssessors('All'),
+      getPanel(id)
+    ])
+    .then(
+      axios.spread(
+        (
+          entry, assessors, panel
+        ) => {
+          entry = entry[0]
+
+        
+            return res.render(`team/entry/preview`, {
+              entry, assessors, panel
+            })
+          
+        
+        
+        },
+      ),
+    )
+}
+
+exports.g_report_sat1 = function (req, res) {
+
+  var id = req.params.id;
+
+  axios
+    .all([
+      getEntryByID(id),
+      getAssessors('All'),
+      getPanel(id)
+    ])
+    .then(
+      axios.spread(
+        (
+          entry, assessors, panel
+        ) => {
+          entry = entry[0]
+
+        
+            return res.render(`team/entry/report-submitted-to-sat`, {
+              entry, assessors, panel
+            })
+          
+        
+        
+        },
+      ),
+    )
+}
+
+exports.g_report_team = function (req, res) {
+
+  var id = req.params.id;
+
+  axios
+    .all([
+      getEntryByID(id),
+      getAssessors('All'),
+      getPanel(id)
+    ])
+    .then(
+      axios.spread(
+        (
+          entry, assessors, panel
+        ) => {
+          entry = entry[0]
+
+        
+            return res.render(`team/entry/report-submitted-to-team`, {
+              entry, assessors, panel
+            })
+          
+        
+        
+        },
+      ),
+    )
+}
+
+exports.g_report_publish = function (req, res) {
+
+  var id = req.params.id;
+
+  axios
+    .all([
+      getEntryByID(id),
+      getAssessors('All'),
+      getPanel(id)
+    ])
+    .then(
+      axios.spread(
+        (
+          entry, assessors, panel
+        ) => {
+          entry = entry[0]
+
+        
+            return res.render(`team/entry/report-ready-to-publish`, {
+              entry, assessors, panel
+            })
+          
+        
+        
+        },
+      ),
+    )
+}
+
+exports.g_submission = function (req, res) {
+
+  var id = req.params.id;
+
+  axios
+    .all([
+      getEntryByID(id)
+    ])
+    .then(
+      axios.spread(
+        (
+          entry
+        ) => {
+          entry = entry[0]
+          return res.render(`team/entry/submission`, {
+            entry
+          })
+        },
+      ),
+    )
+}
+
+exports.g_report_outcome = function (req, res) {
+
+  var id = req.params.id;
+
+  axios
+    .all([
+      getEntryByID(id),
+      getAssessors('All'),
+      getPanel(id)
+    ])
+    .then(
+      axios.spread(
+        (
+          entry, assessors, panel
+        ) => {
+          entry = entry[0]
+          return res.render(`team/entry/report_outcome`, {
+            entry, assessors, panel
+          })
+        },
+      ),
+    )
+}
+
+exports.g_report_donewell = function (req, res) {
+
+  var id = req.params.id;
+
+  axios
+    .all([
+      getEntryByID(id),
+      getAssessors('All'),
+      getPanel(id)
+    ])
+    .then(
+      axios.spread(
+        (
+          entry, assessors, panel
+        ) => {
+          entry = entry[0]
+          return res.render(`team/entry/report_good`, {
+            entry, assessors, panel
+          })
+        },
+      ),
+    )
+}
+
+exports.g_report_complete = function (req, res) {
+
+  var id = req.params.id;
+
+  axios
+    .all([
+      getEntryByID(id),
+      getAssessors('All'),
+      getPanel(id)
+    ])
+    .then(
+      axios.spread(
+        (
+          entry, assessors, panel
+        ) => {
+          entry = entry[0]
+          return res.render(`team/entry/complete`, {
+            entry, assessors, panel
+          })
+        },
+      ),
+    )
+}
+
+exports.g_report_improve = function (req, res) {
+
+  var id = req.params.id;
+
+  axios
+    .all([
+      getEntryByID(id),
+      getAssessors('All'),
+      getPanel(id)
+    ])
+    .then(
+      axios.spread(
+        (
+          entry, assessors, panel
+        ) => {
+          entry = entry[0]
+          return res.render(`team/entry/report_improve`, {
+            entry, assessors, panel
+          })
+        },
+      ),
+    )
+}
+
+exports.g_alpha_report = function (req, res) {
+
+  var id = req.params.id;
+
+  axios
+    .all([
+      getEntryByID(id),
+      getAssessors('All'),
+      getPanel(id)
+    ])
+    .then(
+      axios.spread(
+        (
+          entry, assessors, panel
+        ) => {
+          entry = entry[0]
+          return res.render(`team/entry/alpha`, {
+            entry, assessors, panel
+          })
+        },
+      ),
+    )
+}
+
+exports.g_get_history = function (req, res) {
+
+  var id = req.params.id;
+
+  axios
+    .all([
+      getEntryByID(id),
+      getAssessors('All'),
+      getPanel(id)
+    ])
+    .then(
+      axios.spread(
+        (
+          entry, assessors, panel
+        ) => {
+          entry = entry[0]
+          return res.render(`team/entry/history`, {
+            entry, assessors, panel
+          })
+        },
+      ),
+    )
+}
+
+exports.g_get_panel = function (req, res) {
+
+  var id = req.params.id;
+
+  axios
+    .all([
+      getEntryByID(id),
+      getAssessors('All'),
+      getPanel(id)
+    ])
+    .then(
+      axios.spread(
+        (
+          entry, assessors, panel
+        ) => {
+          entry = entry[0]
+          return res.render(`team/entry/panel`, {
+            entry, assessors, panel
+          })
+        },
+      ),
+    )
+}
+
+
+
+exports.g_assessors = function (req, res) {
+ 
+
+  axios
+    .all([getAssessors("Assessors")
+    ])
+    .then(
+      axios.spread((assessors) => {
+       
+        res.render('team/assessors/index', {
+          assessors
+        })
+      }),
+    )
+}
+
+
+exports.g_assessor = function(req, res){
+
+  var id = req.params.id;
+
+  console.log(id)
+
+  axios
+  .all([getAssessor(id), GetRequestsByType("assessorList")
+  ])
+  .then(
+    axios.spread((assessor, all) => {
+
+      assessor = assessor[0]
+     
+      res.render('team/assessors/assessor', {
+        assessor, all
+      })
+    }),
+  )
 }

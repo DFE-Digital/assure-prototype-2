@@ -1,0 +1,98 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = entry.fields.Name %}
+{% set selectedNav = "history" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+{% set reportStep = 1%}
+{% set showEntryNav = "true"%}
+
+{% block sidebar %}
+
+    {% include "partials/nav.html" %}
+    {% include "admin/partials/_admin_nav.html" %}
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+        {% include "admin/partials/_admin_entry_header.html" %}
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-one-half">
+
+                <h2 class="govuk-heading-l">History</h2>
+
+                <p>Actions completed as part of this assessment.</p>
+
+                <div class="dfe-timeline">
+                    <ol>
+
+                        <li>
+                            <h3 class="govuk-heading-s">Assessment completed</h3>
+                            <p>{{entry.fields.PublishedDate | date('D MMMM YYYY')}} by Mike Dunn</p>
+                        </li>
+                        <li>
+                            <h3 class="govuk-heading-s">Assessment published</h3>
+                            <p>{{entry.fields.PublishedDate | date('D MMMM YYYY')}} by Mike Dunn</p>
+                        </li>
+
+                        <li>
+                            <h3 class="govuk-heading-s">Team accepted the report</h3>
+                            <p>{{entry.fields.PublishedDate | date('D MMMM YYYY')}} by Callum Mckay</p>
+                        </li>
+                        <li>
+                            <h3 class="govuk-heading-s">Service assessment team checked report</h3>
+                            <p>{{entry.fields.PublishedDate | date('D MMMM YYYY')}} by Mike Dunn</p>
+                        </li>
+                        <li>
+                            <h3 class="govuk-heading-s">Assessor panel submitted the report</h3>
+                            <p>{{entry.fields.PublishedDate | date('D MMMM YYYY')}} by Andy Jones</p>
+                        </li>
+                        <li>
+                            <h3 class="govuk-heading-s">Peer review date updated</h3>
+                            <p>{{entry.fields.PublishedDate | date('D MMMM YYYY')}} by Mike Dunn</p>
+                        </li>
+                        <li>
+                            <h3 class="govuk-heading-s">Assessor added - Andy Jones</h3>
+                            <p>{{entry.fields.PublishedDate | date('D MMMM YYYY')}} by Mike Dunn</p>
+                        </li>
+                        <li>
+                            <h3 class="govuk-heading-s">Assessor added - Kerry Lyons</h3>
+                            <p>{{entry.fields.PublishedDate | date('D MMMM YYYY')}} by Mike Dunn</p>
+                        </li>
+                        <li>
+                            <h3 class="govuk-heading-s">Artefact added - User journey map</h3>
+                            <p>{{entry.fields.PublishedDate | date('D MMMM YYYY')}} by Laura Croft</p>
+                        </li>
+                        <li>
+                            <h3 class="govuk-heading-s">Assessment request accepted</h3>
+                            <p>{{entry.fields.PublishedDate | date('D MMMM YYYY')}} by Mike Dunn</p>
+                        </li>
+                        <li>
+                            <h3 class="govuk-heading-s">Assessment request submitted</h3>
+                            <p>{{entry.fields.PublishedDate | date('D MMMM YYYY')}} by Callum Mckay</p>
+                        </li>
+
+                        <li>
+                            <h3 class="govuk-heading-s">Assessment request started</h3>
+                            <p>{{entry.fields.Created | date('D MMMM YYYY')}} by Callum Mckay</p>
+                        </li>
+                    </ol>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

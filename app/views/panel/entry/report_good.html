@@ -1,0 +1,118 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = entry.fields.Name %}
+{% set selectedNav = "report" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+{% set reportStep = 3%}
+{% set showEntryNav = "true"%}
+
+{% block sidebar %}
+
+    {% include "partials/nav.html" %}
+    {% include "admin/partials/_admin_nav.html" %}
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+        {% include "admin/partials/_admin_entry_header.html" %}
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+
+                  <div class="govuk-grid-column-full">
+
+         <h2 class="govuk-heading-l">Assessment report</h2>
+        </div>
+
+             <div class="govuk-grid-column-one-quarter">
+
+                {% include "admin/partials/_report_timeline.html" %}
+            </div>
+            <div class="govuk-grid-column-one-half">
+
+                <form action="/admin/done-well/{{entry.fields.ID}}" method="post">
+                    <input type="hidden" name="entryid" value="{{entry.id}}"/>
+
+<div class="govuk-form-group">
+  <h2 class="govuk-label-wrapper">
+    <label class="govuk-label govuk-label--m" for="donewell">
+      What has the team done well?
+    </label>
+  </h2>
+  <div id="more-detail-hint" class="govuk-hint">
+    Include any specific aspects of the assessment which the team demonstrated well.
+  </div>
+  <textarea class="govuk-textarea" id="donewell" name="donewell" rows="15" aria-describedby="donewell-hint">{{entry.fields.ReviewDoneWell}}</textarea>
+</div>
+
+ <div class="govuk-button-group">
+            <button class="govuk-button" data-module="govuk-button">
+            Save and continue
+            </button>
+         </div>
+                </form>
+
+             
+                {# <pre id="output"></pre>
+                <div id="message"></div> #}
+
+            </div>
+
+              <div class="govuk-grid-column-one-quarter">
+
+                 <h2 class="govuk-heading-m">Information</h2>
+
+                        {% include "admin/partials/_admin_description_ro.html" %}
+
+                {% include "admin/partials/_admin_team.html" %}
+
+            </div>
+        </div>
+
+    </div>
+
+{# 
+  <script src="/assets/js/socket.io.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const socket = io();
+
+      const textbox = document.getElementById('donewell');
+      const output = document.getElementById('output');
+      const message = document.getElementById('message');
+
+      // Receive the initial text
+      socket.on('initialText', text => {
+        textbox.value = text;
+      });
+
+      // Update the text when other users make changes
+      socket.on('updatedText', text => {
+        textbox.value = text;
+      });
+
+      // Send the updated text to the server
+      textbox.addEventListener('input', () => {
+        const newText = textbox.value;
+        socket.emit('updateText', newText);
+      });
+
+      // Display save status message
+      socket.on('saveStatus', status => {
+        message.textContent = status;
+      });
+
+       socket.emit('requestInitialText');
+    });
+  </script> #}
+
+
+{% endblock %}

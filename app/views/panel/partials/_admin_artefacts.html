@@ -1,0 +1,36 @@
+<div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Artefacts</h2>
+    </div>
+    <div class="govuk-summary-card__content">
+
+        {% if artefacts %}
+
+            <ul class="govuk-list govuk-list--spaced">
+                <li>
+                    <a href="">User journey map</a>
+                </li>
+                <li>
+                    <a href="">Assessment presentation</a>
+                </li>
+                <li>
+                    <a href="">Stakeholder map</a>
+                </li>
+                <li>
+                    <a href="">Discovery lucid board</a>
+                </li>
+                <li>
+                    <a href="">Team structure diagram</a>
+                </li>
+                <li>
+                    <a href="">Business case</a>
+                </li>
+            </ul>
+
+        {% else %}
+    <p>No artefacts have been added.</p>
+
+        {% endif %}
+
+    </div>
+</div>

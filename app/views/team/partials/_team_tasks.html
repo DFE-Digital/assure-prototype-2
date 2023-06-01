@@ -1,43 +1,34 @@
+<div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Your tasks</h2>
+    </div>
+    <div class="govuk-summary-card__content">
 
+        {% set tasks = "false"%}
 
-    <div class="govuk-summary-card">
-        <div class="govuk-summary-card__title-wrapper">
-            <h2 class="govuk-summary-card__title">Your tasks</h2>
-        </div>
-        <div class="govuk-summary-card__content">
-       
-           
-                  
-        
-                    {% if entry.fields.SubStatus === "Team Review" %}
+        {% for entry in active %}
 
-                    <div class="chevron-card chevron-card-full">
-                        <div class="chevron-card__wrapper">
-                            <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
-                                <a class="govuk-link chevron-card__link" href="/team/entry/{{entry.fields.ID}}">View and accept assessment report <span class="govuk-visually-hidden"> for {{entry.fields.Name}}</span></a>
-                            </h3>
+            {% if entry.fields.SubStatus === "Team Review" %}
 
-                            <p class="govuk-body chevron-card__description">{{entry.fields.Name}}</p>
-                        </div>
+               {% set tasks = "true"%}
+
+                <div class="chevron-card chevron-card-full">
+                    <div class="chevron-card__wrapper">
+                        <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
+                            <a class="govuk-link chevron-card__link" href="/team/report/preview/{{entry.fields.ID}}">View and accept assessment report <span class="govuk-visually-hidden"> for {{entry.fields.Name}}</span></a>
+                        </h3>
+
+                        <p class="govuk-body chevron-card__description">{{entry.fields.Name}}</p>
                     </div>
+                </div>
 
-                {% endif %}
+            {% endif %}
+        {% endfor %}
 
-                {% if team.length === 0%}
-                    <div class="chevron-card chevron-card-full">
-                        <div class="chevron-card__wrapper">
-                            <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
-                                <a class="govuk-link chevron-card__link" href="/team/entry/{{request.fields.ID}}">Add team members</a>
-                            </h3>
+        {% if  tasks === "false"%}
+        <p>You have no tasks to action.</p>
 
-                            <p class="govuk-body chevron-card__description">{{request.fields.Name}}</p>
-                        </div>
-                    </div>
-                    {% endif%}
-        
-    
-  
-         
+        {% endif %}
 
-            </div>
-        </div>
+    </div>
+</div>

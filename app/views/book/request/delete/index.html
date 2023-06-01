@@ -2,9 +2,20 @@
 {% block pageTitle %}
 Tasks – {{serviceName}} –  Book and manage a discovery peer review
 {% endblock %}
-{% set pageSection = "Book"%}
-{% block beforeContent %}
-{% endblock%}
+{% set selectedNav = "book" %}
+{% block sidebar %}
+ {% include "partials/nav.html" %}
+
+
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+    <a href="/book/request/name-of-discovery" class="govuk-back-link">Back</a>
+    </div>
+
+{% endblock %}
 {% block content %}
 
 

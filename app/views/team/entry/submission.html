@@ -34,28 +34,7 @@
                 </div>
                 {% endif %}
 
-     {% if entry.fields.Status === "New" %}
-       
-            <details class="govuk-details" data-module="govuk-details">
-               <summary class="govuk-details__summary">
-                  <span class="govuk-details__summary-text">
-                  Guidance on accepting and rejecting a request
-                  </span>
-               </summary>
-               <div class="govuk-details__text">
-                  <p>If you accept the request now, you can still update details of the submission later on.</p>
-                  <p>Accepting the request means tasks can start to be actioned in the request by administrators and the discovery team.</p>
-                  <p>If you reject it, you'll need to provide a reason before rejecting in the next step. </p>
-               </div>
-            </details>
-            <form action="/admin/submission/{{entry.fields.ID}}" method="post">
-               <input type="hidden" name="entryid" value="{{entry.id}}"/>
-               <div class="govuk-button-group">
-                  <button class="govuk-button"  name="action" value="accept" data-module="govuk-button">Accept request</button>
-                  <button  name="action" value="reject_reason" class="govuk-button govuk-button--warning"  data-module="govuk-button">Reject request</button>
-               </div>
-            </form>
-         {% endif %}
+ 
 
           {% include "admin/partials/_admin_description.html" %}
          <div class="govuk-summary-card">

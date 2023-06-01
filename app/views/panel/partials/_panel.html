@@ -1,0 +1,24 @@
+<div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Assessor panel</h2>
+    </div>
+    <div class="govuk-summary-card__content">
+        {% if panel.length %}
+            <dl class="govuk-summary-list">
+                {% for person in panel %}
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">{{person.fields.Name}}</dt>
+                        <dd class="govuk-summary-list__value">
+                            {% for role in person.fields.Role %}{{role}}
+                                {% if not loop.last %}<br/>{%endif%}{% endfor%}</dd>
+                                <dd class="govuk-summary-list__actions">
+                                   
+                                </dd>
+                            </div>
+                        {% endfor %}
+                    </dl>
+                {% else %}
+                    <p>No panel members have been added.</p>
+                {% endif %}
+            </div>
+        </div>

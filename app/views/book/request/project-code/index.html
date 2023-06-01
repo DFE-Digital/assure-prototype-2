@@ -2,10 +2,21 @@
 {% block pageTitle %}
 Do you know your project code?  – {{serviceName}}
 {% endblock %}
-{% set pageSection = "Book"%}
-{% block beforeContent %}
-<a href="/book/request/summary" class="govuk-back-link">Back</a>
-{% endblock%}
+
+{% set selectedNav = "book" %}
+{% block sidebar %}
+ {% include "partials/nav.html" %}
+
+
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+    <a href="/book/request/name-of-discovery" class="govuk-back-link">Back</a>
+    </div>
+
+{% endblock %}
 {% block content %}
 <div class="govuk-grid-row">
    <div class="govuk-grid-column-two-thirds">

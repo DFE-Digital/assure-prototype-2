@@ -1,0 +1,64 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = entry.fields.Name %}
+{% set selectedNav = "summary" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+{% set showEntryNav = "true"%}
+
+{% block sidebar %}
+
+    {% include "partials/nav.html" %}
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+        {% include "admin/partials/_admin_entry_header.html" %}
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+
+                <h2 class="govuk-heading-l">Summary</h2>
+            </div>
+        </div>
+
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+                {% include "panel/partials/_tasks.html" %}
+
+                <div class="govuk-grid-row">
+
+                    <div class="govuk-grid-column-one-half">
+   {% include "panel/partials/_description.html" %}
+                  {% include "panel/partials/_high_level_request_details.html" %}
+
+                    </div>
+
+                    <div class="govuk-grid-column-one-half">
+                {% include "panel/partials/_team.html" %}         {% include "panel/partials/_artefacts.html" %}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="govuk-grid-column-one-third">     {% include "panel/partials/_panel.html" %}   
+             
+               
+              
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

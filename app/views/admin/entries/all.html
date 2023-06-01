@@ -95,51 +95,32 @@
                             <fieldset class="govuk-fieldset">
                                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
                                     <h3 class="govuk-fieldset__heading">
-        Type
-      </h3>
-                                </legend>
-                                <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
-                                    <div class="govuk-checkboxes__item">
-                                        <input class="govuk-checkboxes__input" id="asstype" name="asstype" type="checkbox" value="hmrc">
-                                        <label class="govuk-label govuk-checkboxes__label" for="asstype">
-          Peer review
-        </label>
-                                    </div>
-                                    <div class="govuk-checkboxes__item">
-                                        <input class="govuk-checkboxes__input" id="asstype-2" name="asstype" type="checkbox" value="employment-tribunal">
-                                        <label class="govuk-label govuk-checkboxes__label" for="asstype-2">
-          Assessment
-        </label>
-                                    </div>
-                                    
-                                </div>
-                            </fieldset>
-                        </div>
-
-<div class="govuk-form-group">
-                            <fieldset class="govuk-fieldset">
-                                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                                    <h3 class="govuk-fieldset__heading">
         Phase
       </h3>
                                 </legend>
                                 <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
                                     <div class="govuk-checkboxes__item">
-                                        <input class="govuk-checkboxes__input" id="assphase" name="asstype" type="checkbox" value="hmrc">
+                                        <input class="govuk-checkboxes__input cb-phase" id="assphase" name="assphase" type="checkbox" value="Discovery">
                                         <label class="govuk-label govuk-checkboxes__label" for="assphase">
           Discovery
         </label>
                                     </div>
                                     <div class="govuk-checkboxes__item">
-                                        <input class="govuk-checkboxes__input" id="assphase-2" name="assphase" type="checkbox" value="employment-tribunal">
+                                        <input class="govuk-checkboxes__input cb-phase" id="assphase-2" name="assphase" type="checkbox" value="Alpha">
                                         <label class="govuk-label govuk-checkboxes__label" for="assphase-2">
           Alpha
         </label>
                                     </div>
                                      <div class="govuk-checkboxes__item">
-                                        <input class="govuk-checkboxes__input" id="assphase-3" name="assphase" type="checkbox" value="employment-tribunal">
+                                        <input class="govuk-checkboxes__input cb-phase" id="assphase-3" name="assphase" type="checkbox" value="Private beta">
                                         <label class="govuk-label govuk-checkboxes__label" for="assphase-3">
-          Beta
+          Private beta
+        </label>
+                                    </div>
+                                     <div class="govuk-checkboxes__item">
+                                        <input class="govuk-checkboxes__input cb-phase" id="assphase-4" name="assphase" type="checkbox" value="Public beta">
+                                        <label class="govuk-label govuk-checkboxes__label" for="assphase-4">
+          Public beta
         </label>
                                     </div>
                                     
@@ -153,12 +134,13 @@
 
             <div class="govuk-grid-column-three-quarters">
                 <div id="announcement" class="govuk-visually-hidden"  aria-live="polite"></div>
+                <div id="selectedFilters"></div>
+
                 <table class="govuk-table">
 
                     <thead class="govuk-table__head">
                         <tr class="govuk-table__row">
                             <th scope="col" class="govuk-table__header">Service</th>
-                            <th scope="col" class="govuk-table__header">Type</th>
                             <th scope="col" class="govuk-table__header">Phase</th>
                             <th scope="col" class="govuk-table__header">Date</th>
                             <th scope="col" class="govuk-table__header">Status</th>
@@ -170,8 +152,7 @@
                                 <th scope="row" class="govuk-table__header cell-name">
                                     <a href="/admin/entry/{{record.fields.ID}}" class="govuk-link">{{record.fields.Name}}</a>
                                 </th>
-                                <td class="govuk-table__cell">{{record.fields.Type}}</td>
-                                <td class="govuk-table__cell">{{record.fields.Phase}}</td>
+                                <td class="govuk-table__cell phase-cell">{{record.fields.Phase}}</td>
                                 <td class="govuk-table__cell">{% if record.fields.ReviewDate %}{{record.fields.ReviewDate | date('ddd D MMM YYYY')}} at {{record.fields.ReviewTime}}{% else%}No date{% endif %}</td>
 
                                 <td class="govuk-table__cell cell-status">{{record.fields.Status}}</td>
@@ -212,42 +193,81 @@
 
 
 let checkboxes = document.querySelectorAll('.cb-status'); 
+let phaseCheckboxes = document.querySelectorAll('.cb-phase'); 
 
 for(let i = 0; i < checkboxes.length; i++) {
-  checkboxes[i].addEventListener('change', function() {
-    let filterStatuses = [];
+  checkboxes[i].addEventListener('change', filterTable);
+}
 
-    for(let j = 0; j < checkboxes.length; j++) {
-      if(checkboxes[j].checked) {
-        filterStatuses.push(checkboxes[j].value.toUpperCase());
+for(let i = 0; i < phaseCheckboxes.length; i++) {
+  phaseCheckboxes[i].addEventListener('change', filterTable);
+}
+
+function filterTable() {
+  let filterStatuses = [];
+  let filterPhases = [];
+
+  for(let j = 0; j < checkboxes.length; j++) {
+    if(checkboxes[j].checked) {
+      filterStatuses.push(checkboxes[j].value.toUpperCase());
+    }
+  }
+
+  for(let j = 0; j < phaseCheckboxes.length; j++) {
+    if(phaseCheckboxes[j].checked) {
+      filterPhases.push(phaseCheckboxes[j].value.toUpperCase());
+    }
+  }
+
+  let tableBody = document.querySelector('.govuk-table__body');
+  let rows = tableBody.querySelectorAll('.govuk-table__row');
+  let visibleRows = 0;
+
+  for(let k = 0; k < rows.length; k++) {
+    let statusCell = rows[k].querySelector('.cell-status');
+    let phaseCell = rows[k].querySelector('.phase-cell');
+
+    if(statusCell && phaseCell) {
+      let statusValue = statusCell.textContent || statusCell.innerText;
+      let phaseValue = phaseCell.textContent || phaseCell.innerText;
+
+      if(
+        (filterStatuses.length === 0 || filterStatuses.includes(statusValue.toUpperCase())) &&
+        (filterPhases.length === 0 || filterPhases.includes(phaseValue.toUpperCase()))
+      ) {
+        rows[k].style.display = "";
+        rows[k].setAttribute("aria-hidden", "false");
+        visibleRows++;
+      } else {
+        rows[k].style.display = "none";
+        rows[k].setAttribute("aria-hidden", "true");
       }
     }
+  }
 
-    let tableBody = document.querySelector('.govuk-table__body');
-    let rows = tableBody.querySelectorAll('.govuk-table__row');
-    let visibleRows = 0;
+  // update announcement for screen readers
+  let announcement = document.getElementById('announcement');
+  announcement.innerText = visibleRows + ' rows are visible.';
+  
+  // update selected filters
+  let selectedFiltersDiv = document.getElementById('selectedFilters');
+  selectedFiltersDiv.innerHTML = ''; // clear old filters
+  
+filterStatuses.forEach(status => {
+  let tag = document.createElement('strong');
+  tag.className = 'govuk-tag';
+  tag.innerText = status;
+  selectedFiltersDiv.appendChild(tag);
+  selectedFiltersDiv.appendChild(document.createTextNode(' ')); // Add a space
+});
 
-    for(let k = 0; k < rows.length; k++) {
-      let statusCell = rows[k].querySelector('.cell-status');
-
-      if(statusCell) {
-        let txtValue = statusCell.textContent || statusCell.innerText;
-
-        if(filterStatuses.length === 0 || filterStatuses.includes(txtValue.toUpperCase())) {
-          rows[k].style.display = "";
-          rows[k].setAttribute("aria-hidden", "false");
-          visibleRows++;
-        } else {
-          rows[k].style.display = "none";
-          rows[k].setAttribute("aria-hidden", "true");
-        }
-      }
-    }
-
-    // update announcement for screen readers
-    let announcement = document.getElementById('announcement');
-    announcement.innerText = visibleRows + ' rows are visible.';
-  });
+filterPhases.forEach(phase => {
+  let tag = document.createElement('strong');
+  tag.className = 'govuk-tag';
+  tag.innerText = phase;
+  selectedFiltersDiv.appendChild(tag);
+  selectedFiltersDiv.appendChild(document.createTextNode(' ')); // Add a space
+});
 }
 
         </script>

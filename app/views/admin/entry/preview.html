@@ -1,99 +1,209 @@
 {% extends "layouts/admin-layout.html" %}
-
 {% set pageName = entry.fields.Name %}
 {% set selectedNav = "report" %}
 {% set setSelectedSideNav = "" %}
 {% set backlog_issue_id = "" %}
 {% set reportStep = 5 %}
 {% set showEntryNav = "true"%}
-
 {% block sidebar %}
-
-    {% include "partials/nav.html" %}
-    {% include "admin/partials/_admin_nav.html" %}
+{% include "partials/nav.html" %}
+{% include "admin/partials/_admin_nav.html" %}
 {% endblock %}
-
 {% block masthead %}
-
-    <div class="main--inside-container">
-        {% include "admin/partials/_admin_entry_header.html" %}
-    </div>
-
+<div class="main--inside-container">
+   {% include "admin/partials/_admin_entry_header.html" %}
+</div>
 {% endblock %}
-
 {% block content %}
+<div class="main--inside-container">
+   <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+         <h2 class="govuk-heading-l">Assessment report</h2>
+      </div>
+      <div class="govuk-grid-column-one-quarter">
+         {% include "admin/partials/_report_timeline.html" %}
+      </div>
+      <div class="govuk-grid-column-three-quarters">
 
-    <div class="main--inside-container">
-
-        <div class="govuk-grid-row">
-
-            <div class="govuk-grid-column-full">
-
-                <h2 class="govuk-heading-l">Assessment report</h2>
+         {% if entry.fields.SubStatus === "SAT Review" and data.role === "admin"%}
+         <div class="govuk-notification-banner" role="region"
+            aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+            <div class="govuk-notification-banner__header">
+               <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                  Important
+               </h2>
             </div>
-
-            <div class="govuk-grid-column-one-quarter">
-
-                {% include "admin/partials/_report_timeline.html" %}
+            <div class="govuk-notification-banner__content">
+               <p class="govuk-notification-banner__heading">
+                  You need to check and send the report to the delivery team.
+               </p>
+               <form action="/{{data.role}}/satsubmit/{{entry.fields.ID}}" method="post">
+                  <input type="hidden" name="entryid" value="{{entry.id}}"/>
+                  <div class="govuk-button-group">
+                     <button class="govuk-button" data-module="govuk-button">Accept and send report to team</button>
+                  </div>
+               </form>
             </div>
-            <div class="govuk-grid-column-three-quarters">
+         </div>
+         {% endif %}
 
-                <div class="govuk-summary-card">
-                    <div class="govuk-summary-card__title-wrapper">
-                        <h2 class="govuk-summary-card__title">Report preview</h2>
-                    </div>
-                    <div class="govuk-summary-card__content">
+         {% if entry.fields.SubStatus === "Team Review" and data.role === "team"%}
+         <div class="govuk-notification-banner" role="region"
+            aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+            <div class="govuk-notification-banner__header">
+               <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                  Important
+               </h2>
+            </div>
+            <div class="govuk-notification-banner__content">
+               <p class="govuk-notification-banner__heading">
+                  You need to review and accept the service assessment report.
+               </p>
+               <form action="/{{data.role}}/teamsubmit/{{entry.fields.ID}}" method="post">
+                  <input type="hidden" name="entryid" value="{{entry.id}}"/>
+                  <div class="govuk-button-group">
+                     <button class="govuk-button" data-module="govuk-button">Accept the report</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+         {% endif %}
 
-                        {% include "admin/partials/_report_content.html" %}
 
-                       
+         {% if entry.fields.SubStatus === "SAT Publish" and data.role === "admin"%}
+         <div class="govuk-notification-banner" role="region"
+            aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+            <div class="govuk-notification-banner__header">
+               <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                  Important
+               </h2>
+            </div>
+            <div class="govuk-notification-banner__content">
+               <p class="govuk-notification-banner__heading">
+                  You need to publish the report.
+               </p>
 
-                            {# {% if (entry.fields.ReviewImprove.length  and entry.fields.ReviewDoneWell.length and entry.fields.Outcome)%}
-
-                        <h2 class="govuk-heading-l" id="submitsection">Report submission</h2>
-                        <p>All the required sections of the report have been completed.</p>
-                        <p>You can now submit the report to the Service Assessment Team for checking. It might come back to you to edit, if so, you'll get an email. Otherwise....</p>
-                        <p>The Service Assessment Team will submit the report and {{entry.fields.RequestedBy}} will be notified the report is ready to view.</p>
-                        <p>The team may ask to question the report...</p>
-                        <form action="/panel/entry/submitreport/{{entry.fields.ID}}/{{entry.id}}" method="post">
+               <p class="govuk-notification-banner__body">
+                  Publishing the report will also complete this assessment.
+               </p>
+               <form action="/{{data.role}}/publishreport/{{entry.fields.ID}}" method="post">
+                           <input type="hidden" name="entryid" value="{{entry.id}}"/>
                             <div class="govuk-button-group">
-                                <button class="govuk-button" data-module="govuk-button">Submit report</button>
+                                <button class="govuk-button" data-module="govuk-button">Publish the report</button>
                             </div>
                         </form>
-
-                    {% endif %} #}
-
-                          
-
-                    </div>
-                </div>
-
-                 {% if (entry.fields.ReportSubmittable == 1 and (entry.fields.SubStatus !== "SAT Review" and entry.fields.SubStatus !== "Team Review"))%}
-                                    {# 1 === true #}
-                                    <h2 class="govuk-heading-l" id="submitsection">Report submission</h2>
-                                    <p>All the required sections of the report have been completed.</p>
-
-                                    <p>When you submit the report, it will go to the service assesment team to check over and send to the delivery team.</p>
-
-                                       <form action="/{{data.role}}/submitreport/{{entry.fields.ID}}" method="post">  
-                    <input type="hidden" name="entryid" value="{{entry.id}}"/>
-                                        <div class="govuk-button-group">
-                                            <button class="govuk-button" data-module="govuk-button">Submit report</button>
-                                        </div>
-                                    </form>
-                                    {% elseif entry.fields.ReportSubmittable == 0 %}
-                                    <p>The report can only be submitted when the following sections have been completed:</p>
-
-                                    <ul class="govuk-list govuk-list--bullet">
-                                        <li>Overall outcome of the assessment</li>
-                                        <li>What the team has done well</li>
-                                        <li>What the team needs to improve</li>
-                                    </ul>
-                                {% endif %}
             </div>
+         </div>
+         {% endif %}
 
-        </div>
+             {% if entry.fields.SubStatus === "Team Review" and data.role !== "team"%}
+         <div class="govuk-notification-banner govuk-notification-banner--success" role="alert"
+            aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+            <div class="govuk-notification-banner__header">
+               <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                  Success
+               </h2>
+            </div>
+            <div class="govuk-notification-banner__content">
+               <h3 class="govuk-notification-banner__heading">
+                  The report has been sent to the delivery team to review and accept.
+               </h3>
+            </div>
+         </div>
+         {% endif %}
 
-    </div>
+                      {% if entry.fields.SubStatus === "SAT Publish" and data.role !== "admin"%}
+         <div class="govuk-notification-banner govuk-notification-banner--success" role="alert"
+            aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+            <div class="govuk-notification-banner__header">
+               <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                  Success
+               </h2>
+            </div>
+            <div class="govuk-notification-banner__content">
+               <h3 class="govuk-notification-banner__heading">
+                  The report has been accepted and is waiting for the service assessment team to publish it.
+               </h3>
+            </div>
+         </div>
+         {% endif %}
 
+                               {% if entry.fields.SubStatus === "SAT Review" and data.role !== "admin"%}
+         <div class="govuk-notification-banner govuk-notification-banner--success" role="alert"
+            aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+            <div class="govuk-notification-banner__header">
+               <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                  Success
+               </h2>
+            </div>
+            <div class="govuk-notification-banner__content">
+               <h3 class="govuk-notification-banner__heading">
+                  The report has been submitted and is waiting for the service assessment team to send it to the delivery team.
+               </h3>
+            </div>
+         </div>
+         {% endif %}
+
+                                        {% if entry.fields.SubStatus === "Published"%}
+         <div class="govuk-notification-banner govuk-notification-banner--success" role="alert"
+            aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+            <div class="govuk-notification-banner__header">
+               <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                  Success
+               </h2>
+            </div>
+            <div class="govuk-notification-banner__content">
+               <h3 class="govuk-notification-banner__heading">
+                 The report has been published
+               </h3>
+            </div>
+         </div>
+         {% endif %}
+
+                   
+ {% if entry.fields.ReportSubmittable == 1 %}
+         {% if (entry.fields.SubStatus === "Team Review" or entry.fields.SubStatus === "SAT Publish" or entry.fields.SubStatus === "Published") or (data.role === "admin" or data.role === "panel")%}
+         <div class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+               <h2 class="govuk-summary-card__title">Report preview</h2>
+            </div>
+            <div class="govuk-summary-card__content">
+               {% include "admin/partials/_report_content.html" %}
+            </div>
+         </div>
+         {% if (entry.fields.ReportSubmittable == 1 and (entry.fields.SubStatus !== "SAT Review" and entry.fields.SubStatus !== "Team Review" and entry.fields.SubStatus !== "SAT Publish" and entry.fields.SubStatus !== "Published"))%}
+         {# 1 === true #}
+         <h2 class="govuk-heading-l" id="submitsection">Report submission</h2>
+         <p>All the required sections of the report have been completed.</p>
+         <p>When you submit the report, it will go to the service assesment team to check over and send to the delivery team.</p>
+         <form action="/{{data.role}}/submitreport/{{entry.fields.ID}}" method="post">
+            <input type="hidden" name="entryid" value="{{entry.id}}"/>
+            <div class="govuk-button-group">
+               <button class="govuk-button" data-module="govuk-button">Submit report</button>
+            </div>
+         </form>
+         {% elseif entry.fields.ReportSubmittable == 0 %}
+         <p>The report can only be submitted when the following sections have been completed:</p>
+         <ul class="govuk-list govuk-list--bullet">
+            <li>Overall outcome of the assessment</li>
+            <li>What the team has done well</li>
+            <li>What the team needs to improve</li>
+         </ul>
+         {% endif %}
+     
+    {% endif %}    {% else%}
+           <h2 class="govuk-heading-m">Report</h2>
+         <p>The report isn't available yet.</p>
+          
+              {% endif %}
+      </div>
+   </div>
+</div>
 {% endblock %}

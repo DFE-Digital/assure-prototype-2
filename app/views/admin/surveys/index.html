@@ -1,0 +1,191 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = "Surveys" %}
+{% set selectedNav = "surveys" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+
+{% set showMasthead = "true" %}
+{% block sidebar %}
+
+    {% include "partials/nav.html" %}
+
+{% endblock %}
+
+{% if showMasthead === "true"%}
+
+    {% block masthead %}
+
+        <div class="main--inside-container">
+            <h1 class="govuk-heading-l">Surveys</h1>
+        </div>
+
+    {% endblock %}
+{% endif %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+            {% if showMasthead !== "true"%}
+                <div class="govuk-grid-column-full">
+
+                    <h1 class="govuk-heading-l ">Dashboard</h1>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                <h2 class="govuk-heading-l">Satisfaction results</h2>
+
+
+                <p>Cumulative satisfaction results for all survey responses.</p>
+
+
+                <div class="dfe-grid-container">
+                    <div class="dfe-card">
+                        <div class="dfe-card-container">
+                            <h2 class="govuk-heading-l">
+                                <a class="govuk-link govuk-link--no-visited-state dfe-card-link--header" href="/accessibility">Good</a>
+                            </h2>
+                            <p>Booking process</p>
+                        </div>
+                    </div>
+
+                    <div class="dfe-card">
+                        <div class="dfe-card-container">
+                            <h2 class="govuk-heading-l">
+                                <a class="govuk-link govuk-link--no-visited-state dfe-card-link--header" href="/accessibility">Good</a>
+                            </h2>
+                            <p>Being kept informed</p>
+                        </div>
+                    </div>
+
+                    <div class="dfe-card">
+                        <div class="dfe-card-container">
+                            <h2 class="govuk-heading-l">
+                                <a class="govuk-link govuk-link--no-visited-state dfe-card-link--header" href="/accessibility">Neutral</a>
+                            </h2>
+                            <p>Assessment</p>
+                        </div>
+                    </div>
+
+                    <div class="dfe-card">
+                        <div class="dfe-card-container">
+                            <h2 class="govuk-heading-l">
+                                <a class="govuk-link govuk-link--no-visited-state dfe-card-link--header" href="/accessibility">Poor</a>
+                            </h2>
+                            <p>Report process</p>
+                        </div>
+                    </div>
+
+                      <div class="dfe-card">
+                        <div class="dfe-card-container">
+                            <h2 class="govuk-heading-l">
+                                <a class="govuk-link govuk-link--no-visited-state dfe-card-link--header" href="/accessibility">174 responses</a>
+                            </h2>
+                            <p>View all results</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="govuk-grid-row govuk-!-margin-top-9">
+
+            <div class="govuk-grid-column-full">
+
+<h2 class="govuk-heading-m">Recent assessment average results</h2>
+                <p>Selecting the service will show all the results of surveys for the assessment.</p>
+
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">Assessment</th>
+                            <th scope="col" class="govuk-table__header">Phase</th>
+                            <th scope="col" class="govuk-table__header">Responses</th>
+                            <th scope="col" class="govuk-table__header">Booking</th>
+                            <th scope="col" class="govuk-table__header">Informed</th>
+                            <th scope="col" class="govuk-table__header">Assessment</th>
+                            <th scope="col" class="govuk-table__header">Report</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        <tr class="govuk-table__row">
+                            <th scope="row" class="govuk-table__header">
+                                <a href="#">Manage your school finances</a>
+                            </th>
+                            <td class="govuk-table__cell">Discovery</td>
+                            <td class="govuk-table__cell">3</td>
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--green">Good</strong>
+                            </td>
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--grey">Neutral</strong>
+                            </td>
+
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--grey">Neutral</strong>
+                            </td>
+
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--red">Poor</strong>
+                            </td>
+                        </tr>
+                        <tr class="govuk-table__row">
+                            <th scope="row" class="govuk-table__header">
+                                <a href="#">AI in schools</a>
+                            </th>
+                            <td class="govuk-table__cell">Alpha</td>
+                            <td class="govuk-table__cell">6</td>
+
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--grey">Neutral</strong>
+                            </td>
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--green">Good</strong>
+                            </td>
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--green">Good</strong>
+                            </td>
+ <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--red">Poor</strong>
+                            </td>
+                        </tr>
+
+                        <tr class="govuk-table__row">
+                            <th scope="row" class="govuk-table__header">
+                                <a href="#">Recruit more teachers</a>
+                            </th>
+                            <td class="govuk-table__cell">Alpha</td>
+
+                            <td class="govuk-table__cell">7</td>
+
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--grey">Neutral</strong>
+                            </td>
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--green">Good</strong>
+                            </td>
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--green">Good</strong>
+                            </td>
+ <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--green">Good</strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

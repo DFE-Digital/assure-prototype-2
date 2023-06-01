@@ -1,0 +1,125 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = "Assessor activity" %}
+{% set selectedNav = "assessors" %}
+{% set setSelectedSideNav = "reporting" %}
+{% set backlog_issue_id = "" %}
+
+{% block sidebar %}
+
+    {% include "partials/nav.html" %}
+
+{% endblock %}
+
+   {% block masthead %}
+
+        <div class="main--inside-container">
+            <h1 class="govuk-heading-l">Manage assessors</h1>
+        </div>
+
+    {% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+   
+              
+
+                <div class="govuk-grid-row">
+                    
+                    <div class="govuk-grid-column-one-quarter">
+
+                        <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+          <h2 class="govuk-summary-card__title">Filters</h2>
+          <ul class="govuk-summary-card__actions">
+            <li class="govuk-summary-card__action">
+              <a class="govuk-link" href="/reports/">
+          Clear filters
+                </a>
+            </li>   
+          </ul>
+        </div>
+        <div class="govuk-summary-card__content">
+
+                        <div class="govuk-form-group">
+                            <label id="filterTableLabel" for="filterTable" class="govuk-label govuk-!-font-weight-bold">Filter by name</label>
+                            <input type="text" id="filterTable" class="govuk-input" aria-describedby="filterTableLabel"/>
+
+                        </div>
+                         </div>
+                          </div>
+
+                    </div>
+                
+                    <div class="govuk-grid-column-three-quarters">
+
+                        <table class="govuk-table">
+                            <caption class="govuk-table__caption govuk-table__caption--l">Assessors</caption>
+                            <thead class="govuk-table__head">
+                                <tr class="govuk-table__row">
+                                    <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Assessor</th>
+                                    <th scope="col" class="govuk-table__header">Lead</th>
+                                    <th scope="col" class="govuk-table__header">Role</th>
+                                    <th scope="col" class="govuk-table__header">Cross-gov assessor</th>
+                                    <th scope="col" class="govuk-table__header">Discovery</th>
+                                    <th scope="col" class="govuk-table__header">Alpha</th>
+                                    <th scope="col" class="govuk-table__header">Private beta</th>
+                                    <th scope="col" class="govuk-table__header">Public beta</th>
+                                    <th scope="col" class="govuk-table__header">Live</th>
+                                </tr>
+                            </thead>
+                            <tbody class="govuk-table__body">
+                                {% for assessor in assessors%}
+                                    <tr class="govuk-table__row">
+                                        <th scope="row" class="govuk-table__header">
+                                            <a href="/admin/assessor/{{assessor.fields.ID}}">{{assessor.fields.Name}}</a>
+                                        </th>
+                                        <td class="govuk-table__cell">{{assessor.fields.Lead  | BoolToYesBlank}}</td>
+                                        <td class="govuk-table__cell">{{assessor.fields.AssessorRole}}</td>
+                                        <td class="govuk-table__cell">{{assessor.fields.CrossGovAssessor  | BoolToYesBlank}}</td>
+                                        <td class="govuk-table__cell">{{assessor.fields.Discovery}}</td>
+                                        <td class="govuk-table__cell">{{assessor.fields.Alpha}}</td>
+                                        <td class="govuk-table__cell">{{assessor.fields.PublicBeta}}</td>
+                                        <td class="govuk-table__cell">{{assessor.fields.PrivateBeta}}</td>
+                                        <td class="govuk-table__cell">{{assessor.fields.Live}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+         
+
+            {% block scripts %}
+                <script>
+                    document
+                        .getElementById('filterTable')
+                        .addEventListener('keyup', function () {
+                            let filter = this
+                                .value
+                                .toUpperCase();
+                            let tableBody = document.querySelector('.govuk-table__body');
+                            let rows = tableBody.querySelectorAll('.govuk-table__row');
+
+                            for (let i = 0; i < rows.length; i++) {
+                                let person = rows[i].querySelector('.govuk-table__header');
+
+                                if (person) {
+                                    let txtValue = person.textContent || person.innerText;
+                                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                        rows[i].style.display = "";
+                                        rows[i].setAttribute("aria-hidden", "false");
+                                    } else {
+                                        rows[i].style.display = "none";
+                                        rows[i].setAttribute("aria-hidden", "true");
+                                    }
+                                }
+                            }
+                        });
+                </script>
+
+            {% endblock %}
+
+        {% endblock %}

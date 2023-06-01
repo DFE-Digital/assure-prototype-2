@@ -325,6 +325,12 @@ app.get('/change-user/:id', (req, res) => {
         return res.redirect('/panel/dashboard')
     }
 
+    if (type === 'combined') {
+        req.session.data['role'] = 'combined'
+        req.session.data['s_username'] = 'Adam Dumbell'
+        return res.redirect('/combined/dashboard')
+    }
+
 })
 
 

@@ -4,17 +4,21 @@
  Does the team have a product owner or product manager? – {{serviceName}} 
 {% endblock %}
 
-{% set pageSection = "Book"%}
+{% set selectedNav = "book" %}
+{% block sidebar %}
+ {% include "partials/nav.html" %}
 
-{% block beforeContent %}
 
+{% endblock %}
 
+{% block masthead %}
 
-    <a href="/book/request/sro" class="govuk-back-link">Back</a>
+    <div class="main--inside-container">
+    <a href="/book/request/name-of-discovery" class="govuk-back-link">Back</a>
+    </div>
 
-    {% endblock%}
-
-    {% block content %}
+{% endblock %}
+{% block content %}
 
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">

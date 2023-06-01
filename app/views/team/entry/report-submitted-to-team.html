@@ -10,13 +10,12 @@
 {% block sidebar %}
 
     {% include "partials/nav.html" %}
-    {% include "admin/partials/_admin_nav.html" %}
 {% endblock %}
 
 {% block masthead %}
 
     <div class="main--inside-container">
-        {% include "admin/partials/_admin_entry_header.html" %}
+        {% include "team/partials/_admin_entry_header.html" %}
     </div>
 
 {% endblock %}
@@ -34,7 +33,7 @@
 
             <div class="govuk-grid-column-one-quarter">
 
-                {% include "admin/partials/_report_timeline.html" %}
+                {% include "team/partials/_report_timeline.html" %}
             </div>
             <div class="govuk-grid-column-three-quarters">
 

@@ -3,10 +3,7 @@
         <h2 class="govuk-summary-card__title">Your tasks</h2>
     </div>
     <div class="govuk-summary-card__content">
-        {% if entry.fields.Status === "Rejected" or entry.fields.Status === "Cancelled" %}
-            <p>No tasks</p>
-        {% else %}
-
+     
             <ul class=" app-task-list app-task-list__items govuk-!-margin-bottom-2" >
 
                 {% if entry.fields.Status === "In progress" %}
@@ -54,11 +51,17 @@
 
                 {% endif %}
             </ul>
-        {% endif %}
+  
 
         {% if entry.fields.Status === "Complete" %}
             <p>There are no outstanding tasks. <a href="/{{data.role}}/report/{{entry.fields.ID}}">View report</a>.</p>
         {% endif %}
+
+          {% if entry.fields.Status === "New" %}
+
+                   <p>You don't have any tasks yet. Waiting for the service assessment team to accept the request for an assessment.</p>
+
+                {% endif %}
 
     </div>
 </div>

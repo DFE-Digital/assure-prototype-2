@@ -1,0 +1,49 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = 'Edit details' %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+{% if action === "add-panel-member" or action === "remove-panel-member"%}
+{% set selectedNav = "panel" %}
+{% else %}
+{% set selectedNav = "summary" %}
+{% endif %}
+{% set showEntryNav = "true"%}
+
+{% block sidebar %}
+    {% include "partials/nav.html" %}
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+        {% include "panel/partials/_admin_entry_header.html" %}
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-one-half">
+
+                {% include "panel/entry/_" + action + ".html" %}
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script>
+        {% if action === "add-panel-member" %}
+            accessibleAutocomplete.enhanceSelectElement({selectElement: document.querySelector('.auto')})
+        {% endif %}
+    </script>
+{% endblock %}

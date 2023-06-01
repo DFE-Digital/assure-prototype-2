@@ -1,0 +1,35 @@
+<div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Upcoming assessments</h2>
+         <ul class="govuk-summary-card__actions">
+                            <li class="govuk-summary-card__action">
+                                <a class="govuk-link" href="/admin/entries/all">View all<span class="govuk-visually-hidden"> requests</span>
+                                </a>
+                            </li>
+                        </ul>
+    </div>
+    <div class="govuk-summary-card__content">
+
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">Service</th>
+                    <th scope="col" class="govuk-table__header">Type</th>
+                    <th scope="col" class="govuk-table__header">Phase</th>
+                    <th scope="col" class="govuk-table__header">Date</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                {% for record in active_records %}
+                <tr class="govuk-table__row">
+                    <th scope="row" class="govuk-table__header"><a href="/admin/entry/{{record.fields.ID}}" class="govuk-link">{{record.fields.Name}}</a></th>
+                    <td class="govuk-table__cell">{{record.fields.Type}}</td>
+                    <td class="govuk-table__cell">{{record.fields.Phase}}</td>
+                    <td class="govuk-table__cell">{{record.fields.ReviewDate | date('ddd D MMM YYYY')}} at {{record.fields.ReviewTime}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>

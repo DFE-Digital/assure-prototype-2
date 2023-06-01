@@ -19,6 +19,8 @@ const checkUser = (req, res, next) => {
         next();
     } else if (req.originalUrl === '/change-user/panel') {
         next();
+    } else if (req.originalUrl === '/change-user/combined') {
+        next();
     }
     else {
         if (req.session.data['role'] !== undefined) {
@@ -52,6 +54,9 @@ router.get("/admin/reporting/missing-code", admin_controller.g_code_needed);
 router.get("/admin/analysis", admin_controller.g_analysis);
 
 router.get("/admin/dashboard", admin_controller.g_dashboard);
+router.get("/admin/assessors", admin_controller.g_assessors);
+
+router.get("/admin/assessor/:id", admin_controller.g_assessor);
 router.get("/admin/entries/all", admin_controller.g_all_requests);
 router.get("/admin/entry/:id", admin_controller.g_get_request);
 router.get("/admin/history/:id", admin_controller.g_get_history);
@@ -82,8 +87,34 @@ router.post("/admin/:action/:id", admin_controller.p_action);
 
 router.post("/generic/volunteer/:id/:role", generic_controller.p_volunteer);
 
-router.get("/panel/report", panel_controller.g_report);
 
+/// Panel ///
+
+router.get("/panel/dashboard", panel_controller.g_dashboard);
+router.get("/panel/report", panel_controller.g_report);
+router.get("/panel/entry/:id", panel_controller.g_get_request);
+router.get("/panel/history/:id", panel_controller.g_get_history);
+router.get("/panel/panel/:id", panel_controller.g_get_panel);
+router.get("/panel/report/:id", panel_controller.g_report);
+router.get("/panel/report/outcome/:id", panel_controller.g_report_outcome);
+router.get("/panel/report/done-well/:id", panel_controller.g_report_donewell);
+router.get("/panel/report/improve/:id", panel_controller.g_report_improve);
+router.get("/panel/report/preview/:id", panel_controller.g_report_preview);
+router.get("/panel/report/report-submitted-to-sat/:id", panel_controller.g_report_sat1);
+router.get("/panel/report/report-submitted-to-team/:id", panel_controller.g_report_team);
+router.get("/panel/report/report-ready-to-publish/:id", panel_controller.g_report_publish);
+router.get("/panel/report/complete/:id", panel_controller.g_report_complete);
+
+
+
+router.get("/panel/:view/:id/:entry", panel_controller.g_extended_entry);
+router.get("/panel/submission/:id", panel_controller.g_submission);
+router.get("/panel/alpha/:id", panel_controller.g_alpha_report);
+router.get("/panel/:action/:id", panel_controller.g_action);
+
+router.post("/panel/submission/:id", panel_controller.p_submission);
+router.post("/panel/:view/:id/:entry", panel_controller.p_entry_post);
+router.post("/panel/:action/:id", panel_controller.p_action);
 
 /// REPORT routes ///
 
@@ -183,12 +214,24 @@ router.get("/team/dashboard", team_controller.g_dashboard);
 router.get("/team/team/:id", team_controller.g_get_team);
 router.get("/team/submission/:id", team_controller.g_get_submission);
 router.get("/team/entry/:id", team_controller.g_get_request);
-router.get("/team/:view/:id/:entry", team_controller.g_extended_entry);
-router.get("/team/:action/:id", team_controller.g_action);
+
+router.get("/team/report/:id", team_controller.g_report);
+router.get("/team/report/outcome/:id", team_controller.g_report_outcome);
+router.get("/team/report/done-well/:id", team_controller.g_report_donewell);
+router.get("/team/report/improve/:id", team_controller.g_report_improve);
+router.get("/team/report/preview/:id", team_controller.g_report_preview);
+router.get("/team/report/report-submitted-to-sat/:id", team_controller.g_report_sat1);
+router.get("/team/report/report-submitted-to-team/:id", team_controller.g_report_team);
+router.get("/team/report/report-ready-to-publish/:id", team_controller.g_report_publish);
+router.get("/team/report/complete/:id", team_controller.g_report_complete);
 
 router.post("/team/submission/:id", team_controller.p_submission);
 router.post("/team/:view/:id/:entry", team_controller.p_entry_post);
 router.post("/team/:action/:id", team_controller.p_action);
+
+router.get("/team/:view/:id/:entry", team_controller.g_extended_entry);
+router.get("/team/:action/:id", team_controller.g_action);
+
 
 
 module.exports = router

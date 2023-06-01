@@ -68,6 +68,12 @@ async function getPerson(id) {
     .firstPage()
 }
 
+async function getAssessor(id) {
+  return await base('Assessors')
+    .select({ maxRecords: 1, filterByFormula: `{ID} = "${id}"` })
+    .firstPage()
+}
+
 async function getArtefact(id) {
   return await base('Artefacts')
     .select({ maxRecords: 1, filterByFormula: `{ID} = "${id}"` })
@@ -515,6 +521,8 @@ exports.p_action = async function (req, res) {
       })
     ).catch((err) => console.log(err))
 
+    await wait(800);
+   return res.redirect(`/admin/entry/${id}`)
   }
 
   if (view === 'submitreport') {
@@ -602,7 +610,7 @@ exports.p_action = async function (req, res) {
 
 
     await wait(800);
-    return res.redirect(`/admin/report/report-submitted-to-team/${id}`)
+    return res.redirect(`/admin/report/preview/${id}`)
   }
 
   if (view === 'teamsubmit') {
@@ -1255,4 +1263,44 @@ exports.g_get_admin = function (req, res) {
         },
       ),
     )
+}
+
+
+
+exports.g_assessors = function (req, res) {
+ 
+
+  axios
+    .all([getAssessors("Assessors")
+    ])
+    .then(
+      axios.spread((assessors) => {
+       
+        res.render('admin/assessors/index', {
+          assessors
+        })
+      }),
+    )
+}
+
+
+exports.g_assessor = function(req, res){
+
+  var id = req.params.id;
+
+  console.log(id)
+
+  axios
+  .all([getAssessor(id), GetRequestsByType("assessorList")
+  ])
+  .then(
+    axios.spread((assessor, all) => {
+
+      assessor = assessor[0]
+     
+      res.render('admin/assessors/assessor', {
+        assessor, all
+      })
+    }),
+  )
 }

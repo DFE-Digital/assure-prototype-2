@@ -267,7 +267,7 @@ min-height: 52px;
     position: absolute;
     z-index: 2;
     left: -37px;
-    top: 5px;
+    top: 2px;
 }
 
 
@@ -334,7 +334,7 @@ min-height: 52px;
     position: absolute;
     z-index: 2;
     left: -37px;
-    top: 5px;
+    top: 2px;
 }
 
 .dfe-timeline ol>li.current:before {
@@ -733,3 +733,85 @@ $govuk-global-styles: true;
       }
     }
   }
+
+
+
+  
+  /// CARDS
+  /// 
+
+.dfe-grid-container {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 15px;
+  }
+  @include govuk-media-query($from: tablet){
+    .dfe-grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,  minmax(250px, 1fr));
+      grid-gap: 30px;
+  
+      &.dfe-grid-container--wider{
+          grid-template-columns: repeat(auto-fill,  minmax(350px, 1fr));
+      }
+    }
+  }
+  
+  
+  .dfe-card {
+    position: relative;
+    background-color: #f3f2f1;
+    border-bottom: 3px solid $color_dfe-blue;
+    max-width: 400px;
+  
+    &.dfe-card--blog-card{
+      border-radius: 12px 12px 0 0;
+      img{border-radius: 12px 12px 0 0;}
+    }
+  }
+  
+  @include govuk-media-query($until: tablet){
+    .dfe-card {max-width: 100%;}
+  }
+  
+  .dfe-card>picture, .dfe-card>picture>img{max-width: 100%;}
+  
+  
+  .dfe-card-container {
+    padding: 20px;
+  }
+  .dfe-card:hover, .dfe-card:focus-within {
+    background-color: $color_dfe-blue;
+  }
+  .dfe-card:hover a, .dfe-card:focus-within a,  .dfe-card:hover p, .dfe-card:focus-within p{
+    color: $color_dfe-white
+  }
+  
+  .dfe-card:focus-within   {
+    outline: 3px solid $color_dfe-yellow;
+  }
+  
+  .dfe-card-container .dfe-card-link--retake:focus, .dfe-card-container .dfe-card-link--header:focus {
+    color: $color_dfe-black;
+  }
+  .dfe-card-link--retake {
+    position: relative;
+    z-index: 2;
+  }
+  .dfe-card-link--header {
+    text-decoration: none;
+    color: $color_dfe-secondary-blue;;
+  }
+  .dfe-card-link--header:after {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .govuk-notification-banner__content>* {
+    box-sizing: border-box;
+    max-width: 80%
+}

@@ -2,21 +2,21 @@
 {% block pageTitle %}
 When would you like your discovery peer review? – {{serviceName}}
 {% endblock %}
-{% set pageSection = "Book"%}
-{% block beforeContent %}
-  <div class="govuk-phase-banner">
-    <p class="govuk-phase-banner__content">
-      <strong class="govuk-tag govuk-phase-banner__content__tag">
-      alpha
-      </strong>
-      <span class="govuk-phase-banner__text">
-      This is a prototype – it is not a real service.
-      </span>
-    </p>
-  </div>
-  <a href="/book/request/end-date" class="govuk-back-link">Back</a>
-  {% endblock%}
-  {% block content %}
+{% set selectedNav = "book" %}
+{% block sidebar %}
+ {% include "partials/nav.html" %}
+
+
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+    <a href="/book/request/name-of-discovery" class="govuk-back-link">Back</a>
+    </div>
+
+{% endblock %}
+{% block content %}
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
         {% if err or errcode%}

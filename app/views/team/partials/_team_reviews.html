@@ -1,46 +1,100 @@
 <div class="govuk-summary-card">
     <div class="govuk-summary-card__title-wrapper">
-        <h2 class="govuk-summary-card__title">Your drafts and requests</h2>
+        <h2 class="govuk-summary-card__title">Your assessments</h2>
         
     </div>
     <div class="govuk-summary-card__content">
 
+
+
         <table class="govuk-table">
+            <caption class="govuk-table__caption govuk-table__caption--m">Drafts</caption>
             <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
-                    <th scope="col" class="govuk-table__header">Service</th>
+                     <th scope="col" class="govuk-table__header govuk-!-width-two-thirds">Serv
                     <th scope="col" class="govuk-table__header">Phase</th>
-                    <th scope="col" class="govuk-table__header">Status</th>
                 </tr>
             </thead>
             <tbody class="govuk-table__body">
                   {% for request in drafts %}
                 {% if request.fields.Status === "Draft" %}
                 <tr class="govuk-table__row">
-                    <th scope="row" class="govuk-table__header"><a href="/book/draft/{{request.id}}">{{request.fields.Name}}</a></th>
+                    <th scope="row" class="govuk-table__header"><a href="/book/draft/{{request.id}}" class="govuk-link">{{request.fields.Name}}</a></th>
                     <td class="govuk-table__cell">{{request.fields.Phase}}</td>
-                    <td class="govuk-table__cell"><strong class="govuk-tag">Draft</strong></td>
                 </tr>  
                 {% endif%}
                 {% endfor %}
 
-                 {% for request in active %}
-                <tr class="govuk-table__row">
-                    <th scope="row" class="govuk-table__header"><a href="/{{data.role}}/entry/{{request.fields.ID}}">{{request.fields.Name}}</a></th>
-                    <td class="govuk-table__cell">{{request.fields.Phase}}</td>
-                    <td class="govuk-table__cell">{% if request.fields.Status === "New" %}
-<strong class="govuk-tag">{{request.fields.Status}}</strong>
-{% elseif request.fields.Status === "In progress"%}
-<strong class="govuk-tag govuk-tag--yellow">{{request.fields.Status}}</strong>
-{% elseif request.fields.Status === "Complete"%}
-<strong class="govuk-tag govuk-tag--green">{{request.fields.Status}}</strong>
-{% elseif request.fields.Status === "Cancelled" or request.fields.Status === "Rejected" %}
-<strong class="govuk-tag govuk-tag--red">{{request.fields.Status}}</strong>
-{% endif %}</td>
-                </tr>  
-                {% endfor %}
+               
+
+               
             </tbody>
         </table>
 
+         <table class="govuk-table">
+            <caption class="govuk-table__caption govuk-table__caption--m">Active</caption>
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header govuk-!-width-two-thirds">Service</th>
+                    <th scope="col" class="govuk-table__header">Phase</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+               
+
+                 {% for request in active %}
+                <tr class="govuk-table__row">
+                    <th scope="row" class="govuk-table__header"><a href="/{{data.role}}/entry/{{request.fields.ID}}"  class="govuk-link">{{request.fields.Name}}</a></th>
+                    <td class="govuk-table__cell">{{request.fields.Phase}}</td>
+                 
+                </tr>  
+                {% endfor %}
+
+               
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Completed assessments</h2>
+        
+    </div>
+    <div class="govuk-summary-card__content">
+{% if complete.length %}
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">Service</th>
+                    <th scope="col" class="govuk-table__header">Phase</th>
+                    <th scope="col" class="govuk-table__header">Outcome</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                
+
+                 {% for request in complete %}
+                <tr class="govuk-table__row">
+                    <th scope="row" class="govuk-table__header"><a href="/{{data.role}}/entry/{{request.fields.ID}}"  class="govuk-link">{{request.fields.Name}}</a></th>
+                    <td class="govuk-table__cell">{{request.fields.Phase}}</td>
+                    <td class="govuk-table__cell">{% if request.fields.Outcome === "Red" %}
+<strong class="govuk-tag govuk-tag--red">{{request.fields.Outcome}}</strong>
+{% elseif request.fields.Outcome === "Amber"%}
+<strong class="govuk-tag govuk-tag--amber">{{request.fields.Outcome}}</strong>
+{% elseif request.fields.Outcome === "Green"%}
+<strong class="govuk-tag govuk-tag--green">{{request.fields.Outcome}}</strong>
+{% endif %}</td>
+                </tr>  
+                {% endfor %}
+
+               
+            </tbody>
+        </table>
+        {% else%}
+<p>No completed assessments to show.</p>
+{% endif %}
     </div>
 </div>

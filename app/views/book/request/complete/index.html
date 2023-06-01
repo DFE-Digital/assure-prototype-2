@@ -4,13 +4,21 @@
 Request submitted – {{serviceName}}
 {% endblock %}
 
-{% set pageSection = "Book"%}
+{% set selectedNav = "book" %}
+{% block sidebar %}
+ {% include "partials/nav.html" %}
 
-{% block beforeContent %}
 
-    {% endblock%}
+{% endblock %}
 
-    {% block content %}
+{% block masthead %}
+
+    <div class="main--inside-container">
+    <a href="/book/request/name-of-discovery" class="govuk-back-link">Back</a>
+    </div>
+
+{% endblock %}
+{% block content %}
 
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
