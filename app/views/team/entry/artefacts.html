@@ -1,0 +1,83 @@
+
+
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = entry.fields.Name %}
+{% set selectedNav = "artefacts" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+{% set reportStep = 1%}
+{% set showEntryNav = "true"%}
+
+{% block sidebar %}
+
+    {% include "partials/nav.html" %}
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+        {% include "admin/partials/_admin_entry_header.html" %}
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+
+                <div class="govuk-grid-column-one-half">
+
+
+<h2 class="govuk-heading-l">Supporting artefacts</h2>
+
+<p>You can add links to supporting artefacts for your peer review. An artefact could be a lucid frame, document or a short slide deck.</p>
+<div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Artefacts</h2>
+        <ul class="govuk-summary-card__actions">
+            <li class="govuk-summary-card__action">
+                <a class="govuk-link" href="/team/add-artefact/{{entry.fields.ID}}">
+          Add artefact link<span class="govuk-visually-hidden"> to the review</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="govuk-summary-card__content">
+{% if not artefacts.length %}
+
+<p>No artefacts have been added.</p>
+
+{% else %}
+
+        <dl class="govuk-summary-list">
+
+            {% for a in artefacts %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key"> <a href="{{a.fields.URL}}" target="_blank">{{a.fields.Name}}</a></dt>
+                <dd class="govuk-summary-list__value">
+                 Added by {{a.fields.CreatedBy.name}}<br/>
+                <span class="govuk-body-s">On {{a.fields.Created | date('D MMM YYYY')}}</span>
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                      <a href="/team/remove-artefact/{{entry.fields.ID}}/{{a.fields.ID}}">Remove</a>
+                </dd>
+            </div>
+            {% endfor %}
+            
+        </dl>
+        {% endif%}
+    </div>
+</div>
+
+                </div>
+
+       
+        </div>
+
+    
+    </div>
+
+{% endblock %}

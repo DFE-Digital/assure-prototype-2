@@ -1,43 +1,29 @@
 <div class="govuk-summary-card">
     <div class="govuk-summary-card__title-wrapper">
         <h2 class="govuk-summary-card__title">Artefacts</h2>
-  {% if entry.fields.Status !== "Rejected" and entry.fields.Status !== "Cancelled"  and entry.fields.Status !== "Complete"%}
-         <ul class="govuk-summary-card__actions">
-            <li class="govuk-summary-card__action">
-                <a class="govuk-link" href="/{{data['role']}}/update-summary/{{entry.fields.ID}}">Manage artefacts <span class="govuk-visually-hidden"></span>
-                </a>
-            </li>
-        </ul>
-        {% endif %}
     </div>
     <div class="govuk-summary-card__content">
 
         {% if artefacts %}
 
-            <ul class="govuk-list govuk-list--spaced">
-                <li>
-                    <a href="">User journey map</a>
-                </li>
-                <li>
-                    <a href="">Assessment presentation</a>
-                </li>
-                <li>
-                    <a href="">Stakeholder map</a>
-                </li>
-                <li>
-                    <a href="">Discovery lucid board</a>
-                </li>
-                <li>
-                    <a href="">Team structure diagram</a>
-                </li>
-                <li>
-                    <a href="">Business case</a>
-                </li>
-            </ul>
+             <dl class="govuk-summary-list">
+
+            {% for a in artefacts %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key"> <a href="{{a.fields.URL}}" target="_blank">{{a.fields.Name}}</a></dt>
+                <dd class="govuk-summary-list__value">
+                 Added by {{a.fields.CreatedBy.name}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                      <a href="/{{data.role}}/remove-artefact/{{entry.fields.ID}}/{{a.fields.ID}}">Remove</a>
+                </dd>
+            </div>
+            {% endfor %}
+            
+        </dl>
 
         {% else %}
-
-    <p>The team have not linked any artefacts.</p>
+    <p>No artefacts have been added.</p>
 
         {% endif %}
 

@@ -166,6 +166,31 @@ var NotifyClient = require('notifications-node-client').NotifyClient,
         ),
       )
   }
+
+  exports.g_get_artefacts = async function (req, res) {
+
+    var id = req.params.id;
+  
+    await wait(500);
+  
+    console.log('Team - Get artefacts ' + id)
+    axios
+      .all([
+        getEntryByID(id), getArtefacts(id), getPanel(id), getTeam(id)
+      ])
+      .then(
+        axios.spread(
+          (
+            entry, artefacts, panel, team
+          ) => {
+            entry = entry[0]
+            return res.render('team/entry/artefacts', {
+              entry, artefacts, panel, team
+            })
+          },
+        ),
+      )
+  }
   
     
   exports.g_get_submission = async function (req, res) {
@@ -820,6 +845,50 @@ exports.p_action = async function (req, res) {
     return res.redirect('/team/team/' + id)
   }
 
+  if (view === 'add-artefact') {
+    base('Artefacts').create(
+      [
+        {
+          fields: {
+            Name: req.body.description,
+            ReviewID: parseInt(id),
+            URL: req.body.url,
+          },
+        },
+      ],
+      function (err, records) {
+        if (err) {
+          console.error(err)
+          return
+        }
+        records.forEach(function (record) {
+          console.log(record.get('ID'))
+        })
+      },
+    )
+    await wait(500)
+
+    req.session.data[view + '-updated'] = true
+    req.session.data['action'] = 'added'
+    return res.redirect('/team/artefacts/' + id)
+  }
+
+  if (view === 'remove-artefact') {
+    base('Artefacts').destroy([entry], function (err, records) {
+      if (err) {
+        console.error(err)
+        return
+      }
+      records.forEach(function (record) {
+        console.log(record.get('ID'))
+      })
+    })
+    await wait(500)
+    req.session.data[view + '-updated'] = true
+    req.session.data['action'] = 'removed'
+    return res.redirect('/manage/entry/files/' + id)
+  }
+
 
 
   await wait(800);
@@ -899,6 +968,20 @@ exports.p_entry_post = async function (req, res) {
     })
     await wait(500)
     return res.redirect('/team/team/' + id)
+  }
+
+  if (view === 'remove-artefact') {
+    base('Artefacts').destroy([entry], function (err, records) {
+      if (err) {
+        console.error(err)
+        return
+      }
+      records.forEach(function (record) {
+        console.log(record.get('ID'))
+      })
+    })
+    await wait(500)
+    return res.redirect('/team/artefacts/' + id)
   }
 
 }

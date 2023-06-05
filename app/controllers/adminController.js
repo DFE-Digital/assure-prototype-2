@@ -2,6 +2,7 @@
 require('dotenv').config()
 var Airtable = require('airtable')
 var axios = require('axios')
+var moment = require('moment')
 var base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
   process.env.AIRTABLE_BASE,
 )
@@ -21,9 +22,9 @@ async function GetRequestsByType(view) {
 
 async function GetAllPanels(view) {
   try {
-      return await base('ReviewPanel').select({ view: view }).all()
+    return await base('ReviewPanel').select({ view: view }).all()
   } catch (err) {
-      console.log(err)
+    console.log(err)
   }
 }
 
@@ -139,72 +140,72 @@ exports.g_dashboard = function (req, res) {
 exports.g_assessors_needed = function (req, res) {
 
   axios
-      .all([
-          GetRequestsByType('Active'), GetAllPanels('All')
-      ])
-      .then(
-          axios.spread(
-              (
-                  assessments, panels
-              ) => {
-                  return res.render(`admin/reporting/assessors-needed`, { assessments, panels })
-              },
-          ),
-      )
-}
-
-exports.g_analysis = function (req, res){
-  axios
-  .all([
-      GetRequestsByType('Red'),GetRequestsByType('Amber'),GetRequestsByType('Green')
-  ])
-  .then(
+    .all([
+      GetRequestsByType('Active'), GetAllPanels('All')
+    ])
+    .then(
       axios.spread(
-          (
-              red,amber,green
-          ) => {
-              return res.render(`admin/analysis/index`, { red,amber,green })
-          },
+        (
+          assessments, panels
+        ) => {
+          return res.render(`admin/reporting/assessors-needed`, { assessments, panels })
+        },
       ),
-  )
+    )
 }
 
-exports.g_send_volunteer_email = function (req, res){
- 
+exports.g_analysis = function (req, res) {
+  axios
+    .all([
+      GetRequestsByType('Red'), GetRequestsByType('Amber'), GetRequestsByType('Green')
+    ])
+    .then(
+      axios.spread(
+        (
+          red, amber, green
+        ) => {
+          return res.render(`admin/analysis/index`, { red, amber, green })
+        },
+      ),
+    )
+}
+
+exports.g_send_volunteer_email = function (req, res) {
+
   return res.render(`admin/reporting/send-assessor-request`)
-            
+
 }
 
-exports.g_assessor_activity = function (req, res){
+exports.g_assessor_activity = function (req, res) {
 
   axios
-  .all([
+    .all([
       getAssessors('Assessors')
-  ])
-  .then(
+    ])
+    .then(
       axios.spread(
-          (
-              assessors
-          ) => {
-            return res.render(`admin/reporting/assessor-activity`,{assessors})
-          },
+        (
+          assessors
+        ) => {
+          return res.render(`admin/reporting/assessor-activity`, { assessors })
+        },
       ),
-  )
- 
-  
-            
+    )
+
+
+
 }
 
-exports.p_send_volunteer_email = function (req, res){
- 
+exports.p_send_volunteer_email = function (req, res) {
+
   return res.redirect(`/admin/reporting/send-assessor-request-complete`)
-            
+
 }
 
-exports.g_send_volunteer_email_done = function (req, res){
- 
+exports.g_send_volunteer_email_done = function (req, res) {
+
   return res.render(`admin/reporting/send-assessor-request-complete`)
-            
+
 }
 
 
@@ -214,18 +215,18 @@ exports.g_code_needed = function (req, res) {
   console.log('get missing codes')
 
   axios
-      .all([
-          GetRequestsByType('MissingCodes')
-      ])
-      .then(
-          axios.spread(
-              (
-                  assessments
-              ) => {
-                  return res.render(`admin/reporting/missing-code`, { assessments })
-              },
-          ),
-      )
+    .all([
+      GetRequestsByType('MissingCodes')
+    ])
+    .then(
+      axios.spread(
+        (
+          assessments
+        ) => {
+          return res.render(`admin/reporting/missing-code`, { assessments })
+        },
+      ),
+    )
 }
 
 
@@ -299,47 +300,47 @@ exports.g_action = function (req, res) {
     )
 }
 
-exports.p_submission = async function(req,res){
- 
+exports.p_submission = async function (req, res) {
+
 
   var id = req.params.id;
   var entryid = req.body.entryid;
 
-    if (req.body.action === 'accept') {
-      // Update to accepted and redirect to the task list
+  if (req.body.action === 'accept') {
+    // Update to accepted and redirect to the task list
 
-      base('Reviews').update(
-        [
-          {
-            id: entryid,
-            fields: {
-              Status: 'In progress',
-              RejectedReason: null,
-              RejectedDate: null,
-              SubStatus: 'Pre-assessment'
-            },
+    base('Reviews').update(
+      [
+        {
+          id: entryid,
+          fields: {
+            Status: 'In progress',
+            RejectedReason: null,
+            RejectedDate: null,
+            SubStatus: 'Pre-assessment'
           },
-        ],
-        function (err, records) {
-          if (err) {
-            console.error(err)
-            return
-          }
-          records.forEach(function (record) {
-            //console.log(record.get('Status'))
-          })
         },
-      )
-  
-      return res.redirect(`/admin/entry/${id}`)
-    }
+      ],
+      function (err, records) {
+        if (err) {
+          console.error(err)
+          return
+        }
+        records.forEach(function (record) {
+          //console.log(record.get('Status'))
+        })
+      },
+    )
 
-    if (req.body.action === 'reject_reason') {
-      // redirect to the reject reason page
+    return res.redirect(`/admin/entry/${id}`)
+  }
 
-      return res.redirect(`/admin/reject_reason/${id}`)
-    }
-  
+  if (req.body.action === 'reject_reason') {
+    // redirect to the reject reason page
+
+    return res.redirect(`/admin/reject_reason/${id}`)
+  }
+
 }
 
 exports.p_action = async function (req, res) {
@@ -464,7 +465,7 @@ exports.p_action = async function (req, res) {
   }
 
   if (view === 'add-panel-member') {
-    
+
     axios.all([getEntryByID(id)]).then(
       axios.spread((entry) => {
         //console.log(entry)
@@ -476,6 +477,7 @@ exports.p_action = async function (req, res) {
           roleinteam = [roleinteam];
         }
 
+        console.log(roleinteam)
 
         base('ReviewPanel').create(
           [
@@ -494,39 +496,52 @@ exports.p_action = async function (req, res) {
             }
             records.forEach(function (record) {
 
-              // notify
-              // .sendEmail(
-              //   process.env.added_to_discovery_panel_review,
-              //   process.env.recipient,
-              //   {
-              //     personalisation: {
-              //       nameOfDiscovery: serviceName,
-              //       role: record.fields.Role,
-              //       id: entry.fields.ID,
-              //       serviceURL: process.env.serviceURL,
-              //       date: moment(entry.fields.ReviewDate).format('dddd D MMM YYYY'),
-              //       time: entry.fields.ReviewTime
-              //     },
-              //   },
-              // )
-              // .then((response) => {
-              //   //console.log(response)
-              // })
-              // .catch((err) => console.log(err))          
-
-
             })
           },
         )
+
+        let roleStrings;
+
+        if (roleinteam.length === 1) {
+          roleStrings = roleinteam[0];
+        } else {
+          const lastItem = roleinteam.pop();
+          roleStrings = roleinteam.join(', ') + ' and ' + lastItem;
+        }
+
+        notify
+          .sendEmail(
+            process.env.added_to_discovery_panel_review,
+            process.env.recipient,
+            {
+              personalisation: {
+                nameOfDiscovery: serviceName,
+                role: roleStrings,
+                id: entry[0].fields.ID,
+                serviceURL: process.env.serviceURL,
+                date: moment(entry[0].fields.ReviewDate).format('dddd D MMM YYYY'),
+                time: entry[0].fields.ReviewTime
+              },
+            },
+          )
+          .then((response) => {
+            //console.log(response)
+          })
+          .catch((err) => console.log(err))
+
+
+
       })
     ).catch((err) => console.log(err))
 
+
+
     await wait(800);
-   return res.redirect(`/admin/entry/${id}`)
+    return res.redirect(`/admin/entry/${id}`)
   }
 
   if (view === 'submitreport') {
-    var now = new Date() 
+    var now = new Date()
     base('Reviews').update(
       [
         {
@@ -545,23 +560,23 @@ exports.p_action = async function (req, res) {
         records.forEach(function (record) {
           console.log(record.get('Status'))
 
-        
+
           notify
-          .sendEmail(
-            process.env.peer_review_report_completed,
-            process.env.recipient,
-            {
-              personalisation: {
-                nameOfDiscovery: record.fields.Name,
-                id: record.fields.ID,
-                serviceURL: process.env.serviceURL,
+            .sendEmail(
+              process.env.peer_review_report_completed,
+              process.env.recipient,
+              {
+                personalisation: {
+                  nameOfDiscovery: record.fields.Name,
+                  id: record.fields.ID,
+                  serviceURL: process.env.serviceURL,
+                },
               },
-            },
-          )
-          .then((response) => {
-            console.log(response.data)
-          })
-          .catch((err) => console.log(err))
+            )
+            .then((response) => {
+              console.log(response.data)
+            })
+            .catch((err) => console.log(err))
         })
       },
     )
@@ -676,22 +691,22 @@ exports.p_action = async function (req, res) {
         }
         records.forEach(function (record) {
 
-            notify
-          .sendEmail(
-            process.env.finalEmail,
-            process.env.recipient,
-            {
-              personalisation: {
-                nameOfDiscovery: record.fields.Name,
-                serviceURL: process.env.serviceURL,
-                id: record.fields.ID
+          notify
+            .sendEmail(
+              process.env.finalEmail,
+              process.env.recipient,
+              {
+                personalisation: {
+                  nameOfDiscovery: record.fields.Name,
+                  serviceURL: process.env.serviceURL,
+                  id: record.fields.ID
+                },
               },
-            },
-          )
-          .then((response) => {
-            //console.log(response)
-          })
-          .catch((err) => console.log(err))
+            )
+            .then((response) => {
+              //console.log(response)
+            })
+            .catch((err) => console.log(err))
 
         })
       },
@@ -853,7 +868,7 @@ exports.p_action = async function (req, res) {
   }
 
   await wait(800);
-   res.redirect(`/admin/submission/${id}`)
+  res.redirect(`/admin/submission/${id}`)
 
 }
 
@@ -917,7 +932,7 @@ exports.p_entry_post = async function (req, res) {
     return res.redirect('/admin/entry/' + id)
   }
 
-  
+
 
 }
 
@@ -938,22 +953,22 @@ exports.g_report = function (req, res) {
         ) => {
           entry = entry[0]
 
-          if(entry.fields.SubStatus === 'Published'){
+          if (entry.fields.SubStatus === 'Published') {
             return res.render(`admin/entry/published-report`, {
               entry, assessors, panel
             })
           }
-          else if(entry.fields.Status === 'Rejected' || entry.fields.Status === 'Cancelled' || entry.fields.Status === 'New' ){
+          else if (entry.fields.Status === 'Rejected' || entry.fields.Status === 'Cancelled' || entry.fields.Status === 'New') {
             return res.render(`admin/entry/report-none`, {
               entry, assessors, panel
             })
-          }else{
+          } else {
             return res.render(`admin/entry/report`, {
               entry, assessors, panel
             })
           }
-        
-        
+
+
         },
       ),
     )
@@ -976,13 +991,13 @@ exports.g_report_preview = function (req, res) {
         ) => {
           entry = entry[0]
 
-        
-            return res.render(`admin/entry/preview`, {
-              entry, assessors, panel
-            })
-          
-        
-        
+
+          return res.render(`admin/entry/preview`, {
+            entry, assessors, panel
+          })
+
+
+
         },
       ),
     )
@@ -1005,13 +1020,13 @@ exports.g_report_sat1 = function (req, res) {
         ) => {
           entry = entry[0]
 
-        
-            return res.render(`admin/entry/report-submitted-to-sat`, {
-              entry, assessors, panel
-            })
-          
-        
-        
+
+          return res.render(`admin/entry/report-submitted-to-sat`, {
+            entry, assessors, panel
+          })
+
+
+
         },
       ),
     )
@@ -1034,13 +1049,13 @@ exports.g_report_team = function (req, res) {
         ) => {
           entry = entry[0]
 
-        
-            return res.render(`admin/entry/report-submitted-to-team`, {
-              entry, assessors, panel
-            })
-          
-        
-        
+
+          return res.render(`admin/entry/report-submitted-to-team`, {
+            entry, assessors, panel
+          })
+
+
+
         },
       ),
     )
@@ -1063,13 +1078,13 @@ exports.g_report_publish = function (req, res) {
         ) => {
           entry = entry[0]
 
-        
-            return res.render(`admin/entry/report-ready-to-publish`, {
-              entry, assessors, panel
-            })
-          
-        
-        
+
+          return res.render(`admin/entry/report-ready-to-publish`, {
+            entry, assessors, panel
+          })
+
+
+
         },
       ),
     )
@@ -1268,14 +1283,14 @@ exports.g_get_admin = function (req, res) {
 
 
 exports.g_assessors = function (req, res) {
- 
+
 
   axios
     .all([getAssessors("Assessors")
     ])
     .then(
       axios.spread((assessors) => {
-       
+
         res.render('admin/assessors/index', {
           assessors
         })
@@ -1284,23 +1299,23 @@ exports.g_assessors = function (req, res) {
 }
 
 
-exports.g_assessor = function(req, res){
+exports.g_assessor = function (req, res) {
 
   var id = req.params.id;
 
   console.log(id)
 
   axios
-  .all([getAssessor(id), GetRequestsByType("assessorList")
-  ])
-  .then(
-    axios.spread((assessor, all) => {
+    .all([getAssessor(id), GetRequestsByType("assessorList")
+    ])
+    .then(
+      axios.spread((assessor, all) => {
 
-      assessor = assessor[0]
-     
-      res.render('admin/assessors/assessor', {
-        assessor, all
-      })
-    }),
-  )
+        assessor = assessor[0]
+
+        res.render('admin/assessors/assessor', {
+          assessor, all
+        })
+      }),
+    )
 }

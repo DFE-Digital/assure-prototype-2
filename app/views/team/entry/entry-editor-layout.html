@@ -5,9 +5,12 @@
 {% set backlog_issue_id = "" %}
 {% if action === "add-team-member" or action === "remove-team-member"%}
 {% set selectedNav = "team" %}
+{% elseif action === "add-artefact" or action === "remove-artefact"%}
+{% set selectedNav = "artefacts" %}
 {% else %}
 {% set selectedNav = "summary" %}
 {% endif %}
+
 {% set showEntryNav = "true"%}
 
 {% block sidebar %}

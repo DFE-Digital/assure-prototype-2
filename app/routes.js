@@ -36,6 +36,10 @@ const checkUser = (req, res, next) => {
 
 router.use(checkUser);
 
+router.get("/", function(req, res){
+res.redirect("/change-user/admin")
+})
+
 
 router.get("/generic/assessments", generic_controller.g_assessors_needed);
 router.get("/generic/volunteer/:id/:role", generic_controller.g_volunteer);
@@ -212,6 +216,7 @@ router.post("/book/request/delivery/", book_controller.post_delivery);
 // Team
 router.get("/team/dashboard", team_controller.g_dashboard);
 router.get("/team/team/:id", team_controller.g_get_team);
+router.get("/team/artefacts/:id", team_controller.g_get_artefacts);
 router.get("/team/submission/:id", team_controller.g_get_submission);
 router.get("/team/entry/:id", team_controller.g_get_request);
 
