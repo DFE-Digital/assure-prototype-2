@@ -1,6 +1,14 @@
 <div class="govuk-summary-card">
     <div class="govuk-summary-card__title-wrapper">
         <h2 class="govuk-summary-card__title">Artefacts</h2>
+            {% if entry.fields.Status !== "Rejected" and entry.fields.Status !== "Cancelled"  and entry.fields.Status !== "Complete"%}
+         <ul class="govuk-summary-card__actions">
+            <li class="govuk-summary-card__action">
+                <a class="govuk-link" href="/{{data.role}}/artefacts/{{entry.fields.ID}}">Manage artefacts <span class="govuk-visually-hidden"></span>
+                </a>
+            </li>
+        </ul>
+        {% endif %}
     </div>
     <div class="govuk-summary-card__content">
 
@@ -12,11 +20,10 @@
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key"> <a href="{{a.fields.URL}}" target="_blank">{{a.fields.Name}}</a></dt>
                 <dd class="govuk-summary-list__value">
-                 Added by {{a.fields.CreatedBy.name}}
+                 Added by {{a.fields.CreatedBy.name}}<br/>
+                <span class="govuk-body-s">On {{a.fields.Created | date('D MMM YYYY')}}</span>
                 </dd>
-                <dd class="govuk-summary-list__actions">
-                      <a href="/{{data.role}}/remove-artefact/{{entry.fields.ID}}/{{a.fields.ID}}">Remove</a>
-                </dd>
+               
             </div>
             {% endfor %}
             
