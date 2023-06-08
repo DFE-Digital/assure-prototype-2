@@ -3,6 +3,20 @@
     <head>
         <link rel="stylesheet" type="text/css" href="/assets/css/styles.min.css">
     </head>
+    <script>
+(function (m, a, z, e) {
+  var s, t;
+  try {
+    t = m.sessionStorage.getItem('maze-us');
+  } catch (err) {}
+
+  if (!t) {
+    t = new Date().getTime();
+    try {
+      m.sessionStorage.setItem('maze-us', t);
+    } catch (err) {}
+  }
+
     <body class="dfe-app-layout">
           <script>
                 document.body.className = (
