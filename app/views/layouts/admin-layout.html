@@ -105,20 +105,15 @@
 
           <main class="main">
 
-            <div class="app-bar">
-              <div class="main--inside-container">
+          
 
-                {% block appBar %}{% endblock %}
-              </div>
-
-            </div>
-
-         
+         {% if showmasthead === "true" %}
               <div class="main--masthead">
 
                 {% block masthead %}{% endblock %}
 
               </div>
+              {% endif %}
           
 
             <div class="pre--content">

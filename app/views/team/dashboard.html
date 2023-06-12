@@ -5,19 +5,15 @@
 {% set setSelectedSideNav = "" %}
 {% set backlog_issue_id = "" %}
 
+{% set showmastehead = "" %}
+
 {% block sidebar %}
 
    {% include "partials/nav.html" %}
 
 {% endblock %}
 
-{% block masthead %}
 
-    <div class="main--inside-container">
-        <h1 class="govuk-heading-l ">Dashboard</h1>
-    </div>
-
-{% endblock %}
 
 {% block content %}
 
@@ -25,7 +21,7 @@
 
         <div class="govuk-grid-row">
 
-            <div class="govuk-grid-column-full"></div>
+            <div class="govuk-grid-column-full">     <h1 class="govuk-heading-l ">Your dashboard</h1></div>
         </div>
 
         <div class="govuk-grid-row">

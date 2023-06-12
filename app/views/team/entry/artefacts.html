@@ -8,6 +8,7 @@
 {% set backlog_issue_id = "" %}
 {% set reportStep = 1%}
 {% set showEntryNav = "true"%}
+{% set showmasthead = "true" %}
 
 {% block sidebar %}
 
@@ -28,7 +29,7 @@
 
         <div class="govuk-grid-row">
 
-                <div class="govuk-grid-column-one-half">
+                <div class="govuk-grid-column-two-thirds">
 
 
 <h2 class="govuk-heading-l">Supporting artefacts</h2>
@@ -51,23 +52,30 @@
 <p>No artefacts have been added.</p>
 
 {% else %}
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Artefact</th>
+      <th scope="col" class="govuk-table__header">Added by</th>
+      <th scope="col" class="govuk-table__header">Date added</th>
+      <th scope="col" class="govuk-table__header">Action</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+   {% for a in artefacts %}
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header"><a class="govuk-link" href="{{a.fields.URL}}" target="_blank">{{a.fields.Name}}</a></th>
+      <td class="govuk-table__cell">{{a.fields.CreatedBy.name}}</td>
+       <td class="govuk-table__cell">{{a.fields.Created | date('D MMM YYYY')}}</td>
+      <td class="govuk-table__cell"> <a class="govuk-link"  href="/team/remove-artefact/{{entry.fields.ID}}/{{a.fields.ID}}">Remove</a></td>
+    </tr>
+        {% endfor %}
+  </tbody>
+</table>
 
-        <dl class="govuk-summary-list">
 
-            {% for a in artefacts %}
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key"> <a href="{{a.fields.URL}}" target="_blank">{{a.fields.Name}}</a></dt>
-                <dd class="govuk-summary-list__value">
-                 Added by {{a.fields.CreatedBy.name}}<br/>
-                <span class="govuk-body-s">On {{a.fields.Created | date('D MMM YYYY')}}</span>
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                      <a href="/team/remove-artefact/{{entry.fields.ID}}/{{a.fields.ID}}">Remove</a>
-                </dd>
-            </div>
-            {% endfor %}
-            
-        </dl>
+
+
         {% endif%}
     </div>
 </div>

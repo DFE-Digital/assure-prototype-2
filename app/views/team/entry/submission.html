@@ -6,6 +6,8 @@
 {% set backlog_issue_id = "" %}
 {% set reportStep = 1%}
 {% set showEntryNav = "true"%}
+
+{% set showmasthead = "true" %}
 {% block sidebar %}
 {% include "partials/nav.html" %}
 {% include "admin/partials/_admin_nav.html" %}
@@ -22,7 +24,7 @@
 
          <h2 class="govuk-heading-l">Submission</h2>
         </div>
-      <div class="govuk-grid-column-one-half">
+        <div class="govuk-grid-column-two-thirds">
   {% if entry.fields.Status === "Rejected" or entry.fields.Status === "Cancelled" %}
          <div class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">

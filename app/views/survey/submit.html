@@ -1,0 +1,84 @@
+{% extends "layouts/main.html" %}
+
+{% block sidebar %}
+    {% set pageName = "Check your answers before submitting" %}
+    {% set selectedNav = "survey" %}
+    {% set setSelectedSideNav = "" %}
+    {% set backlog_issue_id = "" %}
+    {% set showMasthead = "true" %}
+
+    {% include "partials/nav.html" %}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            <h1 class="govuk-heading-l">Check your answers before submitting</h1>
+
+            <form action="/survey/submit/{{entry.fields.ID}}" method="post">
+
+                <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+      How did you find the organisation of your service assessment? 
+    </dt>
+                        <dd class="govuk-summary-list__value">
+                            <p> {{data['q1'] | surveyResponse}}</p>
+                         
+                            {% if data['q1comments'] %}
+                                   <p> {{data['q1comments']}}</p>
+                            {% endif %}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="/survey/{{entry.fields.ID}}/q1">
+        Change<span class="govuk-visually-hidden"> question 1</span>
+                            </a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+      What did you think of the assessment on the day? 
+    </dt>
+                        <dd class="govuk-summary-list__value">
+                            <p> {{data['q2'] | surveyResponse}}</p>
+                            
+                            {% if data['q2comments'] %}
+                               <p> {{data['q2comments']}}</p>
+                            {% endif %}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="/survey/{{entry.fields.ID}}/q2">
+        Change<span class="govuk-visually-hidden"> question 2</span>
+                            </a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+      How did you find using the service to manage the service assessment? 
+    </dt>
+                        <dd class="govuk-summary-list__value">
+                            <p> {{data['q3'] | surveyResponse}}</p>
+                            
+                            {% if data['q3comments'] %}
+                              <p> {{data['q3comments']}}</p>
+                            {% endif %}
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="/survey/{{entry.fields.ID}}/q3">
+        Change<span class="govuk-visually-hidden"> question 3</span>
+                            </a>
+                        </dd>
+                    </div>
+                </dl>
+
+                <button class="govuk-button" data-module="govuk-button">Submit survey</button>
+
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}

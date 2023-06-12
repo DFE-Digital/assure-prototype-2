@@ -82,6 +82,16 @@ nunjuckEnv.addFilter('date', (date, format) => {
     return dayjs(date).format(format);
 });
 
+nunjuckEnv.addFilter('surveyResponse', function(str) {
+    
+    if (str === "3")
+    return "Good"
+    else if (str === "2")
+    return "OK"
+    else (str === "1")
+    return "Not good"
+});
+
 nunjuckEnv.addFilter('fromNow', (date) => {
     return dayjs(date).fromNow();
 });

@@ -12,14 +12,32 @@
     </div>
     <div class="govuk-summary-card__content">
         {% if team.length %}
-            <dl class="govuk-summary-list">
-                {% for person in team %}
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">{{person.fields.Name}}</dt>
-                    <dd class="govuk-summary-list__value">{{person.fields.Role}}</dd>
-                </div>
-                {% endfor %}
-            </dl>
+
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Person</th>
+      <th scope="col" class="govuk-table__header">Role</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+     {% for person in team %}
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">{{person.fields.Name}}</th>
+      <td class="govuk-table__cell">{{person.fields.Role}}</td>
+    </tr>
+        {% endfor %}
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+          
         {% else %}
             <p>The team members have not been added.</p>
         {% endif %}

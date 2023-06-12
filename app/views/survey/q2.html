@@ -1,0 +1,91 @@
+{% extends "layouts/main.html" %}
+
+{% block sidebar %}
+    {%- set pageName = "What did you think of the assessment on the day?" %}
+    {% set selectedNav = "survey" %}
+    {% set setSelectedSideNav = "" %}
+    {% set backlog_issue_id = "" %}
+    {% set showMasthead = "true" %}
+
+    {% include "partials/nav.html" %}
+
+{% endblock %}
+
+{% block precontent %}
+    <div class="main--inside-container">
+        <a href="/survey/{{entry.fields.ID}}/q1" class="govuk-back-link">Back</a>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            <form action="/survey/{{id}}/q2" method="post">
+
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" aria-describedby="q2-hint">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                            <span class="govuk-caption-xl">Question 2 of 3</span>
+                            <h1 class="govuk-fieldset__heading">What did you think of the assessment on the day? 
+      </h1>
+                        </legend>
+                        <div id="q2-hint" class="govuk-hint">
+                            {% if data.role === "team"%}
+    This includes time keeping, discussion between the panel and team, and questions you might have been asked.
+    {% else%}
+This includes time keeping, discussion between the team and panel, and getting access to artefacts and details of who is taking part.
+    {% endif %}
+    </div>
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="q2-1" name="q2" type="radio" value="3" {% if data['q2'] === "3"%}checked{% endif%}>
+                                <label class="govuk-label govuk-radios__label" for="q2-1">
+          Great
+        </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="q2-2" name="q2" type="radio" value="2" {% if data['q2'] === "2"%}checked{% endif%}>
+                                <label class="govuk-label govuk-radios__label" for="q2-2">
+          Ok
+        </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="q2-3" name="q2" type="radio" value="1" {% if data['q2'] === "1"%}checked{% endif%}>
+                                <label class="govuk-label govuk-radios__label" for="q2-3">
+          Not good
+        </label>
+                            </div>
+
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="500">
+                    <div class="govuk-form-group">
+                        <h2 class="govuk-label-wrapper">
+                            <label class="govuk-label govuk-label--m" for="q2comments">
+     Add any additional information you think might help to improve the running of 		assessments. 
+      </label>
+                        </h2>
+                        <div id="q2comments-hint" class="govuk-hint">
+      This is optional
+    </div>
+                        <textarea class="govuk-textarea govuk-js-character-count" id="q2comments" name="q2comments" rows="5" aria-describedby="q2comments-info q2comments-hint">{{data['q2comments']}}</textarea>
+                    </div>
+                    <div id="q2comments-info" class="govuk-hint govuk-character-count__message">
+    You can enter up to 500 characters
+  </div>
+                </div>
+
+                <button class="govuk-button" data-module="govuk-button">
+  Save and continue
+</button>
+
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}

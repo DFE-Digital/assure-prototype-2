@@ -5,36 +5,26 @@
 {% set setSelectedSideNav = "" %}
 {% set backlog_issue_id = "" %}
 
-{% set showMasthead = "true" %}
+{% set showmasthead = "" %}
 {% block sidebar %}
 
- {% include "partials/nav.html" %}
+    {% include "partials/nav.html" %}
 
 {% endblock %}
 
-{% if showMasthead === "true"%}
 
-{% block masthead %}
-
-      <div class="main--inside-container">
-        <h1 class="govuk-heading-l">Dashboard</h1>
-    </div>
-
-{% endblock %}
- {% endif %}
 
 {% block content %}
 
-
     <div class="main--inside-container">
 
-        <div class="govuk-grid-row"> 
-            {% if showMasthead !== "true"%}<div class="govuk-grid-column-full">
+       
+        <div class="govuk-grid-row">
 
-     <h1 class="govuk-heading-l ">Dashboard</h1>
+            <div class="govuk-grid-column-full">
+                <h1 class="govuk-heading-l ">Your dashboard</h1>
+            </div>
         </div>
-        {% endif %}
-         </div>
 
         <div class="govuk-grid-row">
 
@@ -45,9 +35,7 @@
 
                     <div class="govuk-grid-column-full">
 
-                       
-
-                          {% include "admin/partials/_upcoming.html" %}
+                        {% include "admin/partials/_upcoming.html" %}
                     </div>
 
                     <div class="govuk-grid-column-one-half"></div>
@@ -58,7 +46,7 @@
 
             <div class="govuk-grid-column-one-third">
 
-                 <div class="chevron-card">
+                <div class="chevron-card">
                     <div class="chevron-card__wrapper">
                         <h3 class="gem-c-heading govuk-heading-s govuk-!-margin-bottom-2">
                             <a class="govuk-link chevron-card__link"  href="/admin/assessors">Manage assessors</a>
@@ -68,19 +56,15 @@
                     </div>
                 </div>
 
-                  
-    <div class="chevron-card">
+                <div class="chevron-card">
                     <div class="chevron-card__wrapper">
                         <h3 class="gem-c-heading govuk-heading-s govuk-!-margin-bottom-2">
-                            <a class="govuk-link chevron-card__link"  href="/generic/assessments">Assessments</a>
+                            <a class="govuk-link chevron-card__link"  href="/admin/reporting/assessors-needed">Assessments</a>
                         </h3>
 
                         <p class="govuk-body chevron-card__description">View all upcoming assessments that need assessors and send requests for panel volunteers.</p>
                     </div>
                 </div>
-            
-
-               
 
             </div>
 

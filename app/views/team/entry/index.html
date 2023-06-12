@@ -5,6 +5,7 @@
 {% set setSelectedSideNav = "" %}
 {% set backlog_issue_id = "" %}
 {% set showEntryNav = "true"%}
+{% set showmasthead = "true" %}
 
 {% block sidebar %}
 
@@ -25,30 +26,11 @@
     <div class="main--inside-container">
 
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full">
-
-                <h2 class="govuk-heading-l">Summary</h2>
-            </div>
-        </div>
-
-        <div class="govuk-grid-row">
 
             <div class="govuk-grid-column-two-thirds">
                 {% include "team/partials/_tasks.html" %}
-
-                <div class="govuk-grid-row">
-
-                    <div class="govuk-grid-column-one-half">
-
-                        {% include "team/partials/_team.html" %}
-
-                    </div>
-
-                    <div class="govuk-grid-column-one-half">
-                        {% include "team/partials/_artefacts.html" %}
-                    </div>
-
-                </div>
+                {% include "team/partials/_team.html" %}
+                {% include "team/partials/_artefacts.html" %}
 
             </div>
 

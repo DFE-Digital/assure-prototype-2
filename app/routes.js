@@ -8,6 +8,7 @@ var panel_controller = require('./controllers/panelController.js')
 var team_controller = require('./controllers/teamController.js')
 var book_controller = require('./controllers/bookController.js')
 var report_controller = require('./controllers/reportController.js')
+var survey_controller = require('./controllers/surveyController.js')
 
 const checkUser = (req, res, next) => {
 
@@ -236,6 +237,19 @@ router.post("/team/:action/:id", team_controller.p_action);
 
 router.get("/team/:view/:id/:entry", team_controller.g_extended_entry);
 router.get("/team/:action/:id", team_controller.g_action);
+
+
+// Survey
+
+router.get('/survey/submitted', survey_controller.get_submitted);
+router.post('/survey/submit/:id', survey_controller.post_submit_survey);
+router.get('/survey/submit/:id', survey_controller.get_survey_submit);
+
+router.get('/survey/:id', survey_controller.get_start);
+
+
+router.get('/survey/:id/q:q', survey_controller.get_question);
+router.post('/survey/:id/q:q', survey_controller.post_question);
 
 
 

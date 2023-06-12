@@ -4,6 +4,7 @@
 {% set selectedNav = "reporting" %}
 {% set setSelectedSideNav = "reporting" %}
 {% set backlog_issue_id = "" %}
+{% set showmasthead = "true" %}
 
 {% block sidebar %}
 
@@ -16,20 +17,8 @@
     <div class="main--inside-container">
 
         <div class="flex-bar">
-            <div class="left">
-          <div class="govuk-breadcrumbs">
-  <ol class="govuk-breadcrumbs__list">
-    <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/admin/dashboard">Dashboard</a>
-    </li>
-    <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/admin/reporting">Reporting</a>
-    </li>
-    <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/admin/reporting/assessors-needed">Assessors needed</a>
-    </li>
-  </ol>
-</div>
+             <div class="left">
+ <a href="/admin/reporting/assessors-needed" class="govuk-back-link">Back</a>
             </div><div class="right">
                
             </div>

@@ -4,43 +4,24 @@
 {% set selectedNav = "surveys" %}
 {% set setSelectedSideNav = "" %}
 {% set backlog_issue_id = "" %}
-
-{% set showMasthead = "true" %}
+{% set showmasthead = "" %}
 {% block sidebar %}
 
     {% include "partials/nav.html" %}
 
 {% endblock %}
 
-{% if showMasthead === "true"%}
-
-    {% block masthead %}
-
-        <div class="main--inside-container">
-            <h1 class="govuk-heading-l">Surveys</h1>
-        </div>
-
-    {% endblock %}
-{% endif %}
-
 {% block content %}
 
     <div class="main--inside-container">
 
-        <div class="govuk-grid-row">
-            {% if showMasthead !== "true"%}
-                <div class="govuk-grid-column-full">
-
-                    <h1 class="govuk-heading-l ">Dashboard</h1>
-                </div>
-            {% endif %}
-        </div>
+      
 
         <div class="govuk-grid-row">
 
             <div class="govuk-grid-column-full">
 
-                <h2 class="govuk-heading-l">Satisfaction results</h2>
+                <h1 class="govuk-heading-l">Satisfaction results</h1>
 
 
                 <p>Cumulative satisfaction results for all survey responses.</p>
@@ -68,20 +49,13 @@
                     <div class="dfe-card">
                         <div class="dfe-card-container">
                             <h2 class="govuk-heading-l">
-                                <a class="govuk-link govuk-link--no-visited-state dfe-card-link--header" href="/accessibility">Neutral</a>
+                                <a class="govuk-link govuk-link--no-visited-state dfe-card-link--header" href="/accessibility">Not good</a>
                             </h2>
                             <p>Assessment</p>
                         </div>
                     </div>
 
-                    <div class="dfe-card">
-                        <div class="dfe-card-container">
-                            <h2 class="govuk-heading-l">
-                                <a class="govuk-link govuk-link--no-visited-state dfe-card-link--header" href="/accessibility">Poor</a>
-                            </h2>
-                            <p>Report process</p>
-                        </div>
-                    </div>
+                  
 
                       <div class="dfe-card">
                         <div class="dfe-card-container">
@@ -128,15 +102,15 @@
                                 <strong class="govuk-tag govuk-tag--green">Good</strong>
                             </td>
                             <td class="govuk-table__cell">
-                                <strong class="govuk-tag govuk-tag--grey">Neutral</strong>
+                                <strong class="govuk-tag govuk-tag--grey">Ok</strong>
                             </td>
 
                             <td class="govuk-table__cell">
-                                <strong class="govuk-tag govuk-tag--grey">Neutral</strong>
+                                <strong class="govuk-tag govuk-tag--grey">Ok</strong>
                             </td>
 
                             <td class="govuk-table__cell">
-                                <strong class="govuk-tag govuk-tag--red">Poor</strong>
+                                <strong class="govuk-tag govuk-tag--red">Not good</strong>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -147,7 +121,7 @@
                             <td class="govuk-table__cell">6</td>
 
                             <td class="govuk-table__cell">
-                                <strong class="govuk-tag govuk-tag--grey">Neutral</strong>
+                                <strong class="govuk-tag govuk-tag--grey">Ok</strong>
                             </td>
                             <td class="govuk-table__cell">
                                 <strong class="govuk-tag govuk-tag--green">Good</strong>
@@ -156,7 +130,7 @@
                                 <strong class="govuk-tag govuk-tag--green">Good</strong>
                             </td>
  <td class="govuk-table__cell">
-                                <strong class="govuk-tag govuk-tag--red">Poor</strong>
+                                <strong class="govuk-tag govuk-tag--red">Not good</strong>
                             </td>
                         </tr>
 
@@ -169,7 +143,7 @@
                             <td class="govuk-table__cell">7</td>
 
                             <td class="govuk-table__cell">
-                                <strong class="govuk-tag govuk-tag--grey">Neutral</strong>
+                                <strong class="govuk-tag govuk-tag--grey">Ok</strong>
                             </td>
                             <td class="govuk-table__cell">
                                 <strong class="govuk-tag govuk-tag--green">Good</strong>

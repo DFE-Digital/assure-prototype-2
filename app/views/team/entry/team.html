@@ -7,6 +7,7 @@
 {% set backlog_issue_id = "" %}
 {% set reportStep = 1%}
 {% set showEntryNav = "true"%}
+{% set showmasthead = "true" %}
 
 {% block sidebar %}
 
@@ -27,7 +28,7 @@
 
         <div class="govuk-grid-row">
 
-                <div class="govuk-grid-column-one-half">
+                <div class="govuk-grid-column-two-thirds">
 
 <h2 class="govuk-heading-l">Discovery team</h2>
 <p class="govuk-body">The team working on this discovery and are taking part in the peer review</p>
@@ -65,22 +66,27 @@
 <p><a href="https://dfe-standards-manual-prototype.herokuapp.com/service-assurance/prepare-for-a-discovery-peer-review/who-should-attend-a-peer-review" target="_blank">Guidance for who should attend a peer review.</a></p>
 
 {% else %}
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Person</th>
+      <th scope="col" class="govuk-table__header">Role</th>
+      <th scope="col" class="govuk-table__header">Action</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+     {% for person in team %}
+    <tr class="govuk-table__row">
+      <th scope="row" class="govuk-table__header">{{person.fields.Name}}</th>
+      <td class="govuk-table__cell">{{person.fields.Role}}</td>
+      <td class="govuk-table__cell"><a class="govuk-link" href="/team/remove-team-member/{{entry.fields.ID}}/{{person.fields.ID}}">Remove<span class="govuk-visually-hidden"> {{person.fields.Name}}</span></a></td>
+    </tr>
+        {% endfor %}
+  </tbody>
+</table>
 
-        <dl class="govuk-summary-list">
 
-            {% for person in team %}
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">{{person.fields.Name}}</dt>
-                <dd class="govuk-summary-list__value">
-                   {{person.fields.Role}}
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="/team/remove-team-member/{{entry.fields.ID}}/{{person.fields.ID}}">Remove<span class="govuk-visually-hidden"> {{person.fields.Name}}</span></a>
-                </dd>
-            </div>
-            {% endfor %}
-            
-        </dl>
+       
         {% endif%}
     </div>
 </div>

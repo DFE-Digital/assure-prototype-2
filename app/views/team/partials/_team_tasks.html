@@ -1,16 +1,27 @@
-<div class="govuk-summary-card">
-    <div class="govuk-summary-card__title-wrapper">
-        <h2 class="govuk-summary-card__title">Your tasks</h2>
-    </div>
-    <div class="govuk-summary-card__content">
-
-        {% set tasks = "false"%}
+  {% set tasks = "false"%}
 
         {% for entry in active %}
 
             {% if entry.fields.SubStatus === "Team Review" %}
 
                {% set tasks = "true"%}
+               {%endif%}
+        {% endfor %}
+            
+            {% if  tasks === "true"%}
+
+
+<div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Your tasks</h2>
+    </div>
+    <div class="govuk-summary-card__content">
+
+
+        {% for entry in active %}
+
+            {% if entry.fields.SubStatus === "Team Review" %}
+
 
                 <div class="chevron-card chevron-card-full">
                     <div class="chevron-card__wrapper">
@@ -25,10 +36,7 @@
             {% endif %}
         {% endfor %}
 
-        {% if  tasks === "false"%}
-        <p>You have no tasks to action.</p>
-
-        {% endif %}
+     
 
     </div>
-</div>
+</div>            {% endif %}

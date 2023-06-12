@@ -4,6 +4,7 @@
 {% set selectedNav = "dashboard" %}
 {% set setSelectedSideNav = "" %}
 {% set backlog_issue_id = "" %}
+{% set showmasthead = "" %}
 
 {% block sidebar %}
 
@@ -23,9 +24,9 @@
 
     <div class="main--inside-container">
 
-        <div class="govuk-grid-row">
+       <div class="govuk-grid-row">
 
-            <div class="govuk-grid-column-full"></div>
+            <div class="govuk-grid-column-full">     <h1 class="govuk-heading-l ">Your dashboard</h1></div>
         </div>
 
         <div class="govuk-grid-row">
@@ -34,16 +35,24 @@
 
                 {% include "panel/partials/_assessments_list.html" %}
 
-                <h2 class="govuk-heading-m govuk-!-margin-top-9 govuk-!-margin-bottom-5">Volunteer for a service assessment</h2>
-
-                <p>You can <a href="/generic/assessments">check upcoming assessments</a> that require assessors and request to volunteer.</p>
-
-               
+            
                  </div>
 
                 <div class="govuk-grid-column-one-third">
 
                     <h2 class="govuk-heading-m">Other resources and guidance</h2>
+
+
+                       <div class="chevron-card">
+                            <div class="chevron-card__wrapper">
+                                <h3 class="gem-c-heading govuk-heading-s govuk-!-margin-bottom-2">
+                                    <a class="govuk-link chevron-card__link"  href="https://apply-the-service-standard.education.gov.uk/">Volunteer</a>
+                                </h3>
+
+                                <p class="govuk-body chevron-card__description">You can <a href="/generic/assessments">check upcoming assessments</a> that require assessors and request to volunteer.</p>
+                            </div>
+                        </div>
+
 
                        <div class="chevron-card">
                             <div class="chevron-card__wrapper">
@@ -58,7 +67,7 @@
                     <div class="chevron-card">
                             <div class="chevron-card__wrapper">
                                 <h3 class="gem-c-heading govuk-heading-s govuk-!-margin-bottom-2">
-                                    <a class="govuk-link chevron-card__link"  href="/admin/assessors">Assessor checklists</a>
+                                    <a class="govuk-link chevron-card__link"  href="/admin/assessors">Checklists</a>
                                 </h3>
 
                                 <p class="govuk-body chevron-card__description">Checklists for discovery, alpha, and beta assessments for assessors.</p>
