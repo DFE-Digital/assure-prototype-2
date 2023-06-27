@@ -25,7 +25,7 @@
                 <td class="govuk-table__cell">{{entry.fields.SubStatus}}</td>
             {% endif %}
             <td class="govuk-table__cell">
-                {% if entry.fields.ReviewDate%}{{entry.fields.ReviewDate | date('ddd D MMM YYYY')}} {{(entry.fields.ReviewDate + " " + entry.fields.ReviewTime) | date("h:mm A")}}
+                              {% if entry.fields.ReviewDate%}{{(entry.fields.ReviewDate + " " + entry.fields.ReviewTime) | date("h:mm A")}} on {{entry.fields.ReviewDate | date('ddd D MMM YYYY')}} 
                 {% else %}No date{% endif %}
             </td>
             <td class="govuk-table__cell">

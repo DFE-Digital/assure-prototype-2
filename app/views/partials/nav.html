@@ -49,9 +49,6 @@
     <li>
         <a href="/{{data.role}}/report/{{entry.fields.ID}}" class="{% if selectedNav === 'report'%}active{% endif%}">Report</a>
     </li>
-    <li>
-        <a href="/{{data.role}}/history/{{entry.fields.ID}}" class="{% if selectedNav === 'history'%}active{% endif%}">History</a>
-    </li>
     {% if data.role === "admin"%}
     <li>
         <a href="/{{data.role}}/admin/{{entry.fields.ID}}" class="{% if selectedNav === 'admin'%}active{% endif%}">Admin only</a>
@@ -61,7 +58,7 @@
    {% endif%}
 
 
-
+{% if showGenericNav === "true" %}
 <h2 class="sidebar-title">All assessments</h2>
 <ul class="sidebar-nav">
     <li>
@@ -74,3 +71,4 @@
         <a href="/reports" class="{% if selectedNav === 'reports'%}active{% endif%}">Assessment reports</a>
     </li>
 </ul>
+{%endif%}

@@ -1,4 +1,5 @@
 {% extends "layouts/main.html" %}
+{% set showGenericNav = "true" %}
 {% block pageTitle %}
 Does the team have a delivery manager? – {{serviceName}} 
 {% endblock %}
@@ -9,10 +10,10 @@ Does the team have a delivery manager? – {{serviceName}}
 
 {% endblock %}
 
-{% block masthead %}
+{% block precontent %}
 
     <div class="main--inside-container">
-    <a href="/book/request/name-of-discovery" class="govuk-back-link">Back</a>
+    <a href="/book/request/product" class="govuk-back-link">Back</a>
     </div>
 
 {% endblock %}

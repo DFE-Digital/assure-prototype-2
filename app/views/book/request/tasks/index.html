@@ -8,6 +8,7 @@
 {% set setSelectedSideNav = "" %}
 {% set backlog_issue_id = "" %}
 
+{% set showGenericNav = "true" %}
  {% include "partials/nav.html" %}
 
 
@@ -25,7 +26,7 @@
 {% set dstartDate = (data['disco-start-month']+"/"+data['disco-start-day']+"/"+data['disco-start-year']) %}
 {% endif %}
 
-{% set count = 0 %}
+{% set count = 1 %}
 {%if request.fields.Name %}{% set count = (count + 1) %}{%endif%}
 {% if request.fields.Description %}{% set count = (count + 1) %}{%endif%}
 {% if request.fields.StartDate %}{% set count = (count + 1) %}{%endif%}
@@ -36,7 +37,6 @@
 {% if request.fields.SROSameAsDD %}{% set count = (count + 1) %}{%endif%}
 {% if request.fields.DeliveryManagerYN %}{% set count = (count + 1) %}{%endif%}
 {% if request.fields.ProductManagerYN %}{% set count = (count + 1) %}{%endif%}
-{% if request.fields.ProjectCode %}{% set count = (count + 1) %}{%endif%}
 
 <div class="govuk-grid-row">
    <div class="govuk-grid-column-two-thirds">

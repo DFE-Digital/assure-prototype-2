@@ -3,6 +3,7 @@
 {% block pageTitle %}
  Does the team have a product owner or product manager? – {{serviceName}} 
 {% endblock %}
+{% set showGenericNav = "true" %}
 
 {% set selectedNav = "book" %}
 {% block sidebar %}
@@ -11,10 +12,10 @@
 
 {% endblock %}
 
-{% block masthead %}
+{% block precontent %}
 
     <div class="main--inside-container">
-    <a href="/book/request/name-of-discovery" class="govuk-back-link">Back</a>
+    <a href="/book/request/sro" class="govuk-back-link">Back</a>
     </div>
 
 {% endblock %}

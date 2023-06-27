@@ -3,6 +3,7 @@
 {% extends "layouts/main.html" %}
 
 
+{% set showGenericNav = "true" %}
 {% set pageName = "Book" %}
 {% set selectedNav = "book" %}
 {% set setSelectedSideNav = "" %}
@@ -14,7 +15,8 @@
 
 {% endblock %}
 
-{% block masthead %}
+{% block precontent %}
+
 
     <div class="main--inside-container">
     <a href="/book/request/name-of-discovery" class="govuk-back-link">Back</a>

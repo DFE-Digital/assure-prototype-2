@@ -114,6 +114,19 @@ exports.get_start = function (req, res) {
   axios.all([GetRequestsByType('Draft')]).then(
     axios.spread((draft_records) => {
 
+      var currentSignedInUserType =  req.session.data['role']
+
+
+      console.log('ROLE b: ' + req.session.data['role'])
+
+      req.session.data = {}
+
+      req.session.data['role'] = currentSignedInUserType
+
+      console.log('ROLE p: ' + req.session.data['role'])
+
+
+  
       return res.render('book/index', { draft_records })
     }),
   )

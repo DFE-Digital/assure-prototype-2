@@ -502,6 +502,9 @@ exports.p_action = async function (req, res) {
 
         let roleStrings;
 
+        var split = req.body.team_.split(' ');
+        var firstName = split[0];
+
         if (roleinteam.length === 1) {
           roleStrings = roleinteam[0];
         } else {
@@ -515,6 +518,7 @@ exports.p_action = async function (req, res) {
             process.env.recipient,
             {
               personalisation: {
+                firstName: firstName,
                 nameOfDiscovery: serviceName,
                 role: roleStrings,
                 id: entry[0].fields.ID,

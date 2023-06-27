@@ -2,6 +2,7 @@
 {% block pageTitle %}
 Do you know your project code?  – {{serviceName}}
 {% endblock %}
+{% set showGenericNav = "true" %}
 
 {% set selectedNav = "book" %}
 {% block sidebar %}
@@ -10,10 +11,10 @@ Do you know your project code?  – {{serviceName}}
 
 {% endblock %}
 
-{% block masthead %}
+{% block precontent %}
 
     <div class="main--inside-container">
-    <a href="/book/request/name-of-discovery" class="govuk-back-link">Back</a>
+    <a href="/book/request/summary" class="govuk-back-link">Back</a>
     </div>
 
 {% endblock %}
