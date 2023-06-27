@@ -1,0 +1,108 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = entry.fields.Name %}
+{% set selectedNav = "report" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+{% set reportStep = 2%}
+{% set showEntryNav = "true"%}
+
+{% set showmasthead = "true"%}
+{% block sidebar %}
+
+    {% include "partials/nav.html" %}
+    {% include "admin/partials/_admin_nav.html" %}
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+        {% include "admin/partials/_admin_entry_header.html" %}
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+                          <div class="govuk-grid-column-full">
+
+         <h2 class="govuk-heading-l">Assessment report</h2>
+        </div>
+             <div class="govuk-grid-column-one-quarter">
+
+                {% include "admin/partials/_report_timeline.html" %}
+            </div>
+            <div class="govuk-grid-column-one-half">
+
+              <form action="/{{data.role}}/update-outcome/{{entry.fields.ID}}" method="post"> 
+                    <input type="hidden" name="entryid" value="{{entry.id}}"/>
+         <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" aria-describedby="outcomerag-hint">
+               <h2 class="govuk-label-wrapper">
+    <label class="govuk-label govuk-label--m" for="improve">
+      What is the outcome?
+    </label>
+  </h2>
+               <div id="outcomerag-hint" class="govuk-hint">
+                  This isn't shared with the team until the service assessment team check and send it on to them.
+               </div>
+               <div class="govuk-radios" data-module="govuk-radios">
+                  <div class="govuk-radios__item">
+                     <input class="govuk-radios__input" id="outcomerag" name="outcomerag" type="radio" value="Red" aria-describedby="outcomerag-item-hint" {% if entry.fields.Outcome === "Red"%}checked{% endif %}>
+                     <label class="govuk-label govuk-radios__label" for="outcomerag">
+                     Red
+                     </label>
+                     <div id="outcomerag-item-hint" class="govuk-hint govuk-radios__hint">
+                        There are serious concerns or recommendations the team should address before continuing. The team may want to consider escalating issues or problems to their senior responsible officer or senior leadership team.
+                     </div>
+                  </div>
+                  <div class="govuk-radios__item">
+                     <input class="govuk-radios__input" id="outcomerag-2" name="outcomerag" type="radio" value="Amber" aria-describedby="outcomerag-2-item-hint" {% if entry.fields.Outcome === "Amber"%}checked{% endif %}>
+                     <label class="govuk-label govuk-radios__label" for="outcomerag-2">
+                     Amber
+                     </label>
+                     <div id="outcomerag-2-item-hint" class="govuk-hint govuk-radios__hint">
+                        There are some recommendations. At this point, the team may want to look at whether or not they continue or revisit the purpose of the discovery. This may result in running another discovery or evidencing improvements in an alpha assessment.
+                     </div>
+                  </div>
+                  <div class="govuk-radios__item">
+                     <input class="govuk-radios__input" id="outcomerag-3" name="outcomerag" type="radio" value="Green" aria-describedby="outcomerag-3-item-hint" {% if entry.fields.Outcome === "Green"%}checked{% endif %}>
+                     <label class="govuk-label govuk-radios__label" for="outcomerag-3">
+                     Green
+                     </label>
+                     <div id="outcomerag-3-item-hint" class="govuk-hint govuk-radios__hint">
+                        The team is on the right track. 
+                     </div>
+                  </div>
+               </div>
+            </fieldset>
+         </div>
+         <div class="govuk-button-group">
+            <button class="govuk-button" data-module="govuk-button">
+            Save and continue
+            </button>
+         </div>
+      </form>
+
+            </div>
+
+              <div class="govuk-grid-column-one-quarter">
+
+                 <h2 class="govuk-heading-m">Information</h2>
+
+                        {% include "admin/partials/_admin_description_ro.html" %}
+
+                {% include "admin/partials/_admin_team.html" %}
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+{% endblock %}

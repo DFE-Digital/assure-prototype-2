@@ -1,0 +1,59 @@
+<h2 class="sidebar-title">Navigation</h2>
+<ul class="sidebar-nav">
+    <li>
+        <a href="/admin/dashboard" class="{% if selectedNav === 'dashboard'%}active{% endif%}">Your dashboard</a>
+    </li>
+    <li>
+        <a href="#" class="{% if selectedNav === 'book'%}active{% endif%}">Book</a>
+    </li>
+    <li>
+        <a href="#" class="{% if selectedNav === 'reports'%}active{% endif%}">Reports</a>
+    </li>
+</ul>
+
+<h2 class="sidebar-title">Service Assessment</h2>
+<ul class="sidebar-nav">
+   
+    <li>
+        <a href="/{{data.role}}/entry/{{entry.fields.ID}}" class="{% if selectedNav === 'summary'%}active{% endif%}">Summary</a>
+    </li>
+    <li>
+        <a href="/{{data.role}}/submission/{{entry.fields.ID}}" class="{% if selectedNav === 'submission'%}active{% endif%}">Submission</a>
+    </li>
+    <li>
+        <a href="/{{data.role}}/report/{{entry.fields.ID}}" class="{% if selectedNav === 'report'%}active{% endif%}">Report</a>
+    </li>
+    <li>
+        <a href="/{{data.role}}/history/{{entry.fields.ID}}" class="{% if selectedNav === 'history'%}active{% endif%}">History</a>
+    </li>
+    {% if data.role === "admin"%}
+    <li>
+        <a href="/{{data.role}}/admin/{{entry.fields.ID}}" class="{% if selectedNav === 'admin'%}active{% endif%}">Admin only</a>
+    </li>
+    {% endif%}
+</ul>
+
+
+{% if data.role === "admin"%}
+
+    <h2 class="sidebar-title">Administration</h2>
+    <ul class="sidebar-nav">
+         <li>
+            <a href="/admin/entries/all"  class="{% if selectedNav === 'allassessments'%}active{% endif%}">All assessments</a>
+        </li> 
+        <li>
+            <a href="#">Manage assessors</a>
+        </li>
+        
+        <li>
+            <a href="#">Survey data</a>
+        </li>
+        <li>
+            <a href="#">Reports</a>
+        </li>
+        <li>
+            <a href="#">Analysis</a>
+        </li>
+    </ul>
+
+{% endif%}

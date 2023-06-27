@@ -1,0 +1,35 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Survey submitted
+{% endblock %}
+
+{% set selectedNav = "" %}
+{% block sidebar %}
+ {% include "partials/nav.html" %}
+
+
+{% endblock %}
+
+
+{% block content %}
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+
+                <div class="govuk-panel govuk-!-margin-bottom-5 govuk-panel--confirmation govuk-!-text-align-left">
+                    <h1 class="govuk-panel__title">Survey submitted</h1>
+                    <div class="govuk-panel__body">
+                        <p>Thank you for your feedback and helping to improve the service assessment process.</p>
+                    
+                    </div>
+                </div>
+
+              
+
+                <p>Return to <a href="/{{data.role}}/dashboard">your dashboard</a>.</p>
+
+                </div>
+            </div>
+
+        {% endblock %}

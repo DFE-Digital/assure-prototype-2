@@ -1,0 +1,56 @@
+<div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Services you're assessing</h2>
+        
+    </div>
+    <div class="govuk-summary-card__content">
+
+        {% if mine.length %}
+
+  <table class="govuk-table">
+
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">Service</th>
+                            <th scope="col" class="govuk-table__header">Phase</th>
+                            <th scope="col" class="govuk-table__header">Date</th>
+                            <th scope="col" class="govuk-table__header">Role</th>
+                            <th scope="col" class="govuk-table__header">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        {% for service in mine %}
+
+                        {% for record in all %}
+                        {% if service.fields.ReviewID === record.fields.ID%}
+
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header cell-name">
+                                    <a href="/panel/entry/{{record.fields.ID}}" class="govuk-link">{{record.fields.Name}}</a>
+                                </th>
+                                <td class="govuk-table__cell phase-cell">{{record.fields.Phase}}</td>
+                                <td class="govuk-table__cell">{% if record.fields.ReviewDate %}{{record.fields.ReviewDate | date('ddd D MMM YYYY')}} at {{record.fields.ReviewTime}}{% else%}No date{% endif %}</td>
+
+                                <td class="govuk-table__cell cell-status">{% for role in service.fields.Role %}{{role}}
+                                {% if not loop.last %}<br/>{%endif%}{% endfor%}</td>
+                                 <td class="govuk-table__cell phase-cell">{% if record.fields.Status === "New" %}
+<strong class="govuk-tag">{{record.fields.Status}}</strong>
+{% elseif record.fields.Status === "In progress"%}
+<strong class="govuk-tag govuk-tag--yellow">{{record.fields.Status}}</strong>
+{% elseif record.fields.Status === "Complete"%}
+<strong class="govuk-tag govuk-tag--green">{{record.fields.Status}}</strong>
+{% elseif record.fields.Status === "Cancelled" or record.fields.Status === "Rejected" %}
+<strong class="govuk-tag govuk-tag--red">{{record.fields.Status}}</strong>
+{% endif %}</td>
+                            </tr>
+                            {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+                {% else %}
+<p>You are not assigned to any active assessments.</p>
+                {% endif%}
+    </div>
+</div>

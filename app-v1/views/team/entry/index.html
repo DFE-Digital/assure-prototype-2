@@ -1,0 +1,47 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = entry.fields.Name %}
+{% set selectedNav = "summary" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+{% set showEntryNav = "true"%}
+{% set showmasthead = "true" %}
+
+{% block sidebar %}
+
+    {% include "partials/nav.html" %}
+    {% include "admin/partials/_admin_nav.html" %}
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+        {% include "admin/partials/_admin_entry_header.html" %}
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+                {% include "team/partials/_tasks.html" %}
+                {% include "team/partials/_team.html" %}
+                {% include "team/partials/_artefacts.html" %}
+
+            </div>
+
+            <div class="govuk-grid-column-one-third">
+                {% include "team/partials/_description.html" %}
+                {% include "team/partials/_high_level_request_details.html" %}
+                {% include "team/partials/_panel.html" %}
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

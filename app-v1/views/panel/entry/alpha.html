@@ -1,0 +1,80 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = entry.fields.Name %}
+{% set selectedNav = "report" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+{% set showEntryNav = "true"%}
+{% set showmasthead = "true" %}
+
+{% block sidebar %}
+
+    {% include "partials/nav.html" %}
+    {% include "admin/partials/_admin_nav.html" %}
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+        {% include "admin/partials/_admin_entry_header.html" %}
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-one-quarter">
+
+                <h2 class="govuk-heading-l">Report progress</h2>
+
+                <div class="dfe-timeline">
+                    <ol>
+
+                        <li class="current">
+                            <h3 class="govuk-heading-s">Guidance</h3>
+                            <p>How to complete the peer review report.</p>
+                        </li>
+                        <li class="">
+                            <h3 class="govuk-heading-s">
+                                <a href="/" class="govuk-link">Outcome</a>
+                            </h3>
+                            <p>Confirm the overall outcome of the alpha assessment.</p>
+                        </li>
+                        <li class="">
+                            <h3 class="govuk-heading-s">Point 1</h3>
+
+                            <p>Understand users and their needs</p>
+                        </li>
+                        <li class="">
+                            <h3 class="govuk-heading-s">Point 2</h3>
+
+                            <p>Solve a whole problem for users</p>
+                        </li>
+                        <li class="">
+                            <h3 class="govuk-heading-s">Point 3</h3>
+
+                            <p>Provide a joined up experience across all channels</p>
+                        </li>
+                       
+                    </ol>
+                </div>
+
+            </div>
+            <div class="govuk-grid-column-one-half">
+
+                <h2 class="govuk-heading-l">Guidance</h2>
+
+                <p></p>
+
+            </div>
+
+            <div class="govuk-grid-column-one-quarter"></div>
+        </div>
+
+    </div>
+
+{% endblock %}

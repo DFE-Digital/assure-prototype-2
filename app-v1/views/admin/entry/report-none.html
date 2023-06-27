@@ -1,0 +1,47 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = entry.fields.Name %}
+{% set selectedNav = "report" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+{% set reportStep = 1%}
+{% set showEntryNav = "true"%}
+
+{% set showmasthead = "true"%}
+{% block sidebar %}
+
+    {% include "partials/nav.html" %}
+    {% include "admin/partials/_admin_nav.html" %}
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+        {% include "admin/partials/_admin_entry_header.html" %}
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+
+              
+
+          
+            <div class="govuk-grid-column-one-half">
+
+                <h2 class="govuk-heading-l">No report</h2>
+
+                <p>No report is available as the request has been {{entry.fields.Status | lower}}.</p>
+
+            </div>
+
+          
+        </div>
+
+    </div>
+
+{% endblock %}

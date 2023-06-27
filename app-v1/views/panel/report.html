@@ -1,0 +1,76 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = "Dashboard" %}
+{% set selectedNav = "dashboard" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+{% set showmasthead = "true" %}
+
+{% block sidebar %}
+
+   {% include "partials/nav.html" %}
+
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+        <h1 class="govuk-heading-l ">Report</h1>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full"></div>
+        </div>
+
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+
+  <textarea id="textbox" rows="10" cols="50"></textarea>
+  <pre id="output"></pre>
+  <div id="message"></div>
+
+    </div>
+</div>
+
+
+  <script src="/assets/js/socket.io.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const socket = io();
+
+      const textbox = document.getElementById('textbox');
+      const output = document.getElementById('output');
+      const message = document.getElementById('message');
+
+      // Receive the initial text
+      socket.on('initialText', text => {
+        textbox.value = text;
+      });
+
+      // Update the text when other users make changes
+      socket.on('updatedText', text => {
+        textbox.value = text;
+      });
+
+      // Send the updated text to the server
+      textbox.addEventListener('input', () => {
+        const newText = textbox.value;
+        socket.emit('updateText', newText);
+      });
+
+      // Display save status message
+      socket.on('saveStatus', status => {
+        message.textContent = status;
+      });
+    });
+  </script>
+
+{% endblock %}

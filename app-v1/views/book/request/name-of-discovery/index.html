@@ -1,0 +1,58 @@
+{% extends "layouts/main.html" %}
+
+{% set showGenericNav = "true" %}
+{% block sidebar %}
+{% set pageName = "Book" %}
+{% set selectedNav = "book" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+
+ {% include "partials/nav.html" %}
+
+
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+        <a href="/book" class="govuk-back-link">Back</a>
+    </div>
+
+{% endblock %}
+    {% block content %}
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                {% if err %}
+                    <div class="govuk-error-summary" data-module="govuk-error-summary">
+                        <div role="alert">
+                            <h2 class="govuk-error-summary__title">There is a problem</h2>
+                            <div class="govuk-error-summary__body">
+                                <ul class="govuk-list govuk-error-summary__list">
+                                    <li>
+                                        <a href="#title">Enter a name for your discovery</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <form action="/book/request/name-of-discovery" method="post">
+                    <div class="govuk-form-group {%if err%}govuk-form-group--error{% endif%}">
+                        <h1 class="govuk-label-wrapper">
+                            <label class="govuk-label govuk-label--l" for="title">What is the name of your discovery?</label>
+                        </h1>
+                        <div id="title-hint" class="govuk-hint">This can be changed in the future if you develop a service</div>
+                        {%if err%}
+                            <p id="event-name-error" class="govuk-error-message">
+                                <span class="govuk-visually-hidden">Error:</span> Enter a name for your discovery</p>
+                            {% endif%}
+                            <input class="govuk-input {%if err%} govuk-input--error{% endif%}" id="title" name="title" type="text" value="{{request.fields.Name}}">
+                        </div>
+                        <div class="govuk-button-group">
+                            <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% endblock %}

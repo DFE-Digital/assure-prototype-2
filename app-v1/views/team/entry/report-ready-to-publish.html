@@ -1,0 +1,85 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = entry.fields.Name %}
+{% set selectedNav = "report" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+{% set reportStep = 8 %}
+{% set showEntryNav = "true"%}
+{% set showmasthead = "true" %}
+
+{% block sidebar %}
+
+    {% include "partials/nav.html" %}
+    {% include "admin/partials/_admin_nav.html" %}
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+        {% include "admin/partials/_admin_entry_header.html" %}
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                <h2 class="govuk-heading-l">Assessment report</h2>
+            </div>
+
+            <div class="govuk-grid-column-one-quarter">
+
+                {% include "admin/partials/_report_timeline.html" %}
+            </div>
+            <div class="govuk-grid-column-three-quarters">
+
+                {% if data.role === "admin" and  entry.fields.SubStatus === "SAT Publish"%}
+                    <h2 class="govuk-heading-m" id="">Publish report</h2>
+
+                    <p>The team has accepted the report, you can now publish it. </p>
+
+                          <p>Publishing the report will complete the assessment process for this service. </p>
+
+                    
+
+                    <p>The following people will get an email telling them that it's been published.</p>
+
+                    <ul>
+                        <li>{{entry.fields.RequestedBy}}</li>
+                        {% if entry.fields.DeliveryManagerName and (entry.fields.DeliveryManagerName !== entry.fields.RequestedBy)%}
+                            <li>{{entry.fields.DeliveryManagerName}}</li>
+                        {% endif %}
+                        {% if entry.fields.ProductManagerName and (entry.fields.ProductManagerName !== entry.fields.RequestedBy)%}
+                            <li>{{entry.fields.ProductManagerName}}</li>
+                        {% endif %}
+
+                        {% for person in panel %}
+                            <li>{{person.fields.Name}}
+                            </li>
+                            {% endfor%}
+                        </ul>
+
+                        <form action="/{{data.role}}/publishreport/{{entry.fields.ID}}" method="post">
+                           <input type="hidden" name="entryid" value="{{entry.id}}"/>
+                            <div class="govuk-button-group">
+                                <button class="govuk-button" data-module="govuk-button">Publish the report</button>
+                            </div>
+                        </form>
+                    {% elseif data.role !== "admin" %}
+                        <h2 class="govuk-heading-m" id="submitsection">Service assessment team review</h2>
+                        <p>The report has been completed by the assessment panel.</p>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    {% endblock %}

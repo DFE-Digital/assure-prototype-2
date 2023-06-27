@@ -1,0 +1,95 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = "Assessor activity" %}
+{% set selectedNav = "assessors" %}
+{% set setSelectedSideNav = "reporting" %}
+{% set backlog_issue_id = "" %}
+
+{% set showGenericNav = "true" %}
+{% block sidebar %}
+
+    {% include "partials/nav.html" %}
+
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+
+        <a href="/admin/assessors" class="govuk-back-link" style="margin-top: 10px;">Back to assessors</a>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-three-quarters">
+                <h1 class="govuk-heading-l">{{assessor.fields.Name}}</h1>
+
+                <p>Summary of assessments completed and assessor information.</p>
+
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">Lead</th>
+                            <th scope="col" class="govuk-table__header">Role</th>
+                            <th scope="col" class="govuk-table__header">Cross-gov assessor</th>
+                            <th scope="col" class="govuk-table__header">Discovery</th>
+                            <th scope="col" class="govuk-table__header">Alpha</th>
+                            <th scope="col" class="govuk-table__header">Private beta</th>
+                            <th scope="col" class="govuk-table__header">Public beta</th>
+                            <th scope="col" class="govuk-table__header">Live</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">{{assessor.fields.Lead | BoolToYesBlank}}</td>
+                            <td class="govuk-table__cell">{{assessor.fields.AssessorRole}}</td>
+                            <td class="govuk-table__cell">{{assessor.fields.CrossGovAssessor  | BoolToYesBlank}}</td>
+                            <td class="govuk-table__cell">{{assessor.fields.Discovery}}</td>
+                            <td class="govuk-table__cell">{{assessor.fields.Alpha}}</td>
+                            <td class="govuk-table__cell">{{assessor.fields.PublicBeta}}</td>
+                            <td class="govuk-table__cell">{{assessor.fields.PrivateBeta}}</td>
+                            <td class="govuk-table__cell">{{assessor.fields.Live}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                 <h2 class="govuk-heading-m">Assessments completed</h2>
+
+ <table class="govuk-table">
+
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">Service</th>
+                            <th scope="col" class="govuk-table__header">Phase</th>
+                            <th scope="col" class="govuk-table__header">Date</th>
+                            <th scope="col" class="govuk-table__header">Status</th>
+                            <th scope="col" class="govuk-table__header">Outcome</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        {% for record in all %}
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header cell-name">
+                                    <a href="/admin/entry/{{record.fields.ID}}" class="govuk-link">{{record.fields.Name}}</a>
+                                </th>
+                                <td class="govuk-table__cell">{{record.fields.Phase}}</td>
+                                <td class="govuk-table__cell">{% if record.fields.ReviewDate %}{{record.fields.ReviewDate | date('ddd D MMM YYYY')}} at {{record.fields.ReviewTime}}{% else%}No date{% endif %}</td>
+
+                                <td class="govuk-table__cell">{{record.fields.Status}}</td>
+                                <td class="govuk-table__cell cell-status">{{record.fields.Outcome}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

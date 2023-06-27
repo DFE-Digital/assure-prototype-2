@@ -1,0 +1,57 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = "Send assessor request" %}
+{% set selectedNav = "reporting" %}
+{% set setSelectedSideNav = "reporting" %}
+{% set backlog_issue_id = "" %}
+{% set showmasthead = "true" %}
+
+{% set showGenericNav = "true" %}
+{% block sidebar %}
+
+    {% include "partials/nav.html" %}
+
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+
+        <div class="flex-bar">
+              <div class="left">
+ <a href="/admin/reporting/assessors-needed" class="govuk-back-link">Back</a>
+            </div>
+            <div class="right"></div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+
+                <h1 class="govuk-heading-l ">Send request to assessors for volunteers</h1>
+
+                <p>Send an email to the list of assessors with details of assessments that need volunteers.</p>
+
+                <p>The email contains a summary of the assessments as well as a link to a page where assessors can volunteer.</p>
+                <p>Only people who are in the assessor list can see the list and volunteer.</p>
+
+                <form method="post" action="/admin/reporting/send-assessor-request">
+
+                    <button class="govuk-button" data-module="govuk-button">
+  Send email
+</button>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

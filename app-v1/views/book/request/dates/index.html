@@ -1,0 +1,98 @@
+{% extends "layouts/main.html" %}
+{% set showGenericNav = "true" %}
+{% block pageTitle %}
+When would you like your discovery peer review? – {{serviceName}}
+{% endblock %}
+{% set selectedNav = "book" %}
+{% block sidebar %}
+ {% include "partials/nav.html" %}
+
+
+{% endblock %}
+
+{% block precontent %}
+
+    <div class="main--inside-container">
+    <a href="/book/request/end-date" class="govuk-back-link">Back</a>
+    </div>
+
+{% endblock %}
+{% block content %}
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {% if err or errcode%}
+          <div class="govuk-error-summary" data-module="govuk-error-summary">
+            <div role="alert">
+              <h2 class="govuk-error-summary__title">There is a problem</h2>
+              <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                  {% if err %}
+                    <li>
+                      <a href="#date_1">Select all weeks that are suitable for your discovery peer review</a>
+                    </li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
+        {% if request.fields.EndDateYN === "Yes" and not dates.length %}
+          <h1 class="govuk-heading-l">Your discovery end date is less than 5 weeks away</h1>
+        {% else %}
+          <h1 class="govuk-heading-l">When would you like your discovery peer review?</h1>
+        {% endif %}
+
+        {% set datex = data['disco-end-month']+"/"+data['disco-end-day']+"/"+data['disco-end-year']%}
+        {% if request.fields.EndDateYN === "Yes" and dates.length %}
+          <p class="govuk-body">Based on your anticipated end date of {{datex | date('D MMM YYYY')}} we suggest the following weeks for your peer review.</p>
+        {% elseif request.fields.EndDateYN === "Yes" and not dates.length%}
+          <p class="govuk-body">Your end date is within 5 weeks, you can submit a request and the service assessment team will contact you to arrange a date.</p>
+        {% else %}
+          <p class="govuk-body">As you have not provided an estimated end date for your discovery, you can choose date ranges between 5 and 10 weeks from now.</p>
+        {% endif %}
+
+        {% set savedDates = "" %}
+        {% if request.fields.RequestedWeeks %}
+          {% set savedDates = request.fields.RequestedWeeks | split(',')%}
+
+        {% endif %}
+
+        <form action="/book/request/dates" method="post">
+          {% if dates.length %}
+            <div class="govuk-form-group {%if err%}govuk-form-group--error{% endif%}">
+              <fieldset class="govuk-fieldset" aria-describedby="reviewWeek-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                  Select dates
+               </legend>
+                <div id="reviewWeek-hint" class="govuk-hint">Select all weeks that are suitable for you.</div>
+                {%if err%}
+                  <p id="event-name-error" class="govuk-error-message">
+                    <span class="govuk-visually-hidden">Error:</span>Select all weeks that are suitable for your discovery peer review
+               </p>
+                  {% endif%}
+                  <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    {%for xdate in dates %}
+
+                      <div class="govuk-checkboxes__item" id="weeks">
+                        <input class="govuk-checkboxes__input" id="date_{{loop.index}}" name="reviewWeek" type="checkbox" value="{{xdate.week}}" {% if savedDates !== '' %} {% if xdate.week in request.fields.RequestedWeeks%}checked{%endif%}{%endif%}>
+                        <label class="govuk-label govuk-checkboxes__label" for="date_{{loop.index}}">Week beginning {{xdate.week}}
+                        </label>
+                      </div>
+                    {% endfor %}
+                  </div>
+                </fieldset>
+              </div>
+                <div class="govuk-button-group">
+            <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+            <a class="govuk-link" href="/book/request/tasks">Skip and return to later</a>
+         </div>
+            {% else %}
+               <div class="govuk-button-group">
+            <button class="govuk-button" data-module="govuk-button">Continue</button>
+         </div>
+            {% endif %}
+          </form>
+        </div>
+      </div>
+    {% endblock %}

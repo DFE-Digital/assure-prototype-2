@@ -1,0 +1,31 @@
+<div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Artefacts added by team</h2>
+    </div>
+    <div class="govuk-summary-card__content">
+
+        {% if artefacts %}
+
+             <dl class="govuk-summary-list">
+
+            {% for a in artefacts %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key"> <a href="{{a.fields.URL}}" target="_blank">{{a.fields.Name}}</a></dt>
+                <dd class="govuk-summary-list__value">
+                 Added by {{a.fields.CreatedBy.name}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                      <a href="/{{data.role}}/remove-artefact/{{entry.fields.ID}}/{{a.fields.ID}}">Remove</a>
+                </dd>
+            </div>
+            {% endfor %}
+            
+        </dl>
+
+        {% else %}
+    <p>No artefacts have been added.</p>
+
+        {% endif %}
+
+    </div>
+</div>

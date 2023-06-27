@@ -1,0 +1,96 @@
+{% extends "layouts/main.html" %}
+{% block pageTitle %}
+Do you know your project code?  – {{serviceName}}
+{% endblock %}
+{% set showGenericNav = "true" %}
+
+{% set selectedNav = "book" %}
+{% block sidebar %}
+ {% include "partials/nav.html" %}
+
+
+{% endblock %}
+
+{% block precontent %}
+
+    <div class="main--inside-container">
+    <a href="/book/request/summary" class="govuk-back-link">Back</a>
+    </div>
+
+{% endblock %}
+{% block content %}
+<div class="govuk-grid-row">
+   <div class="govuk-grid-column-two-thirds">
+      {% if err or errcode%}
+      <div class="govuk-error-summary" data-module="govuk-error-summary">
+         <div role="alert">
+            <h2 class="govuk-error-summary__title">There is a problem</h2>
+            <div class="govuk-error-summary__body">
+               <ul class="govuk-list govuk-error-summary__list">
+                  {% if err %}
+                  <li>
+                     <a href="#proj-code">Select if you know your project code </a>
+                  </li>
+                  {%elseif errcode%}
+                  <li>
+                     <a href="#proj-code-number">Enter code</a>
+                  </li>
+                  {% endif %}
+               </ul>
+            </div>
+         </div>
+      </div>
+      {% endif %}
+      <form action="/book/request/project-code" method="post">
+         <div class="govuk-form-group {%if err%}govuk-form-group--error{% endif%}">
+            <fieldset class="govuk-fieldset" aria-describedby="proj-code-hint">
+               <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                  <h1 class="govuk-fieldset__heading">
+                    Do you know your project code? 
+                  </h1>
+               </legend>
+               <div id="proj-code-hint" class="govuk-hint">
+                  Select one option.
+               </div>
+               {%if err%}
+               <p id="event-name-error" class="govuk-error-message">
+                  <span class="govuk-visually-hidden">Error:</span>Select if you know your project code
+               </p>
+               {% endif%}
+               <div class="govuk-radios" data-module="govuk-radios">
+                  <div class="govuk-radios__item">
+                     <input class="govuk-radios__input" id="proj-code" name="projcode" type="radio" value="Yes" data-aria-controls="conditional-proj-code" {% if request.fields.ProjectCodeYN === "Yes" or data['projcode'] === "Yes"%}checked{% endif %}>
+                     <label class="govuk-label govuk-radios__label" for="proj-code">
+                     Yes
+                     </label>
+                  </div><div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-proj-code">
+                     <div class="govuk-form-group {%if errcode%}govuk-form-group--error{% endif%}">
+                        <label class="govuk-label" for="proj-code-number">
+                       What is your project code?
+                        </label>
+                        {%if errcode%}
+                        <p id="proj-code-number-error" class="govuk-error-message">
+                           <span class="govuk-visually-hidden">Error:</span>What is your project code?
+                        </p>
+                        {% endif%}
+                       <input class="govuk-input govuk-!-width-one-third {%if errcode%}govuk-input--error{% endif%}" id="proj-code-number" name="projcodenumber" type="text" value="{{request.fields.ProjectCode}}">
+                     </div>
+                  </div>
+                  <div class="govuk-radios__item">
+                     <input class="govuk-radios__input" id="proj-code-2" name="projcode" type="radio" value="No" data-aria-controls="conditional-proj-code-2"   {% if request.fields.ProjectCodeYN === "No"%}checked{% endif %}>
+                     <label class="govuk-label govuk-radios__label" for="proj-code-2">
+                     No
+                     </label>
+                  </div>
+                  
+               </div>
+            </fieldset>
+         </div>
+        <div class="govuk-button-group">
+            <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+            <a class="govuk-link" href="/book/request/tasks">Skip and return to later</a>
+         </div>
+      </form>
+   </div>
+</div>
+{% endblock %}

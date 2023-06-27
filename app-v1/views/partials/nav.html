@@ -1,0 +1,74 @@
+<h2 class="sidebar-title">Navigation</h2>
+<ul class="sidebar-nav">
+    <li>
+        <a href="/{{data.role}}/dashboard" class="{% if selectedNav === 'dashboard'%}active{% endif%}">Your dashboard</a>
+    </li>
+
+    {% if data.role === "admin"%}
+
+   
+         <li>
+            <a href="/admin/entries/all"  class="{% if selectedNav === 'allassessments'%}active{% endif%}">All assessments</a>
+        </li> 
+        <li>
+             <a href="/admin/assessors"  class="{% if selectedNav === 'assessors'%}active{% endif%}">Manage assessors</a>
+        </li>        
+        <li>
+            <a href="/admin/surveys"  class="{% if selectedNav === 'surveys'%}active{% endif%}">Surveys</a>
+        </li>
+        <li>
+            <a href="/admin/reporting"  class="{% if selectedNav === 'reporting'%}active{% endif%}">Reporting</a>
+        </li>
+        <li>
+             <a href="/admin/analysis"  class="{% if selectedNav === 'analysis'%}active{% endif%}">Analysis</a>
+        </li>
+
+
+{% endif%}
+   
+</ul>
+
+{% if showEntryNav === "true"%}
+<h2 class="sidebar-title">Service Assessment</h2>
+<ul class="sidebar-nav">
+   
+    <li>
+        <a href="/{{data.role}}/entry/{{entry.fields.ID}}" class="{% if selectedNav === 'summary'%}active{% endif%}">Summary</a>
+    </li>
+    <li>
+        <a href="/{{data.role}}/submission/{{entry.fields.ID}}" class="{% if selectedNav === 'submission'%}active{% endif%}">Submission</a>
+    </li>
+       {% if data.role === "team"%}
+    <li>
+        <a href="/{{data.role}}/team/{{entry.fields.ID}}" class="{% if selectedNav === 'team'%}active{% endif%}">Team</a>
+    </li>
+     <li>
+        <a href="/{{data.role}}/artefacts/{{entry.fields.ID}}" class="{% if selectedNav === 'artefacts'%}active{% endif%}">Artefacts</a>
+    </li>
+    {% endif%}
+    <li>
+        <a href="/{{data.role}}/report/{{entry.fields.ID}}" class="{% if selectedNav === 'report'%}active{% endif%}">Report</a>
+    </li>
+    {% if data.role === "admin"%}
+    <li>
+        <a href="/{{data.role}}/admin/{{entry.fields.ID}}" class="{% if selectedNav === 'admin'%}active{% endif%}">Admin only</a>
+    </li>
+    {% endif%}
+</ul>
+   {% endif%}
+
+
+{% if showGenericNav === "true" %}
+<h2 class="sidebar-title">All assessments</h2>
+<ul class="sidebar-nav">
+    <li>
+        <a href="/book" class="{% if selectedNav === 'book'%}active{% endif%}">Book an assessment</a>
+    </li>
+    <li>
+        <a href="/generic/assessments" class="{% if selectedNav === 'assessments'%}active{% endif%}">Upcoming assessments</a>
+    </li>
+    <li>
+        <a href="/reports" class="{% if selectedNav === 'reports'%}active{% endif%}">Assessment reports</a>
+    </li>
+</ul>
+{%endif%}

@@ -1,0 +1,65 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = "Search results" %}
+{% set selectedNav = "Home" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+
+{% block sidebar %}
+
+    {% include "partials/_standard_nav.html" %}
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+        {% include "partials/_request_header.html" %}
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+            </div>
+        </div>
+
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds">
+                {% include "partials/_tasks.html" %}
+
+              
+
+                <div class="govuk-grid-row">
+
+                    <div class="govuk-grid-column-full">
+
+                        {% include "partials/_panel.html" %}
+                        {% include "partials/_high_level_request_details.html" %}
+                    </div>
+
+                    <div class="govuk-grid-column-one-half">
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="govuk-grid-column-one-third">
+
+                {% include "partials/_description.html" %}
+
+                {% include "partials/_team.html" %}
+
+                {% include "partials/_artefacts.html" %}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

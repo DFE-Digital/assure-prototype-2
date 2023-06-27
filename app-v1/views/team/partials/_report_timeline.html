@@ -1,0 +1,19 @@
+
+                <h2 class="govuk-heading-m">Progress</h2>
+<div class="dfe-timeline">
+    <ol>
+
+         <li class="{% if reportStep == 5%}current{% elseif reportStep > 5%}done{% endif%}">
+             <h3 class="govuk-heading-s">
+                <a href="/{{data.role}}/report/preview/{{entry.fields.ID}}" class="govuk-link">Report</a>
+            </h3>
+            <p>View the report</p>
+        </li>
+        
+          <li class="{% if reportStep == 9%}current{% elseif reportStep > 9%}done{% endif%}">
+            <h3 class="govuk-heading-s">   <a href="/{{data.role}}/report/complete/{{entry.fields.ID}}" class="govuk-link">Complete</a></h3>
+
+            <p>Report published.</p>
+        </li>
+    </ol>
+</div>

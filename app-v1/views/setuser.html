@@ -1,0 +1,42 @@
+
+
+  {% extends "layouts/admin-layout.html" %}
+
+{% set pageName = "Set user" %}
+{% set selectedNav = "Home" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+
+
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+          <h1>You need to choose a user to imitate</h1>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+
+        <div class="govuk-grid-row">
+
+           
+
+            <div class="govuk-grid-column-full">
+
+              <ul role="none" class="govuk-list govuk-list--spaced">
+    <li role="menuitem"><a href="/change-user/admin" class="govuk-link">Mike Dunn (Admin)</a></li>
+    <li role="menuitem"><a href="/change-user/team" class="govuk-link">Kerry Lyons (Team)</a></li>
+    <li role="menuitem"><a href="/change-user/panel" class="govuk-link">Andy Jones (Panel)</a></li>
+    <li role="menuitem"><a href="/change-user/combined" class="govuk-link">Adam Dumbell (Combined)</a></li>
+  </ul>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

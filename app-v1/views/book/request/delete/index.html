@@ -1,0 +1,39 @@
+{% extends "layouts/main.html" %}
+{% set showGenericNav = "true" %}
+{% block pageTitle %}
+Tasks – {{serviceName}} –  Book and manage a discovery peer review
+{% endblock %}
+{% set selectedNav = "book" %}
+{% block sidebar %}
+ {% include "partials/nav.html" %}
+
+
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+    <a href="/book/request/name-of-discovery" class="govuk-back-link">Back</a>
+    </div>
+
+{% endblock %}
+{% block content %}
+
+
+
+<div class="govuk-grid-row">
+   <div class="govuk-grid-column-two-thirds">
+
+<form action="/book/request/delete/{{request.id}}" method="post">
+
+   <h1 class="govuk-heading-l">Delete your draft for {{request.fields.Name | lower}}</h1>
+
+
+  <div class="govuk-button-group">
+        <button  name="action" class="govuk-button govuk-button--warning"  data-module="govuk-button">Delete booking</button>
+        <a href="/book/request/tasks/{{entry.fields.ID}}" class="govuk-link">Cancel and return to summary</a>
+    </div>
+</form>
+   </div>
+</div>
+{% endblock %}

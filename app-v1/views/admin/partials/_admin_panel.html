@@ -1,0 +1,37 @@
+<div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Assessor panel</h2>
+         {% if entry.fields.Status !== "Rejected" and entry.fields.Status !== "Cancelled"  and entry.fields.Status !== "Complete"%}
+        <ul class="govuk-summary-card__actions">
+            <li class="govuk-summary-card__action">
+                <a class="govuk-link" href="/admin/add-panel-member/{{entry.fields.ID}}">Add people <span class="govuk-visually-hidden"> to the panel</span>
+                </a>
+            </li>
+        </ul>
+        {% endif%}
+    </div>
+    <div class="govuk-summary-card__content">
+        {% if panel.length %}
+            <dl class="govuk-summary-list">
+                {% for person in panel %}
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">{{person.fields.Name}}</dt>
+                        <dd class="govuk-summary-list__value">
+                            {% for role in person.fields.Role %}{{role}}
+                                {% if not loop.last %}<br/>{%endif%}{% endfor%}</dd>
+                                <dd class="govuk-summary-list__actions">
+                                    {% if entry.fields.Status !== "Complete" %}
+                                    <a class="govuk-link" href="/admin/remove-panel-member/{{entry.fields.ID}}/{{person.fields.ID}}">
+        Remove<span class="govuk-visually-hidden">
+                                            {{person.fields.Name}} from the panel</span>
+                                    </a>
+                                    {%endif%}
+                                </dd>
+                            </div>
+                        {% endfor %}
+                    </dl>
+                {% else %}
+                    <p>No panel members have been added.</p>
+                {% endif %}
+            </div>
+        </div>

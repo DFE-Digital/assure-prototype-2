@@ -1,0 +1,299 @@
+
+
+{% extends "layouts/main.html" %}
+
+{% block sidebar %}
+{% set pageName = "Book" %}
+{% set selectedNav = "book" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+
+{% set showGenericNav = "true" %}
+ {% include "partials/nav.html" %}
+
+
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+    <h1 class="govuk-heading-l ">Tasks</h1>
+    </div>
+
+{% endblock %}
+{% block content %}
+{%if (data['disco-start-month'] and data['disco-start-day'] and data['disco-start-year']) %}
+{% set dstartDate = (data['disco-start-month']+"/"+data['disco-start-day']+"/"+data['disco-start-year']) %}
+{% endif %}
+
+{% set count = 1 %}
+{%if request.fields.Name %}{% set count = (count + 1) %}{%endif%}
+{% if request.fields.Description %}{% set count = (count + 1) %}{%endif%}
+{% if request.fields.StartDate %}{% set count = (count + 1) %}{%endif%}
+{% if request.fields.EndDateYN %}{% set count = (count + 1) %}{%endif%}
+{% if request.fields.RequestedWeeks %}{% set count = (count + 1) %}{%endif%}
+{% if request.fields.Portfolio %}{% set count = (count + 1) %}{%endif%}
+{% if request.fields.DeputyDirector %}{% set count = (count + 1) %}{%endif%}
+{% if request.fields.SROSameAsDD %}{% set count = (count + 1) %}{%endif%}
+{% if request.fields.DeliveryManagerYN %}{% set count = (count + 1) %}{%endif%}
+{% if request.fields.ProductManagerYN %}{% set count = (count + 1) %}{%endif%}
+
+<div class="govuk-grid-row">
+   <div class="govuk-grid-column-two-thirds">
+      <h2 class="govuk-heading-l">
+         {{request.fields.Name}}
+      </h2>
+      <h2 class="govuk-heading-s govuk-!-margin-bottom-2"> {% if count !== 10 %}Request incomplete{% else %}You can now submit this request.{% endif%}</h2>
+      <p class="govuk-body govuk-!-margin-bottom-7">You have completed {{count}} of 11 sections.</p>
+      <ol class="app-task-list">
+         <li>
+            <h2 class="app-task-list__section">
+               <span class="app-task-list__section-number">1. </span> Details of your discovery
+            </h2>
+            <ul class="app-task-list__items">
+               <li class="app-task-list__item">
+                  <span class="app-task-list__task-name">
+                  <a href="/book/request/name-of-discovery" aria-describedby="eligibility-status">Discovery name</a>
+                  </span>
+                  <span class="app-task-list__task-value">
+                  {{request.fields.Name}}
+                  </span>
+                  <span class="app-task-list__task-tag">
+                  {% if request.fields.Name %}
+                  <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+                  {%else%}
+                  <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="list-convictions-status">Not started</strong>
+                  {% endif%}
+                  </span>
+               </li>
+               <li class="app-task-list__item">
+                  <span class="app-task-list__task-name">
+                  <a href="/book/request/summary" aria-describedby="read-declaration-status">Summary</a>
+                  </span>
+                  <span class="app-task-list__task-value">
+                  {{request.fields.Description}}
+                  </span>
+                  <span class="app-task-list__task-tag">
+                  {% if request.fields.Description %}
+                  <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+                  {%else%}
+                  <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="list-convictions-status">Not started</strong>
+                  {% endif%}
+                  </span>
+               </li>
+                {# <li class="app-task-list__item">
+                  <span class="app-task-list__task-name">
+                  <a href="/book/request/confidential" aria-describedby="read-declaration-status">Confidential</a>
+                  </span>
+                  <span class="app-task-list__task-value">
+                  {{request.fields.Confidential}}
+                  </span>
+                  <span class="app-task-list__task-tag">
+                  {% if request.fields.Confidential %}
+                  <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+                  {%else%}
+                  <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="list-convictions-status">Not started</strong>
+                  {% endif%}
+                  </span>
+               </li> #}
+                <li class="app-task-list__item">
+                  <span class="app-task-list__task-name">
+                  <a href="/book/request/project-code" aria-describedby="read-declaration-status">Project code</a>
+                  </span>
+                  <span class="app-task-list__task-value">
+                  {% if request.fields.ProjectCodeYN === "Yes" %}
+                  {{request.fields.ProjectCode}}
+                  {% else%}
+                  No project code
+                  {% endif%}
+                  </span>
+                  <span class="app-task-list__task-tag">
+                  {% if request.fields.ProjectCodeYN %}
+                  <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+                  {%else%}
+                  <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="list-convictions-status">Not started</strong>
+                  {% endif%}
+                  </span>
+               </li>
+               <li class="app-task-list__item">
+                  <span class="app-task-list__task-name">
+                  <a href="/book/request/start-date" aria-describedby="read-declaration-status">Start date</a>
+                  </span>
+                  <span class="app-task-list__task-value">
+                    {% if request.fields.StartDate %}
+                  {{request.fields.StartDate | date('D MMM YYYY')}}
+                  {% endif %}
+                  </span>
+                  <span class="app-task-list__task-tag">
+                  {% if request.fields.StartDate %}
+                  <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+                  {%else%}
+                  <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="list-convictions-status">Not started</strong>
+                  {% endif%}
+                  </span>
+               </li>
+               <li class="app-task-list__item">
+                  <span class="app-task-list__task-name">
+                  <a href="/book/request/end-date" aria-describedby="read-declaration-status">End date</a>
+                  </span>
+                  <span class="app-task-list__task-value">
+                  {% if request.fields.EndDateYN === "Yes"%}
+                  {{request.fields.EndDate | date('D MMM YYYY')}}
+                  {% elseif request.fields.EndDateYN === "No"%}
+                  End date not known
+
+                  {% endif%}
+                  </span>
+                  <span class="app-task-list__task-tag">
+                  {% if request.fields.EndDateYN %}
+                  <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+                  {%else%}
+                  <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="list-convictions-status">Not started</strong>
+                  {% endif%}
+                  </span>
+               </li>
+               <li class="app-task-list__item">
+                  <span class="app-task-list__task-name">
+                  <a href="/book/request/dates" aria-describedby="read-declaration-status">Requested review weeks</a>
+                  </span>
+                  <span class="app-task-list__task-value">
+                     {% if request.fields.RequestedWeeks %}
+                     <ul class="govuk-list">
+                        {% for item in (request.fields.RequestedWeeks | split(",")) %}
+                        <li>{{ item }}</li>
+                        {% endfor %}
+                     </ul>
+                     {% endif%}
+                  </span>
+                  <span class="app-task-list__task-tag">
+                  {% if request.fields.RequestedWeeks %}
+                  <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+                  {%else%}
+                  <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="list-convictions-status">Not started</strong>
+                  {% endif%}
+                  </span>
+               </li>
+            </ul>
+         </li>
+         <li>
+            <h2 class="app-task-list__section">
+               <span class="app-task-list__section-number">2. </span> Product and delivery
+            </h2>
+            <ul class="app-task-list__items">
+               <li class="app-task-list__item">
+                  <span class="app-task-list__task-name">
+                  <a href="/book/request/portfolio" aria-describedby="read-declaration-status">Portfolio</a>
+                  </span>
+                  <span class="app-task-list__task-value">
+                  {{request.fields.Portfolio}}
+                  </span>
+                  <span class="app-task-list__task-tag">
+                  {% if request.fields.Portfolio %}
+                  <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+                  {%else%}
+                  <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="list-convictions-status">Not started</strong>
+                  {% endif%}
+               </li>
+               <li class="app-task-list__item">
+                  <span class="app-task-list__task-name">
+                  <a href="/book/request/dd" aria-describedby="read-declaration-status">Deputy director</a>
+                  </span>
+                  <span class="app-task-list__task-value">
+                  {{request.fields.DeputyDirector}}
+                  </span>
+                  <span class="app-task-list__task-tag">
+                  {% if request.fields.DeputyDirector %}
+                  <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+                  {%else%}
+                  <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="list-convictions-status">Not started</strong>
+                  {% endif%}
+               </li>
+               <li class="app-task-list__item">
+                  <span class="app-task-list__task-name">
+                  <a href="/book/request/sro" aria-describedby="read-declaration-status">Senior responsible officer</a>
+                  </span>
+                  <span class="app-task-list__task-value">
+                     {% if request.fields.SROSameAsDD === "Yes" %}
+                  {{request.fields.DeputyDirector}}
+                  {% else%}
+                  {{request.fields.SROName}}
+                  {% endif%}
+                  </span>
+                  <span class="app-task-list__task-tag">
+                    {% if request.fields.SROSameAsDD %}
+                  <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+                    {% else %}
+                  <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="list-convictions-status">Not started</strong>
+                  {% endif%}
+               </li>
+               <li class="app-task-list__item">
+                  <span class="app-task-list__task-name">
+                  <a href="/book/request/product" aria-describedby="read-declaration-status">Product manager</a>
+                  </span>
+                  <span class="app-task-list__task-value">
+                  {% if request.fields.ProductManagerYN === "Yes" %}
+                  {{request.fields.ProductManagerName}}
+                  {%elseif request.fields.ProductManagerYN === "No" %}
+                  No product manager
+                  {% else%}
+                  {% endif%}
+                  </span>
+                  <span class="app-task-list__task-tag">
+                  {% if request.fields.ProductManagerYN %}
+                  <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+                  {%else%}
+                  <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="list-convictions-status">Not started</strong>
+                  {% endif%}
+               </li>
+               <li class="app-task-list__item">
+                  <span class="app-task-list__task-name">
+                  <a href="/book/request/delivery" aria-describedby="read-declaration-status">Delivery manager</a>
+                  </span>
+                  <span class="app-task-list__task-value">
+                  {% if request.fields.DeliveryManagerYN === "Yes" %}
+                  {{request.fields.DeliveryManagerName }}
+                  {%elseif request.fields.DeliveryManagerYN === "No" %}
+                  No delivery manager
+                  {% else%}
+                  {% endif%}
+                  </span>
+                  <span class="app-task-list__task-tag">
+                  {% if request.fields.DeliveryManagerYN %}
+                  <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">Completed</strong>
+                  {%else%}
+                  <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="list-convictions-status">Not started</strong>
+                  {% endif%}
+               </li>
+            </ul>
+         </li>
+         <li>
+            <h2 class="app-task-list__section">
+               <span class="app-task-list__section-number">3. </span> Submit
+            </h2>
+            {% if count !== 11 %}
+            <ul class="app-task-list__items">
+               <li class="app-task-list__item">
+                  <span class="app-task-list__task-value">Submit request</span>
+                  <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="submit-pay-status">Cannot start yet</strong>
+               </li>
+            </ul>
+            {%else%}
+            <p>You've completed all the information needed to request a discovery peer review.</p>
+            <p>If any of these details change before your peer review, you can update them from the Manage page in the site navigation.{# site navigation is the name of the header nav so for accessibility supports understanding where it is as it's named, 'site navigation' for assisitve tech to understand #}</p>
+            <form action="/book/request/tasks" method="post">
+               <button class="govuk-button" data-module="govuk-button">Submit request</button>
+            </form>
+            {% endif%}
+
+            
+         </li>
+      </ol> 
+      
+       <h2 class="govuk-heading-m">Delete draft</h2>
+       <p>If you no longer want to proceed with this request, you can delete it.</p>
+       <form action="/book/request/delete/{{request.id}}" method="get">
+               <button class="govuk-button govuk-button--warning" data-module="govuk-button">Delete draft</button>
+            </form>
+   </div>
+</div>
+{% endblock %}

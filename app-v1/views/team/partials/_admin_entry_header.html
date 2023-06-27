@@ -1,0 +1,51 @@
+
+<h1 class="govuk-heading-xl govuk-!-margin-top-3 govuk-!-margin-bottom-3 govuk-!-font-size-36">{{entry.fields.Name}}</h1>
+<table class="govuk-table ">
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+             <th scope="col" class="govuk-table__header">Phase</th>
+            <th scope="col" class="govuk-table__header">Overall Status</th>
+            {% if entry.fields.SubStatus %}
+                <th scope="col" class="govuk-table__header">Stage</th>
+            {% endif %}
+            <th scope="col" class="govuk-table__header">Review date</th>
+            <th scope="col" class="govuk-table__header">Outcome</th>
+            <th scope="col" class="govuk-table__header">Report</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            
+               <td class="govuk-table__cell"> <strong class="govuk-tag">{{entry.fields.Phase}}</strong>
+            </td>
+            <td class="govuk-table__cell">
+                {% include 'partials/_status_tag.html'%}
+            </td>
+            {% if entry.fields.SubStatus %}
+                <td class="govuk-table__cell">{{entry.fields.SubStatus}}</td>
+            {% endif %}
+            <td class="govuk-table__cell">
+                {% if entry.fields.ReviewDate%}{{(entry.fields.ReviewDate + " " + entry.fields.ReviewTime) | date("h:mm A")}} on {{entry.fields.ReviewDate | date('ddd D MMM YYYY')}} 
+                {% else %}No date{% endif %}
+            </td>
+            <td class="govuk-table__cell">
+                {% if entry.fields.SubStatus === "Team Review" or entry.fields.SubStatus === "SAT Publish" or entry.fields.SubStatus === "Published"   %}
+                <strong class="govuk-tag {% if entry.fields.Outcome === 'Red'%}govuk-tag--red{% elseif entry.fields.Outcome === 'Amber'%}govuk-tag--amber{%elseif entry.fields.Outcome === 'Green'%}govuk-tag--green{% else%}govuk-tag--grey{% endif %}">
+                 {{entry.fields.Outcome }}
+                  {% elseif entry.fields.SubStatus === "Pre-assessment" %}
+Not assessed
+                    {% else %}
+                            Pending
+                    {% endif %}
+                </strong>
+            </td>
+            <td class="govuk-table__cell">
+                {% if entry.fields.SubStatus === "Published"%}
+                 <a href="/{{data.role}}/report/{{entry.fields.ID}}" class="govuk-link">View report</a>
+                {% else %}
+                Not available
+                {% endif %}
+                </td>
+        </tr>
+    </tbody>
+</table>

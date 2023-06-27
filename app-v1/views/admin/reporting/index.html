@@ -1,0 +1,102 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = "Reporting" %}
+{% set selectedNav = "reporting" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+
+{% set showGenericNav = "true" %}
+{% block sidebar %}
+
+    {% include "partials/nav.html" %}
+
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+
+        <div class="flex-bar">
+            <div class="left">
+                <h1 class="govuk-heading-l ">Reporting</h1>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+                <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+                <h1 class="govuk-heading-l ">Admin reports</h1>
+            </div>
+        </div>
+
+          <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+
+                <div class="chevron-card">
+                    <div class="chevron-card__wrapper">
+                        <h3 class="gem-c-heading govuk-heading-s govuk-!-margin-bottom-2">
+                            <a class="govuk-link chevron-card__link"  href="/admin/reporting/assessors-needed">Assessors needed</a>
+                        </h3>
+
+                        <p class="govuk-body chevron-card__description">Service assessments which don't have full panels.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="govuk-grid-column-one-half">
+
+                <div class="chevron-card">
+                    <div class="chevron-card__wrapper">
+                        <h3 class="gem-c-heading govuk-heading-s govuk-!-margin-bottom-2">
+                            <a class="govuk-link chevron-card__link"  href="/admin/reporting/missing-code">Missing project code</a>
+                        </h3>
+
+                        <p class="govuk-body chevron-card__description">Service assessments which don't have a project code assigned.</p>
+                    </div>
+                </div>
+
+            </div>
+
+
+             <div class="govuk-grid-column-one-half">
+
+                <div class="chevron-card">
+                    <div class="chevron-card__wrapper">
+                        <h3 class="gem-c-heading govuk-heading-s govuk-!-margin-bottom-2">
+                            <a class="govuk-link chevron-card__link"  href="/admin/reporting/assessor-activity">Assessor activity</a>
+                        </h3>
+
+                        <p class="govuk-body chevron-card__description">Assessor information including assessments completed.</p>
+                    </div>
+                </div>
+
+            </div>
+
+              <div class="govuk-grid-column-one-half">
+
+                <div class="chevron-card">
+                    <div class="chevron-card__wrapper">
+                        <h3 class="gem-c-heading govuk-heading-s govuk-!-margin-bottom-2">
+                            <a class="govuk-link chevron-card__link"  href="/admin/reporting/portfolio">Assessments by portfolio</a>
+                        </h3>
+
+                        <p class="govuk-body chevron-card__description">Assessments completed by portfolio.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+      </div>
+    </div>
+{% endblock %}

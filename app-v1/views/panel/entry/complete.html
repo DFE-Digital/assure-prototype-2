@@ -1,0 +1,83 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = entry.fields.Name %}
+{% set selectedNav = "report" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+{% set reportStep = 9 %}
+{% set showEntryNav = "true"%}
+{% set showmasthead = "true" %}
+
+{% block sidebar %}
+
+    {% include "partials/nav.html" %}
+    {% include "admin/partials/_admin_nav.html" %}
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+        {% include "admin/partials/_admin_entry_header.html" %}
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-full">
+
+                <h2 class="govuk-heading-l">Assessment report</h2>
+            </div>
+
+            <div class="govuk-grid-column-one-quarter">
+
+                {% include "admin/partials/_report_timeline.html" %}
+            </div>
+            <div class="govuk-grid-column-one-half">
+
+                {% if data.role === "admin" and  entry.fields.SubStatus === "Published"%}
+
+                    <div class="govuk-panel govuk-panel--confirmation">
+                        <h3 class="govuk-panel__title govuk-!-font-size-36">
+    Report published and assessment completed
+  </h3>
+                        <p class=" govuk-!-font-size-27">There are no tasks left to complete. </p>
+                    </div>
+
+                    <p>The following people have also been emailed that the report has been published: </p>
+                    <ul>
+                        <li>{{entry.fields.RequestedBy}}</li>
+                        {% if entry.fields.DeliveryManagerName and (entry.fields.DeliveryManagerName !== entry.fields.RequestedBy)%}
+                            <li>{{entry.fields.DeliveryManagerName}}</li>
+                        {% endif %}
+                        {% if entry.fields.ProductManagerName and (entry.fields.ProductManagerName !== entry.fields.RequestedBy)%}
+                            <li>{{entry.fields.ProductManagerName}}</li>
+                        {% endif %}
+                    </ul>
+
+                  {% elseif data.role !== "admin" %}
+
+                    <h2 class="govuk-heading-m" id="submitsection">Complete</h2>
+                    <p>Once the service assessment team have published the report, it will be available for everyone to read.</p>
+
+{% if entry.fields.SubStatus === "SAT Review"%}
+<p>The report is with the service assessment team to check.</p>
+{%elseif entry.fields.SubStatus === "Team Review"%}
+<p>The report is with the delivery team to review and accept.</p>
+{%elseif entry.fields.SubStatus === "SAT Publish"%}
+{% else %}
+<p>The report is with the service assessment team to publish.</p>
+{% endif%}
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

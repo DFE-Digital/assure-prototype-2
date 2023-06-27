@@ -1,0 +1,124 @@
+<div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Your tasks</h2>
+    </div>
+    <div class="govuk-summary-card__content">
+        {% if entry.fields.Status === "Rejected" or entry.fields.Status === "Cancelled" %}
+            <p>No tasks</p>
+        {% else %}
+
+            <ul class=" app-task-list app-task-list__items govuk-!-margin-bottom-2" >
+
+                {% if entry.fields.Status === "New" %}
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="/{{data.role}}/submission/{{entry.fields.ID}}" aria-describedby="read-declaration-status">Check and accept or reject request</a>
+                        </span>
+                        <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="read-declaration-status">To do</strong>
+                    </li>
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+            Check and send report to team
+            </span>
+                        <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="read-declaration-status">Cannot start yet</strong>
+                    </li>
+
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+            Publish report
+            </span>
+                        <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="read-declaration-status">Cannot start yet</strong>
+                    </li>
+
+                {% elseif entry.fields.Status === "In progress" %}
+
+                    {% if not entry.fields.ProjectCode %}
+                        <li class="app-task-list__item">
+                            <span class="app-task-list__task-name">
+                                <a href="/{{data.role}}/project-code/{{entry.fields.ID}}" aria-describedby="read-declaration-status">Add project code</a>
+                            </span>
+                            <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="read-declaration-status">To do</strong>
+                        </li>
+
+                    {% endif %}
+
+                    <li class="app-task-list__item">
+                        <span class="app-task-list__task-name">
+                            <a href="/{{data.role}}/review_date/{{entry.fields.ID}}" aria-describedby="eligibility-status">
+                                {% if not entry.fields.ReviewDate %}Add review date{% else%}Change review date{% endif%}</a>
+                            </span>
+                            <strong class="govuk-tag app-task-list__tag {% if not entry.fields.ReviewDate %}govuk-tag--grey{% else%}govuk-tag--green{% endif%}" id="eligibility-status">
+                                {% if not entry.fields.ReviewDate %}To do{% else%}Complete{% endif%}</strong>
+                            </li>
+
+                            {% if  entry.fields.SubStatus === "Pre-assessment" or entry.fields.SubStatus === "Assessment" or entry.fields.SubStatus === "Post-assessment"  %}
+                                <li class="app-task-list__item">
+                                    <span class="app-task-list__task-name">
+            Check and send report to team
+            </span>
+                                    <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="read-declaration-status">Cannot start yet</strong>
+                                </li>
+
+                                <li class="app-task-list__item">
+                                    <span class="app-task-list__task-name">
+            Publish report
+            </span>
+                                    <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="read-declaration-status">Cannot start yet</strong>
+                                </li>
+
+                            {% endif %}
+
+                            {% if entry.fields.SubStatus === "SAT Review" %}
+                                <li class="app-task-list__item">
+                                    <span class="app-task-list__task-name">
+                                        <a href="/{{data.role}}/report/report-submitted-to-sat/{{entry.fields.ID}}" aria-describedby="read-declaration-status">Check and send report to team</a>
+                                    </span>
+                                    <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="read-declaration-status">To do</strong>
+                                </li>
+                                <li class="app-task-list__item">
+                                    <span class="app-task-list__task-name">
+                Publish report
+                </span>
+                                    <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="read-declaration-status">Cannot start yet</strong>
+                                </li>
+                            {% endif %}
+
+                            {% if entry.fields.SubStatus === "Team Review" %}
+                                <li class="app-task-list__item">
+                                    <span class="app-task-list__task-name">
+                                        <a href="/{{data.role}}/report/report-submitted-to-sat/{{entry.fields.ID}}" aria-describedby="read-declaration-status">Check and send report to team</a>
+                                    </span>
+                                    <strong class="govuk-tag govuk-tag--green  app-task-list__tag" id="read-declaration-status">Complete</strong>
+                                </li>
+                                <li class="app-task-list__item">
+                                    <span class="app-task-list__task-name">
+                Publish report
+                </span>
+                                    <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="read-declaration-status">Cannot start yet</strong>
+                                </li>
+                            {% endif %}
+
+                            {% if entry.fields.SubStatus === "SAT Publish" %}
+                                <li class="app-task-list__item">
+                                    <span class="app-task-list__task-name">
+                                        <a href="/{{data.role}}/report/report-submitted-to-sat/{{entry.fields.ID}}" aria-describedby="read-declaration-status">Check and send report to team</a>
+                                    </span>
+                                    <strong class="govuk-tag govuk-tag--green  app-task-list__tag" id="read-declaration-status">Complete</strong>
+                                </li>
+                                <li class="app-task-list__item">
+                                    <span class="app-task-list__task-name">
+                                        <a href="/{{data.role}}/report/report-ready-to-publish/{{entry.fields.ID}}" aria-describedby="read-declaration-status">Publish report</a>
+                                    </span>
+                                    <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="read-declaration-status">To do</strong>
+                                </li>
+                           {% endif %}
+ {% endif %}
+                        </ul>
+                   {% endif %}
+
+                    {% if entry.fields.Status === "Complete" %}
+                        <p>There are no outstanding tasks. <a href="/{{data.role}}/report/{{entry.fields.ID}}">View report</a>.</p>
+                    {% endif %}
+
+                </div>
+            </div>

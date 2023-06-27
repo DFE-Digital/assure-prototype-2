@@ -1,0 +1,56 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = "Send assessor request" %}
+{% set selectedNav = "reporting" %}
+{% set setSelectedSideNav = "reporting" %}
+{% set backlog_issue_id = "" %}
+{% set showmasthead = "true" %}
+
+{% set showGenericNav = "true" %}
+{% block sidebar %}
+
+    {% include "partials/nav.html" %}
+
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+
+        <div class="flex-bar">
+             <div class="left">
+ <a href="/admin/reporting/assessors-needed" class="govuk-back-link">Back</a>
+            </div><div class="right">
+               
+            </div>
+          
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+
+               <div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-5">
+  <h1 class="govuk-panel__title">
+    Email sent
+  </h1>
+  <div class="govuk-panel__body">
+    Email sent to the list of assessors for people to volunteer.
+  </div>
+</div>
+
+
+
+<p><a href="/admin/reporting/assessors-needed">Return to the assessors needed report</a></p>
+
+                    </div>
+                </div>
+            </div>
+
+        {% endblock %}

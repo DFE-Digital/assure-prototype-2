@@ -1,0 +1,32 @@
+<h2 class="sidebar-title">Navigation</h2>
+<ul class="sidebar-nav">
+    <li>
+        <a href="/admin/dashboard" class="{% if selectedNav === 'dashboard'%}active{% endif%}">Your dashboard</a>
+    </li>
+    <li>
+        <a href="#">Book</a>
+    </li>
+    <li>
+        <a href="#">Reports</a>
+    </li>
+</ul>
+
+<h2 class="sidebar-title">Service Assessment</h2>
+<ul class="sidebar-nav">
+   
+    <li>
+        <a href="#" class="{% if selectedNav === 'summary'%}active{% endif%}">Summary</a>
+    </li>
+    <li>
+        <a href="#">Submission</a>
+    </li>
+    <li>
+        <a href="#">Assessment</a>
+    </li>
+    <li>
+        <a href="/{{data.role}}/report/{{entry.fields.ID}}" class="{% if selectedNav === 'report'%}active{% endif%}">Report</a>
+    </li>
+</ul>
+
+
+

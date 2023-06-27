@@ -1,0 +1,73 @@
+<dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+      Outcome
+    </dt>
+        <dd class="govuk-summary-list__value">
+            <strong class="govuk-tag govuk-tag--{{entry.fields.Outcome | lower}}">{% if entry.fields.Outcome %}{{entry.fields.Outcome}}{% else %}Not assessed{% endif%}</strong>
+        </dd>
+    </div>
+   
+    <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+      Date of review
+    </dt>
+        <dd class="govuk-summary-list__value">
+            {{entry.fields.ReviewDate | date('D MMM YYYY')}}
+        </dd>
+    </div>
+   
+   
+<div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Portfolio
+    </dt>
+    <dd class="govuk-summary-list__value">
+        {{entry.fields.Portfolio}}
+    </dd>
+</div>
+
+<div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Review panel
+    </dt>
+    <dd class="govuk-summary-list__value">
+        <ul class="govuk-list">
+
+            {% for person in panel %}
+                <li>{{person.fields.Name}}</li>
+            {% endfor %}
+
+        </ul>
+    </dd>
+</div>
+<div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Service team
+    </dt>
+    <dd class="govuk-summary-list__value">
+        <ul class="govuk-list">
+
+            {% for person in team %}
+                <li>{{person.fields.Name}}</li>
+            {% endfor %}
+        </ul>
+    </dd>
+</div>
+</dl>
+
+<h3 class="govuk-heading-m  govuk-!-margin-top-6">Purpose of the discovery</h3>
+{% markdown %}
+{{entry.fields.Description }}
+{% endmarkdown %}
+
+<h3 class="govuk-heading-m  govuk-!-margin-top-6">What the team has done well</h3>
+{% markdown %}
+{{entry.fields.ReviewDoneWell }}
+{% endmarkdown %}
+
+<h3 class="govuk-heading-m  govuk-!-margin-top-6">What the team needs to improve</h3>
+{% markdown %}
+{{entry.fields.ReviewImprove }}
+{% endmarkdown %}
+

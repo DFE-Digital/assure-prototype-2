@@ -1,0 +1,98 @@
+
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = entry.fields.Name %}
+{% set selectedNav = "team" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+{% set reportStep = 1%}
+{% set showEntryNav = "true"%}
+{% set showmasthead = "true" %}
+
+{% block sidebar %}
+
+    {% include "partials/nav.html" %}
+{% endblock %}
+
+{% block masthead %}
+
+    <div class="main--inside-container">
+        {% include "admin/partials/_admin_entry_header.html" %}
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="main--inside-container">
+
+        <div class="govuk-grid-row">
+
+                 <div class="govuk-grid-column-two-thirds">
+
+<h2 class="govuk-heading-l">Discovery team</h2>
+<p class="govuk-body">The team working on this discovery and are taking part in the peer review</p>
+
+<details class="govuk-details" data-module="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      What people added to the team can see and do
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    <p>Anyone added to the discovery team will be able to:</p>
+    <ul>
+        <li>add and remove artefacts and links</li>
+        <li>view the peer review report</li>
+    </ul>
+  </div>
+</details>
+
+<div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Discovery team</h2>
+        <ul class="govuk-summary-card__actions">
+            <li class="govuk-summary-card__action">
+                <a class="govuk-link" href="/team/add-team-member/{{entry.fields.ID}}">
+          Add people<span class="govuk-visually-hidden"> to the team</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="govuk-summary-card__content">
+{% if not team.length %}
+
+<p>No team members have been added to the review.</p>
+<p><a href="https://dfe-standards-manual-prototype.herokuapp.com/service-assurance/prepare-for-a-discovery-peer-review/who-should-attend-a-peer-review" target="_blank">Guidance for who should attend a peer review.</a></p>
+
+{% else %}
+
+        <dl class="govuk-summary-list">
+
+            {% for person in team %}
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">{{person.fields.Name}}</dt>
+                <dd class="govuk-summary-list__value">
+                   {{person.fields.Role}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="/team/remove-team-member/{{entry.fields.ID}}/{{person.fields.ID}}">Remove<span class="govuk-visually-hidden"> {{person.fields.Name}}</span></a>
+                </dd>
+            </div>
+            {% endfor %}
+            
+        </dl>
+        {% endif%}
+    </div>
+</div>
+
+
+                </div>
+
+       
+        </div>
+
+    
+    </div>
+
+{% endblock %}
