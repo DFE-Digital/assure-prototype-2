@@ -145,7 +145,7 @@
             </div>
             <div class="govuk-notification-banner__content">
                <h3 class="govuk-notification-banner__heading">
-                  The report has been submitted and is waiting for the service assessment team to send it to the delivery team.
+                  The report has been submitted and is waiting for the service assessment team to send it to the delivery team. You will receive a confirmation email.
                </h3>
             </div>
          </div>
@@ -183,6 +183,9 @@
          {# 1 === true #}
          <h2 class="govuk-heading-l" id="submitsection">Report submission</h2>
          <p>All the required sections of the report have been completed.</p>
+
+         <p>You should only submit the report once all the team are in agreement with the findings.</p>
+         
          <p>When you submit the report, it will go to the service assesment team to check over and send to the delivery team.</p>
          <form action="/{{data.role}}/submitreport/{{entry.fields.ID}}" method="post">
             <input type="hidden" name="entryid" value="{{entry.id}}"/>
