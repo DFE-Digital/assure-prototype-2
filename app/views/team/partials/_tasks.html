@@ -11,7 +11,7 @@
                     
                         <li class="app-task-list__item">
                             <span class="app-task-list__task-name">
-                                <a href="/{{data.role}}/team/{{entry.fields.ID}}"  class="govuk-link" aria-describedby="read-declaration-status">{% if team.length === 0 %}Add{% else %}Add or change{% endif %} team members</a>
+                                <a href="/{{data.role}}/{{entry.fields.ID}}"  class="govuk-link" aria-describedby="read-declaration-status">{% if team.length === 0 %}Add{% else %}Add or change{% endif %} team members</a>
                             </span>
                              {% if team.length === 0 %}
                             <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="read-declaration-status">To do</strong>
@@ -22,7 +22,7 @@
 
                            <li class="app-task-list__item">
                             <span class="app-task-list__task-name">
-                                <a href="/{{data.role}}/entry/add-artefact/{{entry.fields.ID}}" class="govuk-link" aria-describedby="read-declaration-status">{% if artefacts.length === 0 %}Add{% else %}Add or change{% endif %} links to artefacts </a>
+                                <a href="/{{data.role}}/artefacts/{{entry.fields.ID}}" class="govuk-link" aria-describedby="read-declaration-status">{% if artefacts.length === 0 %}Add{% else %}Add or change{% endif %} links to artefacts </a>
                             </span>
                              {% if artefacts.length === 0 %}
                             <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="read-declaration-status">To do</strong>
