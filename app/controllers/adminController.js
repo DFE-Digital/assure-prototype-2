@@ -328,9 +328,27 @@ exports.p_submission = async function (req, res) {
         }
         records.forEach(function (record) {
           //console.log(record.get('Status'))
+          notify
+    .sendEmail(
+      process.env.peer_review_request_accepted,
+      process.env.recipient,
+      {
+        personalisation: {
+          nameOfDiscovery: record.fields.Name,
+          id: record.fields.ID,
+          serviceURL: process.env.serviceURL,
+        },
+      },
+    )
+    .then((response) => {
+      //console.log(response)
+    })
+    .catch((err) => console.log(err))
         })
       },
     )
+
+    
 
     return res.redirect(`/admin/entry/${id}`)
   }
@@ -798,7 +816,7 @@ exports.p_action = async function (req, res) {
               },
             )
             .then((response) => {
-              //console.log(response)
+              console.log(response)
             })
             .catch((err) => console.log(err))
 
