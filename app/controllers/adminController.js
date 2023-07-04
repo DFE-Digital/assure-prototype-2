@@ -811,7 +811,8 @@ exports.p_action = async function (req, res) {
                   serviceURL: process.env.serviceURL,
                   id: record.fields.ID,
                   date: optiondate,
-                  time: optiontime
+                  time: optiontime,
+                  serviceURL: process.env.serviceURL
                 },
               },
             )

@@ -1044,6 +1044,7 @@ exports.post_tasks = function (req, res) {
               nameOfDiscovery: record.fields.Name,
               summary: record.fields.Description,
               id: record.fields.ID,
+              serviceURL: process.env.serviceURL,
             },
           })
           .then((response) =>

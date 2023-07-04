@@ -1070,6 +1070,10 @@ exports.g_report_sat1 = function (req, res) {
         ) => {
           entry = entry[0]
 
+          
+
+        
+
         
             return res.render(`team/entry/report-submitted-to-sat`, {
               entry, assessors, panel
