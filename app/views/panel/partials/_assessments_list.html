@@ -11,7 +11,7 @@
 
                     <thead class="govuk-table__head">
                         <tr class="govuk-table__row">
-                            <th scope="col" class="govuk-table__header">Service</th>
+                            <th scope="col" class="govuk-table__header govuk-!-width-one-third">Service</th>
                             <th scope="col" class="govuk-table__header">Phase</th>
                             <th scope="col" class="govuk-table__header">Date</th>
                             <th scope="col" class="govuk-table__header">Role</th>
@@ -29,7 +29,7 @@
                                     <a href="/panel/entry/{{record.fields.ID}}" class="govuk-link">{{record.fields.Name}}</a>
                                 </th>
                                 <td class="govuk-table__cell phase-cell">{{record.fields.Phase}}</td>
-                                <td class="govuk-table__cell">{% if record.fields.ReviewDate %}{{record.fields.ReviewDate | date('ddd D MMM YYYY')}} at {{record.fields.ReviewTime}}{% else%}No date{% endif %}</td>
+                                <td class="govuk-table__cell">{% if record.fields.ReviewDate %}{{record.fields.ReviewTime}}<br/>{{record.fields.ReviewDate | date('ddd D MMM YYYY')}} {% else%}No date{% endif %}</td>
 
                                 <td class="govuk-table__cell cell-status">{% for role in service.fields.Role %}{{role}}
                                 {% if not loop.last %}<br/>{%endif%}{% endfor%}</td>

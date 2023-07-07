@@ -10,11 +10,9 @@
 
 {% block sidebar %}
 
-   {% include "partials/nav.html" %}
+    {% include "partials/nav.html" %}
 
 {% endblock %}
-
-
 
 {% block content %}
 
@@ -22,7 +20,9 @@
 
         <div class="govuk-grid-row">
 
-            <div class="govuk-grid-column-full">     <h1 class="govuk-heading-l ">Your dashboard</h1></div>
+            <div class="govuk-grid-column-full">
+                <h1 class="govuk-heading-l ">Your dashboard</h1>
+            </div>
         </div>
 
         <div class="govuk-grid-row">
@@ -34,11 +34,9 @@
 
             </div>
 
-    
+            <div class="govuk-grid-column-one-third">
 
-        <div class="govuk-grid-column-one-third">
-
-            <div class="chevron-card">
+                {# <div class="chevron-card">
                 <div class="chevron-card__wrapper">
                     <h3 class="gem-c-heading govuk-heading-s govuk-!-margin-bottom-2">
                         <a class="govuk-link chevron-card__link"  href="/book">Book assessment</a>
@@ -46,38 +44,14 @@
 
                     <p class="govuk-body chevron-card__description">Book a peer review or service assessment.</p>
                 </div>
+            </div> #}
+
+
+                {% include "partials/_related_guidance.html" %}
+
             </div>
 
-            <h2 class="govuk-heading-m">Other resources and guidance</h2>
-
-            <ul class="govuk-list govuk-list--spaced">
-                <li>
-                    <a href="https://apply-the-service-standard.education.gov.uk/" target="_blank">Apply the Service Standard in DfE</a>
-                </li>
-                <li>
-                    <a href="https://user-research.education.gov.uk/" target="_blank">User Research in DfE</a>
-                </li>
-                <li>
-                    <a href="https://technical-guidance.education.gov.uk/" target="_blank">DfE Technical Guidance</a>
-                </li>
-                <li>
-                    <a href="https://dfe-digital.github.io/architecture/#dfe-architecture" target="_blank">DfE Architecture</a>
-                </li>
-                <li>
-                    <a href="https://design-system.service.gov.uk/" target="_blank">GOV.UK Design System</a>
-                </li>
-                <li>
-                    <a href="https://www.gov.uk/service-manual" target="_blank">GOV.UK Service Manual</a>
-                </li>
-                <li>
-                    <a href="https://www.gov.uk/service-manual/communities/design-community" target="_blank">Cross government design community</a>
-                </li>
-
-            </ul>
-
         </div>
-
     </div>
-</div>
 
 {% endblock %}

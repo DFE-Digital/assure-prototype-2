@@ -9,27 +9,27 @@
       <table class="govuk-table">
         <thead class="govuk-table__head">
           <tr class="govuk-table__row">
-            <th scope="col" class="govuk-table__header">Person</th>
             <th scope="col" class="govuk-table__header">Role</th>
+            <th scope="col" class="govuk-table__header">Person</th>
           </tr>
         </thead>
         <tbody class="govuk-table__body">
               {% if entry.fields.ProductManagerName%}
            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">{{entry.fields.ProductManagerName}}</th>
-              <td class="govuk-table__cell">Product Manager</td>
+              <th scope="row" class="govuk-table__header">Product Manager</th>
+              <td class="govuk-table__cell">{{entry.fields.ProductManagerName}}</td>
             </tr>
           {% endif %}
           {% if entry.fields.DeliveryManagerName%}
            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">{{entry.fields.DeliveryManagerName}}</th>
-              <td class="govuk-table__cell">Delivery Manager</td>
+              <th scope="row" class="govuk-table__header">Delivery Manager</th>
+              <td class="govuk-table__cell">{{entry.fields.DeliveryManagerName}}</td>
             </tr>
           {% endif %}
           {% for person in team %}
             <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">{{person.fields.Name}}</th>
-              <td class="govuk-table__cell">{{person.fields.Role}}</td>
+              <th scope="row" class="govuk-table__header">{{person.fields.Role}}</th>
+              <td class="govuk-table__cell">{{person.fields.Name}}</td>
             </tr>
           {% endfor %}
         </tbody>

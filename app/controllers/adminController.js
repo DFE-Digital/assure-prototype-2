@@ -17,7 +17,7 @@ async function GetRequestsByType(view) {
     return await base('Reviews').select({ view: view }).all()
   } catch (err) {
     console.log(err)
-  }
+     }
 }
 
 async function GetAllPanels(view) {

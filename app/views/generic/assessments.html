@@ -5,9 +5,11 @@
 {% set setSelectedSideNav = "" %}
 {% set backlog_issue_id = "" %}
 
-{% block sidebar %}
 
-    {% include "partials/nav.html" %}
+{% set showGenericNav = "true" %}
+{% block sidebar %} 
+{% include "partials/nav.html" %}
+
 
 {% endblock %}
 
@@ -49,7 +51,7 @@
                             <tr class="govuk-table__row">
                                 <th scope="row" class="govuk-table__header">{{assessment.fields.Name}}</th>
                                 <td class="govuk-table__cell">{{assessment.fields.Description}}</td>
-                                <td class="govuk-table__cell">{{assessment.fields.ReviewDate | date('ddd D MMM YYYY')}}<br/>{{(assessment.fields.ReviewDate + " " + assessment.fields.ReviewTime) | date("h:mm A")}}</td>
+                                <td class="govuk-table__cell">{{assessment.fields.ReviewTime}}<br/>{{assessment.fields.ReviewDate | date('ddd D MMM YYYY')}}</td>
 
                                 <td class="govuk-table__cell">
                                     {% for row in panels %}

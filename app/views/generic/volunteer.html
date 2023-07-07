@@ -5,9 +5,12 @@
 {% set setSelectedSideNav = "" %}
 {% set backlog_issue_id = "" %}
 
-{% block sidebar %}
 
-  {% include "partials/nav.html" %}
+{% set showGenericNav = "true" %}
+{% block sidebar %} 
+{% include "partials/nav.html" %}
+
+
 {% endblock %}
 
 {% block masthead %}
@@ -56,7 +59,7 @@
       Date of review
     </dt>
                         <dd class="govuk-summary-list__value">
-                            {{entry.fields.ReviewDate | date('dddd D MMMM YYYY')}} at {{entry.fields.ReviewTime}}
+                             {{entry.fields.ReviewTime}}<br/>{{entry.fields.ReviewDate | date('dddd D MMMM YYYY')}}
                         </dd>
                     </div>
 

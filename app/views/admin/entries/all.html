@@ -138,6 +138,8 @@
       </div>
 
       <div class="govuk-grid-column-three-quarters">
+        <h2 class="govuk-heading-m">Results</h2>
+
         <div id="announcement" class="govuk-visually-hidden"  aria-live="polite"></div>
         <div id="selectedFilters"></div>
 
@@ -145,7 +147,7 @@
 
           <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-              <th scope="col" class="govuk-table__header">Service</th>
+              <th scope="col" class="govuk-table__header govuk-!-width-one-half">Service</th>
               <th scope="col" class="govuk-table__header">Phase</th>
               <th scope="col" class="govuk-table__header">Date</th>
               <th scope="col" class="govuk-table__header">Status</th>
@@ -159,7 +161,7 @@
                 </th>
                 <td class="govuk-table__cell phase-cell">{{record.fields.Phase}}</td>
                 <td class="govuk-table__cell">
-                  {% if record.fields.ReviewDate %}{{record.fields.ReviewDate | date('ddd D MMM YYYY')}} at {{record.fields.ReviewTime}}{% else%}No date{% endif %}
+                  {% if record.fields.ReviewDate %}{{record.fields.ReviewTime}}<br/>{{record.fields.ReviewDate | date('ddd D MMM YYYY')}}{% else%}No date{% endif %}
                 </td>
 
                 <td class="govuk-table__cell cell-status">{{record.fields.Status}}</td>

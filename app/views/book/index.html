@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% block sidebar %}
+
 {% set pageName = "Book" %}
 {% set selectedNav = "book" %}
 {% set setSelectedSideNav = "" %}
@@ -8,7 +8,8 @@
 {% set showMasthead = "true" %}
 
 {% set showGenericNav = "true" %}
- {% include "partials/nav.html" %}
+{% block sidebar %} 
+{% include "partials/nav.html" %}
 
 
 {% endblock %}
@@ -114,37 +115,9 @@
 
             <aside class="govuk-related-navigation">
 
-                <h2 class="govuk-heading-m">More</h2>
+              
 
-                <ul class="govuk-list govuk-list--spaced">
-                    <li>
-                        <a href="/reports">Search and read assurance reports </a>
-                    </li>
-                    <li>
-                        <a href="#">View assessment trends</a>
-                    </li>
-                </ul>
-
-                <h2 class="govuk-heading-m">Guidance</h2>
-
-                <ul class="govuk-list govuk-list--spaced">
-
-                    <li>
-                        <a href="https://apply-the-service-standard.education.gov.uk/" target="_blank">Apply the Service Standard in DfE</a>
-                    </li>
-                    <li>
-                        <a href="https://design.education.gov.uk/" target="_blank">User-centred design manual</a>
-                    </li>
-                    <li>
-                        <a href="https://user-research.education.gov.uk/" target="_blank">User Research in DfE</a>
-                    </li>
-                    <li>
-                        <a href="https://technical-guidance.education.gov.uk/" target="_blank">DfE Technical Guidance</a>
-                    </li>
-                    <li>
-                        <a href="https://dfe-digital.github.io/architecture/#dfe-architecture" target="_blank">DfE Architecture</a>
-                    </li>
-                </ul>
+                {% include "partials/_related_guidance.html" %}
 
             </div>
         </div>

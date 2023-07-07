@@ -1,9 +1,9 @@
 
-<h1 class="govuk-heading-xl govuk-!-margin-top-3 govuk-!-margin-bottom-3 govuk-!-font-size-36">{{entry.fields.Name}}</h1>
+<h1 class="govuk-heading-xl govuk-!-margin-top-3 govuk-!-margin-bottom-3 govuk-!-font-size-36 "><a class="govuk-link dfe-link--nounderline" href="/{{data.role}}/entry/{{entry.fields.ID}}">{{entry.fields.Name}}</a></h1>
 <table class="govuk-table ">
     <thead class="govuk-table__head">
         <tr class="govuk-table__row">
-             <th scope="col" class="govuk-table__header">Phase</th>
+             <th scope="col" class="govuk-table__header ">Phase</th>
             <th scope="col" class="govuk-table__header">Overall Status</th>
             {% if entry.fields.SubStatus %}
                 <th scope="col" class="govuk-table__header">Stage</th>

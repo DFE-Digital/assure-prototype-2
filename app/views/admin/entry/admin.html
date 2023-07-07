@@ -11,128 +11,140 @@
 
 {% block sidebar %}
 
-    {% include "partials/nav.html" %}
-    {% include "admin/partials/_admin_nav.html" %}
+  {% include "partials/nav.html" %}
+  {% include "admin/partials/_admin_nav.html" %}
 {% endblock %}
 
 {% block masthead %}
 
-    <div class="main--inside-container">
-        {% include "admin/partials/_admin_entry_header.html" %}
-    </div>
+  <div class="main--inside-container">
+    {% include "admin/partials/_admin_entry_header.html" %}
+  </div>
 
 {% endblock %}
 
 {% block content %}
 
-    <div class="main--inside-container">
+  <div class="main--inside-container">
 
-        <div class="govuk-grid-row">
+    <div class="govuk-grid-row">
 
-            <div class="govuk-grid-column-two-thirds">
+      <div class="govuk-grid-column-two-thirds">
 
-                <h2 class="govuk-heading-l">Administration</h2>
+        <h2 class="govuk-heading-l">Administration</h2>
 
-                <p>Actions which can only be completed by the service assessment team relating to this assessment.</p>
+        <p>Actions which can only be completed by the service assessment team relating to this assessment.</p>
 
-               <dl class="govuk-summary-list">
-  <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
+        <dl class="govuk-summary-list">
+               <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+      Type
+    </dt>
+            <dd class="govuk-summary-list__value">
+              {{entry.fields.Type}}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="#">
+        Change<span class="govuk-visually-hidden"> type</span>
+              </a>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
       Phase
     </dt>
-    <dd class="govuk-summary-list__value">
-     {{entry.fields.Phase}}
-    </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="#">
+            <dd class="govuk-summary-list__value">
+              {{entry.fields.Phase}}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="#">
         Change<span class="govuk-visually-hidden"> phase</span>
-      </a>
-    </dd>
-  </div>
-   <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
+              </a>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
       Status
     </dt>
-    <dd class="govuk-summary-list__value">
-     {{entry.fields.Status}}
-    </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="#">
+            <dd class="govuk-summary-list__value">
+              {{entry.fields.Status}}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="#">
         Change<span class="govuk-visually-hidden"> status</span>
-      </a>
-    </dd>
-  </div>
+              </a>
+            </dd>
+          </div>
 
-   <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
       Report status
     </dt>
-    <dd class="govuk-summary-list__value">
-     {% if entry.fields.SubStatus === "Published" %}Published{%endif%}
-    </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="#">
+            <dd class="govuk-summary-list__value">
+              {% if entry.fields.SubStatus === "Published" %}Published{%endif%}
+              </dd>
+              <dd class="govuk-summary-list__actions">
+                <a class="govuk-link" href="#">
         Change<span class="govuk-visually-hidden"> report status</span>
-      </a>
-    </dd>
-  </div>
-
-   <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
-      Primary contact
-    </dt>
-    <dd class="govuk-summary-list__value">
-     {{entry.fields.RequestedBy}}
-    </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="#">
-        Change<span class="govuk-visually-hidden"> primary contact</span>
-      </a>
-    </dd>
-  </div>
-
-   <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
-      Register of services association
-    </dt>
-    <dd class="govuk-summary-list__value">
-     {{entry.fields.RegisterOfServicesLink}}
-    </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="#">
-        Change<span class="govuk-visually-hidden"> primary contact</span>
-      </a>
-    </dd>
-  </div>
-     <div class="govuk-summary-list__row">
-    <dt class="govuk-summary-list__key">
-      CMDB reference
-    </dt>
-    <dd class="govuk-summary-list__value">
-     {{entry.fields.CMDBID}}
-    </dd>
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="#">
-        Change<span class="govuk-visually-hidden"> CMDB ID</span>
-      </a>
-    </dd>
-  </div>
-</dl>
-
-<h2 class="govuk-heading-m  ">Danger zone</h2>
-
-  <form action="/admin/delete/{{entry.fields.ID}}" method="post">
-                    <input type="hidden" name="entryid" value="{{entry.id}}"/>
-
-          
-<button class="govuk-button govuk-button--warning" data-module="govuk-button">
-  Delete request
-</button>
-      </form>
+                </a>
+              </dd>
             </div>
 
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+      Primary contact
+    </dt>
+              <dd class="govuk-summary-list__value">
+                {{entry.fields.RequestedBy}}
+              </dd>
+              <dd class="govuk-summary-list__actions">
+                <a class="govuk-link" href="#">
+        Change<span class="govuk-visually-hidden"> primary contact</span>
+                </a>
+              </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+      Register of services association
+    </dt>
+              <dd class="govuk-summary-list__value">
+                {{entry.fields.RegisterOfServicesLink}}
+              </dd>
+              <dd class="govuk-summary-list__actions">
+                <a class="govuk-link" href="#">
+        Change<span class="govuk-visually-hidden"> primary contact</span>
+                </a>
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+      CMDB reference
+    </dt>
+              <dd class="govuk-summary-list__value">
+                {{entry.fields.CMDBID}}
+              </dd>
+              <dd class="govuk-summary-list__actions">
+                <a class="govuk-link" href="#">
+        Change<span class="govuk-visually-hidden"> CMDB ID</span>
+                </a>
+              </dd>
+            </div>
+          </dl>
+
+          <h2 class="govuk-heading-m  ">Danger zone</h2>
+
+          <form action="/admin/delete/{{entry.fields.ID}}" method="post">
+            <input type="hidden" name="entryid" value="{{entry.id}}"/>
+
+            <button class="govuk-button govuk-button--warning" data-module="govuk-button">
+  Delete request
+</button>
+          </form>
         </div>
+
+      </div>
 
     </div>
 
-{% endblock %}
+  {% endblock %}

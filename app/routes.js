@@ -10,6 +10,7 @@ var book_controller = require('./controllers/bookController.js')
 var report_controller = require('./controllers/reportController.js')
 var survey_controller = require('./controllers/surveyController.js')
 
+var slack_controller = require('./controllers/slackController.js')
 const checkUser = (req, res, next) => {
 
     console.log('ROLE: ' + req.session.data['role'])
@@ -40,6 +41,9 @@ router.use(checkUser);
 router.get("/", function(req, res){
 res.redirect("/change-user/admin")
 })
+
+
+router.get("/action/create-channel", slack_controller.g_create_channel); 
 
 
 router.get("/generic/assessments", generic_controller.g_assessors_needed);
@@ -251,6 +255,6 @@ router.get('/survey/:id', survey_controller.get_start);
 router.get('/survey/:id/q:q', survey_controller.get_question);
 router.post('/survey/:id/q:q', survey_controller.post_question);
 
-
+router.get('/reports', report_controller.getReportHome);
 
 module.exports = router

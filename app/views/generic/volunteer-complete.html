@@ -5,9 +5,12 @@
 {% set setSelectedSideNav = "" %}
 {% set backlog_issue_id = "" %}
 
-{% block sidebar %}
 
-   {% include "partials/nav.html" %}
+{% set showGenericNav = "true" %}
+{% block sidebar %} 
+{% include "partials/nav.html" %}
+
+
 {% endblock %}
 
 {% block masthead %}

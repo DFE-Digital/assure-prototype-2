@@ -1,24 +1,34 @@
 <div class="govuk-summary-card">
     <div class="govuk-summary-card__title-wrapper">
         <h2 class="govuk-summary-card__title">Assessor panel</h2>
-    </div>
-    <div class="govuk-summary-card__content">
-        {% if panel.length %}
-            <dl class="govuk-summary-list">
-                {% for person in panel %}
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">{{person.fields.Name}}</dt>
-                        <dd class="govuk-summary-list__value">
-                            {% for role in person.fields.Role %}{{role}}
-                                {% if not loop.last %}<br/>{%endif%}{% endfor%}</dd>
-                                <dd class="govuk-summary-list__actions">
-                                   
-                                </dd>
-                            </div>
-                        {% endfor %}
-                    </dl>
-                {% else %}
-                    <p>No panel members have been added.</p>
-                {% endif %}
-            </div>
+
         </div>
+        <div class="govuk-summary-card__content">
+            {% if panel.length %}
+                <table class="govuk-table">
+
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header  govuk-!-width-one-half">Role</th>
+                            <th scope="col" class="govuk-table__header">Name</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        {% for person in panel %}
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header"> {% for role in person.fields.Role %}{{role}}
+                                        {% if not loop.last %}<br/>{%endif%}{% endfor%}</th> <td class="govuk-table__cell">{{person.fields.Name}}
+                                   </td>
+                                       
+                               
+
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+                        {% else %}
+                            <p>No panel members have been added.</p>
+                        {% endif %}
+                    </div>
+                </div>

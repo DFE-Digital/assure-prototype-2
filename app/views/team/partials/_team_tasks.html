@@ -17,24 +17,29 @@
     </div>
     <div class="govuk-summary-card__content">
 
+         <table class="govuk-table">
 
-        {% for entry in active %}
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                     <th scope="col" class="govuk-table__header  govuk-!-width-one-half">Task</th>
+                    <th scope="col" class="govuk-table__header">Service</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                 {% for entry in active %}
 
             {% if entry.fields.SubStatus === "Team Review" %}
+                <tr class="govuk-table__row">
+                    <th scope="row" class="govuk-table__header"><a href="/team/report/preview/{{entry.fields.ID}}" class="govuk-link">View and accept assessment report <span class="govuk-visually-hidden"> for {{entry.fields.Name}}</span></a></th>
+                    <td class="govuk-table__cell">{{entry.fields.Name}}</td>
+                </tr>  
+                {% endif%}
+                {% endfor %}
+            </tbody>
+        </table>
 
 
-                <div class="chevron-card chevron-card-full">
-                    <div class="chevron-card__wrapper">
-                        <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
-                            <a class="govuk-link chevron-card__link" href="/team/report/preview/{{entry.fields.ID}}">View and accept assessment report <span class="govuk-visually-hidden"> for {{entry.fields.Name}}</span></a>
-                        </h3>
-
-                        <p class="govuk-body chevron-card__description">{{entry.fields.Name}}</p>
-                    </div>
-                </div>
-
-            {% endif %}
-        {% endfor %}
+       
 
      
 

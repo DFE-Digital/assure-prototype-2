@@ -1,51 +1,58 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="/assets/css/styles.min.css">
-    </head>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/assets/css/styles.min.css">
+  </head>
 
-<script>
-(function (m, a, z, e) {
-  var s, t;
-  try {
-    t = m.sessionStorage.getItem('maze-us');
-  } catch (err) {}
+  <script>
+    (function (m, a, z, e) {
+      var s,
+        t;
+      try {
+        t = m
+          .sessionStorage
+          .getItem('maze-us');
+      } catch (err) {}
 
-  if (!t) {
-    t = new Date().getTime();
-    try {
-      m.sessionStorage.setItem('maze-us', t);
-    } catch (err) {}
-  }
+      if (!t) {
+        t = new Date().getTime();
+        try {
+          m
+            .sessionStorage
+            .setItem('maze-us', t);
+        } catch (err) {}
+      }
 
-  s = a.createElement('script');
-  s.src = z + '?t=' + t + '&apiKey=' + e;
-  s.async = true;
-  a.getElementsByTagName('head')[0].appendChild(s);
-  m.mazeUniversalSnippetApiKey = e;
-})(window, document, 'https://snippet.maze.co/maze-universal-loader.js', '65dfeffa-8f46-4a3e-a48e-8de66e00be67');
-</script>
-    <body class="dfe-app-layout">
-          <script>
-                document.body.className = (
-                    (document.body.className)
-                    ? document.body.className + ' js-enabled'
-                    : 'js-enabled');
-            </script>
-         <div class="left-content">
-     <header class="dfe-app-layout--header">
+      s = a.createElement('script');
+      s.src = z + '?t=' + t + '&apiKey=' + e;
+      s.async = true;
+      a
+        .getElementsByTagName('head')[0]
+        .appendChild(s);
+      m.mazeUniversalSnippetApiKey = e;
+    })(window, document, 'https://snippet.maze.co/maze-universal-loader.js', '65dfeffa-8f46-4a3e-a48e-8de66e00be67');
+  </script>
+  <body class="dfe-app-layout">
+    <script>
+      document.body.className = (
+        (document.body.className)
+        ? document.body.className + ' js-enabled'
+        : 'js-enabled');
+    </script>
     <div class="left-content">
-        <div class="dfe-app-layout--header-logo">
+      <header class="dfe-app-layout--header">
+        <div class="left-content">
+          <div class="dfe-app-layout--header-logo">
             <img src="/assets/images/logo.png" alt="admin layout">
-        </div>
-        <div class="dfe-app-layout--header-service">
+          </div>
+          <div class="dfe-app-layout--header-service">
             <a href="/" class="govuk-link govuk-link--inverse govuk-link-style-no-underline">Assure your service</a>
+          </div>
         </div>
-    </div>
-    <div class="right-content">
+        <div class="right-content">
 
-    <div class="dfe-app-layout--header-search">
-        <div class="dfe-header__search">
+          <div class="dfe-app-layout--header-search">
+            <div class="dfe-header__search">
               <button class="dfe-header__search-toggle" id="toggle-search" aria-controls="search" aria-label="Open search">
                 <svg class="dfe-icon dfe-icon__search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" width="27" height="27">
                   <path d="M19.71 18.29l-4.11-4.1a7 7 0 1 0-1.41 1.41l4.1 4.11a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42zM5 10a5 5 0 1 1 5 5 5 5 0 0 1-5-5z"></path>
@@ -71,119 +78,112 @@
                 </form>
               </div>
             </div>
-    </div>
-    <div class="dfe-app-layout--header-username">
-<a class="toggleDropdown govuk-link govuk-link--inverse" href="#toggle" aria-haspopup="true" aria-expanded="false">{% if data['s_username']%}{{data['s_username']}}{% else %}Set user{% endif%}</a>
-<div class="dropdown" role="menu" aria-hidden="true">
-  <ul role="none">
-    <li role="menuitem"><a href="/change-user/admin" class="govuk-link">Mike Dunn (Admin)</a></li>
-    <li role="menuitem"><a href="/change-user/team" class="govuk-link">Kerry Lyons (Team)</a></li>
-    <li role="menuitem"><a href="/change-user/panel" class="govuk-link">Andy Jones (Panel)</a></li>
-  </ul>
-</div>
+          </div>
+          <div class="dfe-app-layout--header-username">
+            <a class="toggleDropdown govuk-link govuk-link--inverse" href="#toggle" aria-haspopup="true" aria-expanded="false">
+              {% if data['s_username']%}{{data['s_username']}}
+              {% else %}Set user{% endif%}</a>
+              <div class="dropdown" role="menu" aria-hidden="true">
+                <ul role="none">
+                  <li role="menuitem">
+                    <a href="/change-user/admin" class="govuk-link">Mike Dunn (Admin)</a>
+                  </li>
+                  <li role="menuitem">
+                    <a href="/change-user/team" class="govuk-link">Kerry Lyons (Team)</a>
+                  </li>
+                  <li role="menuitem">
+                    <a href="/change-user/panel" class="govuk-link">Andy Jones (Panel)</a>
+                  </li>
+                </ul>
+              </div>
 
-    </div>
-    </div>
-</header>
+            </div>
+          </div>
+        </header>
 
         <div class="container">
-            <aside class="sidebar">
-                              {% block sidebar %}{% endblock %}
-            </aside>
+          <aside class="sidebar">
+            {% block sidebar %}{% endblock %}
+          </aside>
 
-            <main class="main">
+          <main class="main">
 
+            <div class="app-bar">
+              <div class="main--inside-container ">
 
-                  <div class="app-bar">
-                    <div class="main--inside-container ">
+                {% block appBar %}{% endblock %}
+              </div>
 
-                          {% block appBar %}
-                   
-                      {% endblock %}  
-                      </div>
+            </div>
 
-                </div>
-           
+            {% if showmasthead === "true" %}
+              <div class="main--masthead">
+                {% block masthead %}{% endblock %}
+              </div>
+            {% endif %}
 
-   
-                
-                  <div class="pre--content">
+            <div class="pre--content">
 
-                
+              {% block precontent %}{% endblock %}
 
-                      {% block precontent %}
-                   
-                      {% endblock %}
-                    
-                    
-                </div>
-                 <div class="main--content">
+            </div>
+            <div class="main--content">
 
-                 <div class="main--inside-container">
+              <div class="main--inside-container">
 
-                      {% block content %}
-                   
-                      {% endblock %}
+                {% block content %}{% endblock %}
 
-                       </div>
-                    
-                </div>
+              </div>
 
-             
+            </div>
 
-               
-            </main>
+          </main>
         </div>
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-  var toggleElement = document.querySelector('.toggleDropdown');
-  var dropdownElement = document.querySelector('.dropdown');
+          document.addEventListener('DOMContentLoaded', function () {
+            var toggleElement = document.querySelector('.toggleDropdown');
+            var dropdownElement = document.querySelector('.dropdown');
 
-  toggleElement.addEventListener('click', function() {
-    var expanded = toggleElement.getAttribute('aria-expanded') === 'true' || false;
-    toggleElement.setAttribute('aria-expanded', !expanded);
-    dropdownElement.setAttribute('aria-hidden', expanded);
-  });
+            toggleElement.addEventListener('click', function () {
+              var expanded = toggleElement.getAttribute('aria-expanded') === 'true' || false;
+              toggleElement.setAttribute('aria-expanded', !expanded);
+              dropdownElement.setAttribute('aria-hidden', expanded);
+            });
 
-  toggleElement.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      toggleElement.click();
-    }
-  });
+            toggleElement.addEventListener('keydown', function (event) {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                toggleElement.click();
+              }
+            });
 
-  document.addEventListener('click', function(event) {
-    if (!toggleElement.contains(event.target)) {
-      toggleElement.setAttribute('aria-expanded', 'false');
-      dropdownElement.setAttribute('aria-hidden', 'true');
-    }
-  });
+            document.addEventListener('click', function (event) {
+              if (!toggleElement.contains(event.target)) {
+                toggleElement.setAttribute('aria-expanded', 'false');
+                dropdownElement.setAttribute('aria-hidden', 'true');
+              }
+            });
 
-  document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-      toggleElement.setAttribute('aria-expanded', 'false');
-      dropdownElement.setAttribute('aria-hidden', 'true');
-    }
-  });
-});
+            document.addEventListener('keydown', function (event) {
+              if (event.key === 'Escape') {
+                toggleElement.setAttribute('aria-expanded', 'false');
+                dropdownElement.setAttribute('aria-hidden', 'true');
+              }
+            });
+          });
+        </script>
 
-            </script>
+        <script type="text/javascript" src="/assets/js/all.min.js"></script>
+        <script type="text/javascript" src="/assets/js/dfefrontend.min.js"></script>
+        <script type="text/javascript" src="/assets/js/accessible-autocomplete.min.min.js"></script>
 
-  <script type="text/javascript" src="/assets/js/all.min.js"></script>   
-  <script type="text/javascript" src="/assets/js/dfefrontend.min.js"></script>   
-  <script type="text/javascript" src="/assets/js/accessible-autocomplete.min.min.js"></script>   
+        {% block scripts%}{% endblock %}
 
-{% block scripts%}
+        <script>
+          window
+            .GOVUKFrontend
+            .initAll()
+        </script>
 
-
-
-{% endblock %}
-
-  <script>
-                window
-                    .GOVUKFrontend
-                    .initAll()
-            </script>
-
-    </body>
-</html>
+      </body>
+    </html>

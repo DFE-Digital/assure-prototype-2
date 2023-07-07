@@ -1,88 +1,72 @@
-       {% set noTasks = "true" %}
+{% set noTasks = "true" %}
 
-  {% for request in new_records %}
+{% for request in new_records %}
 
-         {% set noTasks = "false" %}
-         {% endfor %}
+    {% set noTasks = "false" %}
+{% endfor %}
 
-            {% for request in active_records %}
+{% for request in active_records %}
 
-                {% if request.fields.Status !== "New" and request.fields.SubStatus === "SAT Review"%}
+    {% if request.fields.Status !== "New" and request.fields.SubStatus === "SAT Review"%}
 
-                  {% set noTasks = "false" %}
-                {%elseif  request.fields.Status !== "New" and request.fields.SubStatus === "SAT Publish"%}
+        {% set noTasks = "false" %}
+    {%elseif  request.fields.Status !== "New" and request.fields.SubStatus === "SAT Publish"%}
 
-                  {% set noTasks = "false" %}
-                {% endif %}
+        {% set noTasks = "false" %}
+    {% endif %}
 
-            {% endfor %}
+{% endfor %}
 
-            {% if noTasks === "false" %}
+{% if noTasks === "false" %}
 
-
-
-
-
-<div class="govuk-summary-card">
-    <div class="govuk-summary-card__title-wrapper">
-        <h2 class="govuk-summary-card__title">Your actions</h2>
-    </div>
-    <div class="govuk-summary-card__content">
-
- 
-
-
-        {% for request in new_records %}
-
-         {% set noTasks = "false" %}
-
-            <div class="chevron-card chevron-card-full">
-                <div class="chevron-card__wrapper">
-                    <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
-                        <a class="govuk-link chevron-card__link" href="/admin/entry/{{request.fields.ID}}">New discovery assessment request <span class="govuk-visually-hidden"> for {{request.fields.Name}}</span></a>
-                    </h3>
-
-                    <p class="govuk-body chevron-card__description">{{request.fields.Name}}</p>
-                </div>
-            </div>
-
-            {% endfor%}
-
-            {% for request in active_records %}
-
-                {% if request.fields.Status !== "New" and request.fields.SubStatus === "SAT Review"%}
-
-                  {% set noTasks = "false" %}
-
-                    <div class="chevron-card chevron-card-full">
-                        <div class="chevron-card__wrapper">
-                            <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
-                                <a class="govuk-link chevron-card__link" href="/admin/report/preview/{{request.fields.ID}}">Check report and send to team <span class="govuk-visually-hidden"> for {{request.fields.Name}}</span></a>
-                            </h3>
-
-                            <p class="govuk-body chevron-card__description">{{request.fields.Name}}</p>
-                        </div>
-                    </div>
-                {%elseif  request.fields.Status !== "New" and request.fields.SubStatus === "SAT Publish"%}
-
-                  {% set noTasks = "false" %}
-                    <div class="chevron-card chevron-card-full">
-                        <div class="chevron-card__wrapper">
-                            <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
-                                <a class="govuk-link chevron-card__link" href="/admin/report/preview/{{request.fields.ID}}">Publish assessment report <span class="govuk-visually-hidden"> for {{request.fields.Name}}</span></a>
-                            </h3>
-
-                            <p class="govuk-body chevron-card__description">{{request.fields.Name}}</p>
-                        </div>
-                    </div>
-                  
-                {% endif %}
-
-            {% endfor %}
-
-            {% if noTasks === "true" %}
-<p>There are no tasks requiring your attention.</p>
-            {% endif%}
-
+    <div class="govuk-summary-card">
+        <div class="govuk-summary-card__title-wrapper">
+            <h2 class="govuk-summary-card__title">Your actions</h2>
         </div>
-    </div>    {% endif%}
+        <div class="govuk-summary-card__content">
+
+            <table class="govuk-table">
+
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header  govuk-!-width-one-half">Task</th>
+                        <th scope="col" class="govuk-table__header">Service</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    {% for request in new_records %}
+                        <tr class="govuk-table__row">
+                            <th scope="row" class="govuk-table__header">
+                                <a href="/admin/entry/{{request.fields.ID}}" class="govuk-link">New discovery assessment request <span class="govuk-visually-hidden"> for {{request.fields.Name}}</span></a>
+                            </th>
+                            <td class="govuk-table__cell">{{request.fields.Name}}</td>
+                        </tr>
+                    {% endfor %}
+
+                    {% for request in active_records %}
+                        {% if request.fields.Status !== "New" and request.fields.SubStatus === "SAT Review"%}
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header">
+                                    <a href="/admin/report/preview/{{request.fields.ID}}" class="govuk-link">Check report and send to team <span class="govuk-visually-hidden"> for {{request.fields.Name}}</span></a>
+                                </th>
+                                <td class="govuk-table__cell">{{request.fields.Name}}</td>
+                            </tr>         
+                         {%elseif  request.fields.Status !== "New" and request.fields.SubStatus === "SAT Publish"%}
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header">
+                                    <a href="/admin/report/preview/{{request.fields.ID}}" class="govuk-link">Publish assessment report <span class="govuk-visually-hidden"> for {{request.fields.Name}}</span></a>
+                                </th>
+                                <td class="govuk-table__cell">{{request.fields.Name}}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+
+           
+
+   
+
+            </div>
+        </div>
+        {% endif%}

@@ -182,7 +182,7 @@ min-height: 52px;
 
         .pre--content {
             padding: 0px 0px;
-            background: #f6f8f9;
+            background: #d9d9d9;
         }
 
         .main--content {
@@ -816,3 +816,22 @@ $govuk-global-styles: true;
     max-width: 80%
 }
 
+
+.main--content {
+    background: #f1f1f1;
+}
+.govuk-summary-card__title-wrapper {
+ 
+    background-color: #d9d9d9;
+}
+
+.govuk-summary-card__content {
+    background-color: #ffffff;
+}
+
+.dfe-link--nounderline {text-decoration: none !important;}
+
+.app-task-list__item .app-task-list__task-name {
+    width: 50%;
+    display: inline-block;
+}
