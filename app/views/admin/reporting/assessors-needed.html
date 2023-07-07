@@ -72,7 +72,7 @@
                                 <td class="govuk-table__cell">
                                     {% for row in panels %}
                                         {% if row.fields.ReviewID == assessment.fields.ID %}
-                                            {% if "Lead reviewer" in row.fields.Role %}
+                                            {% if "Lead assessor" in row.fields.Role %}
                                                 {% set leadVolunteerNeeded = "false"%}
                                                 {{ row.fields.Name }}
                                             {% endif %}
