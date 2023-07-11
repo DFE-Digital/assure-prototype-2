@@ -26,9 +26,13 @@ Tasks – {{serviceName}} –  Book and manage a discovery peer review
 
 <form action="/book/request/delete/{{request.id}}" method="post">
 
-   <h1 class="govuk-heading-l">Delete your draft for {{request.fields.Name | lower}}</h1>
+   <h1 class="govuk-heading-l">Are you sure you want to delete your draft for {{request.fields.Name | lower}}?</h1>
 
-
+<p class="govuk-body">Delete a request for a discovery peer review if:</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>a request has already been submitted</li>
+  <li>you no longer need one</li>
+</ul>
   <div class="govuk-button-group">
         <button  name="action" class="govuk-button govuk-button--warning"  data-module="govuk-button">Delete booking</button>
         <a href="/book/request/tasks/{{entry.fields.ID}}" class="govuk-link">Cancel and return to summary</a>
