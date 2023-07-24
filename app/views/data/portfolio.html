@@ -1,0 +1,203 @@
+{% extends "layouts/admin-layout.html" %}
+
+{% set pageName = "Reports" %}
+{% set selectedNav = "reports" %}
+{% set setSelectedSideNav = "" %}
+{% set backlog_issue_id = "" %}
+
+{% set showmasthead = "true"%}
+{% block sidebar %}
+
+  {% include "partials/nav.html" %}
+
+{% endblock %}
+
+{% block masthead %}
+   <div class="main--inside-container">
+    <a href="/data" class="govuk-back-link">Back</a>
+    </div>
+  <div class="main--inside-container">
+
+    <h1 class="govuk-heading-xl govuk-!-margin-top-3 govuk-!-margin-bottom-3 govuk-!-font-size-36">Schools portfolio</h1>
+    <table class="govuk-table ">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">Deputy Director</th>
+          <th scope="col" class="govuk-table__header">Services assessed</th>
+          <th scope="col" class="govuk-table__header">Discovery</th>
+          <th scope="col" class="govuk-table__header">Alpha</th>
+          <th scope="col" class="govuk-table__header">Private Beta</th>
+          <th scope="col" class="govuk-table__header">Public Beta</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+
+          <td class="govuk-table__cell">Frank Castle</td>
+          <td class="govuk-table__cell">5</td>
+          <td class="govuk-table__cell">2</td>
+          <td class="govuk-table__cell">2</td>
+          <td class="govuk-table__cell">1</td>
+          <td class="govuk-table__cell">0</td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+{% endblock %}
+
+{% block content %}
+  <div class="main--inside-container">
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+
+<h2 class="govuk-heading-m">Discovery peer reviews</h2>
+
+     <table class="govuk-table">
+           <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Service</th>
+              <th scope="col" class="govuk-table__header">Date</th>
+              <th scope="col" class="govuk-table__header">Outcome</th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+       
+          
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">
+                <a href="/report/431">Build new schools</a>
+              </th>
+              <td class="govuk-table__cell">17 Apr 2023</td>
+              <td class="govuk-table__cell">
+                <strong class="govuk-tag govuk-tag--amber">Amber</strong>
+              </td>
+            </tr>
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">
+                <a href="/report/431">Farm animals for schools</a>
+              </th>
+              <td class="govuk-table__cell">20 Mar 2023</td>
+              <td class="govuk-table__cell">
+                <strong class="govuk-tag govuk-tag--green">Green</strong>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+
+<h2 class="govuk-heading-m">Service assessments</h2>
+
+<p>Outcomes for the 14 point Service Standard</p>
+
+
+     <table class="govuk-table">
+           <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">Service</th>
+              <th scope="col" class="govuk-table__header">Date</th>
+              <th scope="col" class="govuk-table__header">Phase</th>
+              <th scope="col" class="govuk-table__header">Outcome</th>
+              <th scope="col" class="govuk-table__header  outcomes-centred">1</th>
+              <th scope="col" class="govuk-table__header  outcomes-centred">2</th>
+              <th scope="col" class="govuk-table__header  outcomes-centred">3</th>
+              <th scope="col" class="govuk-table__header  outcomes-centred">4</th>
+              <th scope="col" class="govuk-table__header  outcomes-centred">5</th>
+              <th scope="col" class="govuk-table__header outcomes-centred">6</th>
+              <th scope="col" class="govuk-table__header outcomes-centred">7</th>
+              <th scope="col" class="govuk-table__header outcomes-centred">8</th>
+              <th scope="col" class="govuk-table__header outcomes-centred">9</th>
+              <th scope="col" class="govuk-table__header outcomes-centred">10</th>
+              <th scope="col" class="govuk-table__header outcomes-centred">11</th>
+              <th scope="col" class="govuk-table__header outcomes-centred">12</th>
+              <th scope="col" class="govuk-table__header outcomes-centred">13</th>
+              <th scope="col" class="govuk-table__header outcomes-centred">14</th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body outcomes">
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">
+                <a href="/report/431">Pencils for schools</a>
+              </th>
+              <td class="govuk-table__cell">15 Jun 2023</td>
+              <td class="govuk-table__cell">Private Beta</td>
+              <td class="govuk-table__cell">
+                <strong class="govuk-tag govuk-tag--red">Not met</strong>
+              </td>
+
+              <td class="govuk-table__cell  outcomes-centred"><strong class="govuk-tag govuk-tag--red">NM</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--red">NM</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--red">NM</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+            </tr>
+             <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">
+                <a href="/report/431">Dogs in classrooms</a>
+              </th>
+              <td class="govuk-table__cell">7 Jun 2023</td>
+              <td class="govuk-table__cell">Alpha</td>
+              <td class="govuk-table__cell">
+                <strong class="govuk-tag govuk-tag--red">Not Met</strong>
+              </td>
+
+              <td class="govuk-table__cell  outcomes-centred"><strong class="govuk-tag govuk-tag--red">NM</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--red">NM</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--grey">NA</strong></td>
+            </tr>
+                <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">
+                <a href="/report/431">Plant a tree</a>
+              </th>
+              <td class="govuk-table__cell">12 May 2023</td>
+              <td class="govuk-table__cell">Alpha</td>
+              <td class="govuk-table__cell">
+                <strong class="govuk-tag govuk-tag--green">Met</strong>
+              </td>
+
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--green">M</strong></td>
+              <td class="govuk-table__cell outcomes-centred"><strong class="govuk-tag govuk-tag--grey">NA</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+   
+      </div>
+
+    </div>
+  {% endblock %}
+

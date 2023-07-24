@@ -13,22 +13,10 @@
 
 {% endblock %}
 
-{% block masthead %}
+{% block precontent %}
 
-    <div class="main--inside-container">
-         <div class="flex-bar">
-            <div class="left">
-          <div class="govuk-breadcrumbs">
-  <ol class="govuk-breadcrumbs__list">
-    <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/{{data.role}}/dashboard">Dashboard</a>
-    </li>
-    <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="/generic/assessments">Assessors needed</a>
-    </li>
-  </ol>
-</div>
-            </div> </div>
+   <div class="main--inside-container">
+    <a href="/generic/assessments" class="govuk-back-link">Back</a>
     </div>
 
 {% endblock %}

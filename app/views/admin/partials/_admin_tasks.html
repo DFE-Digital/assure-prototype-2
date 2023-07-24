@@ -37,7 +37,7 @@
                     {% for request in new_records %}
                         <tr class="govuk-table__row">
                             <th scope="row" class="govuk-table__header">
-                                <a href="/admin/entry/{{request.fields.ID}}" class="govuk-link">New discovery assessment request <span class="govuk-visually-hidden"> for {{request.fields.Name}}</span></a>
+                                <a href="/admin/entry/{{request.fields.ID}}" class="govuk-link">New discovery peer review request <span class="govuk-visually-hidden"> for {{request.fields.Name}}</span></a>
                             </th>
                             <td class="govuk-table__cell">{{request.fields.Name}}</td>
                         </tr>
@@ -63,6 +63,7 @@
                 </tbody>
             </table>
 
-           
+           </div>
+           </div>
 
         {% endif%}
