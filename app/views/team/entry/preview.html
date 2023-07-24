@@ -21,10 +21,8 @@
       <div class="govuk-grid-column-full">
          <h2 class="govuk-heading-l">Assessment report</h2>
       </div>
-      <div class="govuk-grid-column-one-quarter">
-         {% include "team/partials/_report_timeline.html" %}
-      </div>
-      <div class="govuk-grid-column-three-quarters">
+  
+      <div class="govuk-grid-column-two-thirds">
 
          {% if entry.fields.SubStatus === "SAT Review" and data.role === "admin"%}
          <div class="govuk-notification-banner" role="region"
@@ -186,6 +184,20 @@
          <p>The report isn't available yet.</p>
               {% endif %}
       </div>
+
+          <div class="govuk-grid-column-one-third">
+        <aside class="govuk-related-navigation">
+
+                <h2 class="govuk-heading-m">Export</h2>
+
+                <a href="/data/example.docx">Download as a Word document</a>
+
+             
+
+            </aside>
+      </div>
+
+
    </div>
 </div>
 {% endblock %}
