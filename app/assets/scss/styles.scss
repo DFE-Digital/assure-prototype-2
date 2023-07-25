@@ -757,6 +757,26 @@ $govuk-global-styles: true;
     }
   }
   
+
+// ==========================================================================
+// SETTINGS / #COLOURS
+// ==========================================================================
+
+//
+// DfE colour palette
+//
+// Colours are prefixed with color_ to make them easier to
+// search for within the code base.
+//
+// We also prefix them with dfe- to prevent clashing with
+// other colours in existing code bases.
+//
+// We use the word color, not colour, for variables.
+//
+
+/* stylelint-disable color-no-hex */
+
+
   
   .dfe-card {
     position: relative;
@@ -768,6 +788,22 @@ $govuk-global-styles: true;
       border-radius: 12px 12px 0 0;
       img{border-radius: 12px 12px 0 0;}
     }
+
+    &.dfe-card--red{
+        background-color: tint($color_dfe-red, 90%);
+        border-bottom: 3px solid $color_dfe-red;
+    }
+
+    &.dfe-card--green{
+        background-color: tint($color_dfe-green, 90%);
+        border-bottom: 3px solid $color_dfe-green;
+    }
+
+    &.dfe-card--amber{
+        background-color: tint(govuk-colour("orange"), 90%);
+        border-bottom: 3px solid govuk-colour("orange")
+    }
+
   }
   
   @include govuk-media-query($until: tablet){
@@ -830,11 +866,6 @@ $govuk-global-styles: true;
 }
 
 .dfe-link--nounderline {text-decoration: none !important;}
-
-.app-task-list__item .app-task-list__task-name {
-    width: 50%;
-    display: inline-block;
-}
 
 
 
